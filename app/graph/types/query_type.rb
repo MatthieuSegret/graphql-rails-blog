@@ -4,9 +4,11 @@ QueryType = GraphQL::ObjectType.define do
 
   field :posts do
     type types[PostType]
-    description 'Fetch all Posts'
+    description 'Fetch paginated posts collection'
+    argument :offset, types.Int, default_value: 0
     resolve ->(object, args, ctx) {
-      Post.includes(:user, :comments).order(created_at: :desc)
+      posts = Post.paginate(args[:offset]).includes(:user, :comments).order(created_at: :desc)
+      posts
     }
   end
 

@@ -70,6 +70,7 @@ GEM
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (7.1.4)
+    awesome_print (1.6.1)
     bcrypt (3.1.11)
     bourbon (4.2.7)
       sass (~> 3.4)
@@ -225,6 +226,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  awesome_print
   byebug
   coffee-rails (~> 4.2)
   devise
