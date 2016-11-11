@@ -6,8 +6,10 @@ QueryType = GraphQL::ObjectType.define do
     type types[PostType]
     description 'Fetch paginated posts collection'
     argument :offset, types.Int, default_value: 0
+    argument :keywords, types.String, default_value: nil
     resolve ->(object, args, ctx) {
       posts = Post.paginate(args[:offset]).includes(:user, :comments).order(created_at: :desc)
+      posts = posts.search(args[:keywords]) if args[:keywords].present?
       posts
     }
   end
