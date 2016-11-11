@@ -19,3 +19,10 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+npm-debug.log
+node_modules
+client/npm-debug.log*
+public/*
+client/data/schema.json
+client/build

@@ -85,7 +85,6 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
-    debug_inspector (0.0.2)
     devise (4.1.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -109,9 +108,6 @@ GEM
       actionpack (>= 4.1, < 5.1)
       activesupport (>= 4.1, < 5.1)
     i18n (0.7.0)
-    jbuilder (2.6.0)
-      activesupport (>= 3.0.0, < 5.1)
-      multi_json (~> 1.2)
     jquery-rails (4.2.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -134,7 +130,6 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
-    multi_json (1.12.1)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
@@ -203,20 +198,10 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
-    turbolinks (5.0.1)
-      turbolinks-source (~> 5)
-    turbolinks-source (5.0.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.0.3)
-      execjs (>= 0.3.0, < 3)
     warden (1.2.6)
       rack (>= 1.0)
-    web-console (3.4.0)
-      actionview (>= 5.0)
-      activemodel (>= 5.0)
-      debug_inspector
-      railties (>= 5.0)
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -228,25 +213,16 @@ DEPENDENCIES
   activeadmin!
   awesome_print
   byebug
-  coffee-rails (~> 4.2)
   devise
   faker
   graphiql-rails
   graphql
   inherited_resources!
-  jbuilder (~> 2.5)
-  jquery-rails
-  listen (~> 3.0.5)
   pg
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
-  sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
-  turbolinks (~> 5)
-  tzinfo-data
-  uglifier (>= 1.3.0)
-  web-console
 
 BUNDLED WITH
    1.12.5

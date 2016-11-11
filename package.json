@@ -1,0 +1,25 @@
+{
+  "name": "graphql-rails-blog",
+  "version": "1.0.0",
+  "description": "Blog App build with Rails 5, React and GraphQL",
+  "engines": {
+    "node": "6.8.1",
+    "npm": "3.10.3"
+  },
+  "repository": {
+    "url": "git@github.com:MatthieuSegret/graphql-rails-blog.git",
+    "type": "git"
+  },
+  "scripts": {
+    "start": "cd client && npm start",
+    "build:clean": "rimraf ./public/*",
+    "build": "npm run build:clean && cd client && npm run build",
+    "postinstall": "cd client && npm install && npm run build"
+  },
+  "author": "Matthieu Segret <matthieu.segret@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MatthieuSegret/graphql-rails-blog/issues"
+  },
+  "homepage": "https://github.com/MatthieuSegret/graphql-rails-blog#readme"
+}
