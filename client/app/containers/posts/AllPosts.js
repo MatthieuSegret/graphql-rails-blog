@@ -16,7 +16,7 @@ class AllPosts extends Component {
   }
 
   postsPreview() {
-    const { data: { posts } } = this.props;
+    const { posts } = this.props.data;
     if (!posts) { return null; }
     return posts.map((post) => {
       return <PostPreview key={post.id} post={post} />;
@@ -24,7 +24,7 @@ class AllPosts extends Component {
   }
 
   render() {
-    const { data: { loading } } = this.props;
+    const { loading } = this.props.data;
     return (
       <div className="all-posts">
         <h1>Listing posts</h1>

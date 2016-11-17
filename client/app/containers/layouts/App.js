@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import 'assets/stylesheets/styles.scss';
 import 'assets/stylesheets/posts.scss';
+import 'assets/stylesheets/comments.scss';
 import Header from './Header';
 
 export default class App extends Component {

@@ -1,0 +1,15 @@
+
+
+.comments {
+  margin-top: 40px;
+  .comment {
+    margin-bottom: 20px;
+
+    .comment-meta {
+      color: #999;
+      .comment-author, .comment-date {
+        margin-right: 20px;
+      }
+    }
+  }
+}
