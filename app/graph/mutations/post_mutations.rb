@@ -19,4 +19,26 @@ module PostMutations
       end
     }
   end
+
+  Update = GraphQL::Relay::Mutation.define do
+    name "updatePost"
+    description "Update a Post and return Post"
+
+    input_field :id, types.ID
+    input_field :title, types.String
+    input_field :content, types.String
+
+    return_field :post, PostType
+    return_field :errors, types[AttributeErrorType]
+
+    resolve -> (obj, inputs, ctx) {
+      post = Post.find(inputs[:id])
+
+      if post.update(inputs.to_params)
+        { post: post }
+      else
+        { errors: post.attributes_errors }
+      end
+    }
+  end
 end
