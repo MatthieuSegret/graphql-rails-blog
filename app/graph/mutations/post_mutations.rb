@@ -41,4 +41,18 @@ module PostMutations
       end
     }
   end
+
+  Destroy = GraphQL::Relay::Mutation.define do
+    name "destroyPost"
+    description "Destroy a Post"
+    input_field :id, types.ID
+    return_field :post, PostType
+
+    resolve -> (obj, inputs, ctx) {
+      post = Post.find(inputs[:id])
+      if post.destroy
+        { post: post }
+      end
+    }
+  end
 end
