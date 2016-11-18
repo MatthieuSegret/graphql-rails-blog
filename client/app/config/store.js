@@ -1,11 +1,8 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { reducer as formReducer } from 'redux-form';
+import { createStore, applyMiddleware } from 'redux';
 import client from 'config/apolloClient';
+import rootReducer from 'reducers/rootReducer';
 
 export default createStore(
-  combineReducers({
-    apollo: client.reducer(),
-    form: formReducer
-  }),
+  rootReducer,
   applyMiddleware(client.middleware())
 );

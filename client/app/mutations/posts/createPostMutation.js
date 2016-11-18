@@ -38,7 +38,9 @@ export default graphql(CREATE_POST, {
             };
           }
         }
-      }).then(onResult.bind(ownProps));
+      }).then(onResult.bind(ownProps)).catch((error) => {
+        console.log('oops, there was an error sending the query', error);
+      });
     }
   })
 });

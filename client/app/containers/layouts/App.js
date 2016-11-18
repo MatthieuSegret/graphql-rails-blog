@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 
+import FlashMessage from 'components/FlashMessage';
+import Header from 'containers/layouts/Header';
+
 import 'assets/stylesheets/styles.scss';
 import 'assets/stylesheets/posts.scss';
 import 'assets/stylesheets/comments.scss';
-import Header from './Header';
 
 export default class App extends Component {
   static propTypes = {
@@ -16,6 +18,7 @@ export default class App extends Component {
         <Header />
 
         <div className="container">
+          <FlashMessage />
           {this.props.children}
         </div>
       </div>

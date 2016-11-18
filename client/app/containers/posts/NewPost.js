@@ -1,16 +1,18 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, withRouter } from 'react-router';
+import { Link } from 'react-router';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
 import withCreatePost from 'mutations/posts/createPostMutation';
+import withFlashMessage from 'components/withFlashMessage';
 
 class NewPost extends Component {
   static propTypes = {
     createPost: PropTypes.func,
     handleSubmit: PropTypes.func,
-    router: PropTypes.object
+    redirect: PropTypes.func,
+    error: PropTypes.func
   }
 
   constructor(props) {
@@ -24,9 +26,11 @@ class NewPost extends Component {
     return this.props.createPost(values).then((errors) => {
       this.setState({ loading: false });
       console.log(errors);
+      console.log(this.props);
       if (!errors) {
-        this.props.router.push('/');
+        this.props.redirect('/', { notice: 'Post was successfully created' });
       } else {
+        this.props.error('Please review the problems below:');
         throw new SubmissionError(errors);
       }
     });
@@ -60,4 +64,4 @@ function validate(values) {
 export default reduxForm({
   form: 'PostForm',
   validate
-})(withCreatePost(withRouter(NewPost)));
+})(withCreatePost(withFlashMessage(NewPost)));
