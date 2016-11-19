@@ -4,7 +4,7 @@ class Post < ApplicationRecord
   validates :title, length: { minimum: 3 }
   cattr_accessor(:paginates_per) { 3 }
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
   belongs_to :user
 
   def self.paginate(offset)
