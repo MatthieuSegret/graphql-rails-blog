@@ -4,6 +4,7 @@ import moment from 'moment';
 
 import Loading from 'components/Loading';
 import Comment from 'containers/comments/_Comment';
+import NewComment from 'containers/comments/_NewComment';
 import withPost from 'queries/posts/postQuery';
 
 class Post extends Component {
@@ -51,6 +52,7 @@ class Post extends Component {
         <div className="comments">
           <h4>Comments</h4>
           {this.listComments()}
+          <NewComment postId={post.id} />
         </div>
       </article>
     );
