@@ -3,12 +3,15 @@ import React, { Component, PropTypes } from 'react';
 import Loading from 'components/Loading';
 import PostPreview from 'containers/posts/_PostPreview';
 
-export default class ListPosts extends Component {
+import withCurrentUser from 'queries/users/currentUserQuery';
+
+class ListPosts extends Component {
   static propTypes = {
     posts: PropTypes.array,
     postsCount: PropTypes.number,
     loading: PropTypes.bool,
-    loadMorePosts: PropTypes.func
+    loadMorePosts: PropTypes.func,
+    currentUser: PropTypes.object
   }
 
   constructor(props) {
@@ -25,7 +28,7 @@ export default class ListPosts extends Component {
   }
 
   render() {
-    const { posts, postsCount, loading, loadMorePosts } = this.props;
+    const { posts, postsCount, loading, loadMorePosts, currentUser } = this.props;
     return (
       <div className="list-posts">
         <table className="table table-bordered table-striped">
@@ -34,7 +37,7 @@ export default class ListPosts extends Component {
               <th>Title</th>
               <th>User</th>
               <th>Created at</th>
-              <th colSpan="2" />
+              {currentUser ? <th colSpan="2" /> : null}
             </tr>
           </thead>
 
@@ -51,3 +54,5 @@ export default class ListPosts extends Component {
     );
   }
 }
+
+export default withCurrentUser(ListPosts);

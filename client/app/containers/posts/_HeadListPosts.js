@@ -2,26 +2,31 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
 import SearchForm from 'containers/posts/_SearchForm';
+import withCurrentUser from 'queries/users/currentUserQuery';
 
-export default class ListPosts extends Component {
+class ListPosts extends Component {
   static propTypes = {
     keywords: PropTypes.string,
-    searchLoading: PropTypes.bool
+    searchLoading: PropTypes.bool,
+    currentUser: PropTypes.object
   }
 
   render() {
-    const { keywords, searchLoading } = this.props;
+    const { keywords, searchLoading, currentUser } = this.props;
 
     return (
       <div className="head-posts row">
         <div className="col-md-8">
           <SearchForm initialKeywords={keywords} loading={searchLoading} />
         </div>
-
-        <div className="col-md-4">
-          <Link to="posts/new" className="btn btn-primary create-post">New Post</Link>
-        </div>
+        {currentUser ?
+          <div className="col-md-4">
+            <Link to="posts/new" className="btn btn-primary create-post">New Post</Link>
+          </div>
+        : null}
       </div>
     );
   }
 }
+
+export default withCurrentUser(ListPosts);
