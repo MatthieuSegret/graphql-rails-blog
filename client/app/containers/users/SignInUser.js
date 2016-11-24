@@ -7,6 +7,7 @@ import axios from 'config/axios';
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
 import withFlashMessage from 'components/withFlashMessage';
+import { fetchCurrentUser } from 'queries/users/currentUserQuery';
 
 class SignInUser extends Component {
   static propTypes = {
@@ -26,13 +27,15 @@ class SignInUser extends Component {
     return axios.post('/users/sign_in', { user: values }).then((response) => {
       if (response.status === 201) {
         this.props.client.resetStore();
-        this.props.redirect('/', { notice: 'Signed in successfully.' });
+        fetchCurrentUser().then(() => {
+          this.props.redirect('/', { notice: 'Signed in successfully.' });
+        });
       }
     }).catch((err) => {
       console.log(err);
       this.props.change('SignInForm', 'password', '');
       this.props.error('Invalid Email or password.');
-      throw new SubmissionError();
+      throw new SubmissionError({ _error: 'Login failed' });
     });
   }
 

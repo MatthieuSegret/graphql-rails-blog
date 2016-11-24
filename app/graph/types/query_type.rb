@@ -30,4 +30,11 @@ QueryType = GraphQL::ObjectType.define do
       Post.find(args[:id])
     }
   end
+
+  field :currentUser, UserType do
+    description 'fetch the current user.'
+    resolve ->(object, args, ctx){
+      ctx[:current_user]
+    }
+  end
 end
