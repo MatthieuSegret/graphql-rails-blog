@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes, cloneElement, Children } from 'react';
 
 import FlashMessage from 'components/FlashMessage';
 import Header from 'containers/layouts/Header';
@@ -18,13 +18,17 @@ class App extends Component {
   render() {
     const { currentUser, currentUserLoading } = this.props;
 
+    const children = Children.map(this.props.children, (child) => {
+      return cloneElement(child, { currentUser, currentUserLoading });
+    });
+
     return (
       <div id="main">
         <Header currentUser={currentUser} currentUserLoading={currentUserLoading} />
 
         <div className="container">
           <FlashMessage />
-          {this.props.children}
+          {children}
         </div>
       </div>
     );

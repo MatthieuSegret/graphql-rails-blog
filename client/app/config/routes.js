@@ -8,6 +8,8 @@ import Post from 'containers/posts/Post';
 import NewPost from 'containers/posts/NewPost';
 import EditPost from 'containers/posts/EditPost';
 import SignInUser from 'containers/users/SignInUser';
+
+import UserIsAuthenticated from 'components/UserIsAuthenticated';
 import NotFound from 'components/NotFound';
 
 import { deleteFlashMessage } from 'actions/flashActions';
@@ -17,8 +19,8 @@ export default (
   <Route path="/" component={App} onChange={() => { store.dispatch(deleteFlashMessage()); }} >
     <IndexRoute component={AllPosts} />
     <Route path="/posts/search/:keywords" component={SearchPosts} />
-    <Route path="/posts/new" component={NewPost} />
-    <Route path="/posts/:id/edit" component={EditPost} />
+    <Route path="/posts/new" component={UserIsAuthenticated(NewPost)} />
+    <Route path="/posts/:id/edit" component={UserIsAuthenticated(EditPost)} />
     <Route path="/posts/:id" component={Post} />
     <Route path="/users/signin" component={SignInUser} />
     <Route path="*" component={NotFound} />

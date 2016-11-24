@@ -15,12 +15,30 @@ class SignInUser extends Component {
     client: PropTypes.object,
     handleSubmit: PropTypes.func,
     change: PropTypes.func,
-    error: PropTypes.func
+    error: PropTypes.func,
+    currentUser: PropTypes.object,
+    currentUserLoading: PropTypes.bool
   }
 
   constructor(props) {
     super(props);
     this.submitForm = this.submitForm.bind(this);
+    this.redirectIfUserIsAuthenticated = this.redirectIfUserIsAuthenticated.bind(this);
+  }
+
+  componentWillMount() {
+    this.redirectIfUserIsAuthenticated();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.redirectIfUserIsAuthenticated(nextProps);
+  }
+
+  redirectIfUserIsAuthenticated(props = null) {
+    const { currentUser, currentUserLoading } = props || this.props;
+    if (!currentUserLoading && currentUser) {
+      this.props.redirect('/', { error: 'You are already signed in.' });
+    }
   }
 
   submitForm(values) {
