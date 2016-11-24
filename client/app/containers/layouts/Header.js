@@ -1,11 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { withApollo } from 'react-apollo';
 
-export default class Header extends Component {
+import withFlashMessage from 'components/withFlashMessage';
+import axios from 'config/axios';
+
+class Header extends Component {
 
   static propTypes = {
+    redirect: PropTypes.func,
+    error: PropTypes.func,
     currentUser: PropTypes.object,
-    currentUserLoading: PropTypes.bool
+    currentUserLoading: PropTypes.bool,
+    client: PropTypes.object
+  }
+
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
+
+  logout(event) {
+    event.preventDefault();
+    axios.delete('/users/sign_out').then((response) => {
+      if (response.status !== 204) {
+        this.props.error("Oops, we're sorry, but something went wrong");
+      } else {
+        this.props.client.resetStore();
+        this.props.redirect('/', { notice: 'Logout in successfully.' });
+      }
+    });
   }
 
   renderSignInLinks() {
@@ -46,3 +70,5 @@ export default class Header extends Component {
     );
   }
 }
+
+export default withFlashMessage(withApollo(Header));
