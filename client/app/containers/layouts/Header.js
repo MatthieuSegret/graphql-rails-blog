@@ -47,7 +47,7 @@ class Header extends Component {
 
     return (
       <ul className="nav navbar-nav navbar-right">
-        <li><Link to="#">Register</Link></li>
+        <li><Link to="/users/signup">Register</Link></li>
         <li><Link to="/users/signin">Login</Link></li>
       </ul>
     );

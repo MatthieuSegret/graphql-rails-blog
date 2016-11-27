@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { reduxForm, Field, SubmissionError, change } from 'redux-form';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
+import { Link } from 'react-router';
 
 import axios from 'config/axios';
 import RenderField from 'components/form/RenderField';
@@ -61,10 +62,11 @@ class SignInUser extends Component {
     return (
       <div className="users-signin">
         <form onSubmit={this.props.handleSubmit(this.submitForm)}>
-          <Field name="email" component={RenderField} type="text" label="Email" />
-          <Field name="password" component={RenderField} type="password" label="Password" />
+          <Field name="email" component={RenderField} type="text" />
+          <Field name="password" component={RenderField} type="password" />
           <Button value="Log in" />
         </form>
+        <Link to="/users/signup">Sign up</Link>
       </div>
     );
   }

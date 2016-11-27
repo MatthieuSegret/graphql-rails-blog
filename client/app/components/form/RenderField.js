@@ -9,7 +9,8 @@ export default class RenderField extends Component {
     rows: PropTypes.number,
     placeholder: PropTypes.string,
     label: PropTypes.string,
-    initialValue: PropTypes.object
+    initialValue: PropTypes.object,
+    hint: PropTypes.string,
   }
 
   static defaultProps = {
@@ -35,7 +36,7 @@ export default class RenderField extends Component {
   }
 
   render() {
-    const { name, meta, label } = this.props;
+    const { name, meta, label, hint } = this.props;
 
     return (
       <div className={`form-group ${meta.touched && meta.invalid ? 'has-error' : ''}`}>
@@ -44,6 +45,7 @@ export default class RenderField extends Component {
         { meta.touched &&
           meta.error &&
           <span className="help-block">{meta.error}</span>}
+        { hint && <p className="help-block">{hint}</p>}
       </div>
     );
   }
