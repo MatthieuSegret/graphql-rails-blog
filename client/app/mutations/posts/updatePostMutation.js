@@ -26,7 +26,7 @@ export default function (WrappedComponent) {
     if (!errors) {
       this.redirect('/', { notice: 'Note was successfully updated' });
     } else {
-      this.error('Please review the problems below:');
+      this.error(`Please review the problems below: ${errors.base}`);
     }
     return errors;
   }

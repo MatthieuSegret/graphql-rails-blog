@@ -13,6 +13,7 @@ module GraphqlRailsBlog
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths << Rails.root.join('app/graph')
+    config.autoload_paths << Rails.root.join('app/graph/utils')
     config.autoload_paths << Rails.root.join('app/graph/mutations')
     config.autoload_paths << Rails.root.join('app/graph/types')
   end

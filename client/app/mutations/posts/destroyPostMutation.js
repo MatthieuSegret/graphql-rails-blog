@@ -1,6 +1,7 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import formatErrors from 'utils/errorsUtils';
 import withFlashMessage from 'components/withFlashMessage';
 import updateQueries from 'reducers/postsReducer';
 
@@ -10,14 +11,21 @@ export default function (WrappedComponent) {
       destroyPost(input: { id: $id }) {
         post {
           id
+        },
+        errors {
+          attribute,
+          message
         }
       }
     }
   `;
 
   function onResult(response) {
-    if (!response.errors) {
+    const errors = response.errors || formatErrors(response.data.destroyPost.errors);
+    if (!errors) {
       this.notice('Post was successfully destroyed');
+    } else {
+      this.error(errors.base);
     }
   }
 

@@ -27,7 +27,7 @@ export default function (WrappedComponent) {
     if (!errors) {
       this.redirect('/', { notice: 'Post was successfully created' });
     } else {
-      this.error('Please review the problems below:');
+      this.error(`Please review the problems below: ${errors.base}`);
     }
     return errors;
   }

@@ -54,4 +54,4 @@ class NewComment extends Component {
 
 export default reduxForm({
   form: 'CommentForm'
-})(withCreateComment(withCurrentUser(NewComment)));
+})(withCurrentUser(withCreateComment(NewComment)));

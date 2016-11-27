@@ -45,7 +45,7 @@ export default function (WrappedComponent) {
                 pending: true,
                 author: {
                   __typename: 'User',
-                  name: '...' // ownProps.currentUser.name
+                  name: ownProps.currentUser.name
                 }
               },
               errors: null

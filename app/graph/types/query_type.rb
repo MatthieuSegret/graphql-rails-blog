@@ -8,7 +8,13 @@ QueryType = GraphQL::ObjectType.define do
     argument :offset, types.Int, default_value: 0
     argument :keywords, types.String, default_value: nil
     resolve ->(object, args, ctx) {
-      posts = Post.paginate(args[:offset]).includes(:user, :comments).order(created_at: :desc)
+      current_user = ctx[:current_user]
+      if current_user
+        posts = current_user.posts.paginate(args[:offset])
+      else
+        posts = Post.paginate(args[:offset])
+      end
+      posts = posts.includes(:user, :comments).order(created_at: :desc)
       posts = posts.search(args[:keywords]) if args[:keywords].present?
       posts
     }
@@ -19,7 +25,12 @@ QueryType = GraphQL::ObjectType.define do
     description 'Number of post'
     argument :keywords, types.String, default_value: nil
     resolve ->(object, args, ctx) {
-      args[:keywords].present? ? Post.search(args[:keywords]).count : Post.count
+      current_user = ctx[:current_user]
+      if current_user
+        args[:keywords].present? ? current_user.posts.search(args[:keywords]).count : current_user.posts.count
+      else
+        args[:keywords].present? ? Post.search(args[:keywords]).count : Post.count
+      end
     }
   end
 
