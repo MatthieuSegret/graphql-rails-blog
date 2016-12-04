@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 
 import Loading from 'components/Loading';
 import PostPreview from 'containers/posts/_PostPreview';
+import withPosts from 'queries/posts/postsQuery';
 
 class AllPosts extends Component {
   static propTypes = {
@@ -52,30 +51,4 @@ class AllPosts extends Component {
   }
 }
 
-const GET_POSTS = gql`
-  query posts($offset: Int) {
-    postsCount
-    posts(offset: $offset) {
-      ...PostPreviewFragment
-    }
-  }
-  ${PostPreview.fragments.post}
-`;
-
-export default graphql(GET_POSTS, {
-  props: ({ data }) => ({
-    data,
-    loadMorePosts() {
-      return data.fetchMore({
-        variables: { offset: data.posts.length },
-        updateQuery: (state, { fetchMoreResult }) => {
-          const { posts, postsCount } = fetchMoreResult.data;
-          return {
-            posts: [...state.posts, ...posts],
-            postsCount
-          };
-        }
-      });
-    }
-  })
-})(AllPosts);
+export default withPosts(AllPosts);

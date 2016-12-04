@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import moment from 'moment';
 
 import Loading from 'components/Loading';
 import Comment from 'containers/comments/_Comment';
+import withPost from 'queries/posts/postQuery';
 
 class Post extends Component {
   static propTypes = {
@@ -57,9 +57,9 @@ class Post extends Component {
   }
 }
 
-const GET_POST = gql`
-  query getPost($id: ID) {
-    post(id: $id) {
+export const fragments = {
+  post: gql`
+    fragment PostFragment on Post {
       id,
       title,
       content,
@@ -72,14 +72,8 @@ const GET_POST = gql`
         ...CommentFragment
       }
     }
-  }
-  ${Comment.fragments.comment}
-`;
+    ${Comment.fragments.comment}
+  `
+};
 
-export default graphql(GET_POST, {
-  options: (ownProps) => ({
-    variables: {
-      id: ownProps.params.id
-    }
-  })
-})(Post);
+export default withPost(Post);

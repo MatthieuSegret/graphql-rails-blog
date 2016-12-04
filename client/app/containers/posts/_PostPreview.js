@@ -21,7 +21,7 @@ class PostPreview extends Component {
   }
 }
 
-PostPreview.fragments = {
+export const fragments = {
   post: gql`
     fragment PostPreviewFragment on Post {
       id,
