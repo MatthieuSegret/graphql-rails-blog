@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import Fragment from 'graphql-fragments';
 import gql from 'graphql-tag';
 import moment from 'moment';
 
@@ -30,7 +29,7 @@ class Comment extends Component {
 }
 
 Comment.fragments = {
-  comment: new Fragment(gql`
+  comment: gql`
     fragment CommentFragment on Comment {
       id,
       content,
@@ -39,7 +38,7 @@ Comment.fragments = {
         name
       }
     }
-  `)
+  `
 };
 
 export default Comment;

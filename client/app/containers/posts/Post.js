@@ -73,13 +73,13 @@ const GET_POST = gql`
       }
     }
   }
+  ${Comment.fragments.comment}
 `;
 
 export default graphql(GET_POST, {
   options: (ownProps) => ({
     variables: {
       id: ownProps.params.id
-    },
-    fragments: Comment.fragments.comment.fragments()
+    }
   })
 })(Post);
