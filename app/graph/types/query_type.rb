@@ -17,8 +17,9 @@ QueryType = GraphQL::ObjectType.define do
   field :postsCount do
     type types.Int
     description 'Number of post'
+    argument :keywords, types.String, default_value: nil
     resolve ->(object, args, ctx) {
-      Post.count
+      args[:keywords].present? ? Post.search(args[:keywords]).count : Post.count
     }
   end
 

@@ -44,7 +44,7 @@ export default class ListPosts extends Component {
 
         {loading ? <Loading /> : null}
 
-        {(posts && posts.length < postsCount) ?
+        {(!loading && posts && posts.length < postsCount) ?
           <button className="btn btn-sm btn-default center-block load-more" onClick={loadMorePosts}>Load more</button> : null}
       </div>
     );
