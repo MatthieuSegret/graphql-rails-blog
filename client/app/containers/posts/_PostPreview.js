@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import gql from 'graphql-tag';
+import { Link } from 'react-router';
 import moment from 'moment';
 
 class PostPreview extends Component {
@@ -12,7 +13,7 @@ class PostPreview extends Component {
 
     return (
       <tr>
-        <td>{ post.title }</td>
+        <td><Link to={`posts/${post.id}`}>{post.title}</Link></td>
         <td>{ post.author.name }</td>
         <td>{ moment(new Date(post.created_at)).fromNow() }</td>
       </tr>

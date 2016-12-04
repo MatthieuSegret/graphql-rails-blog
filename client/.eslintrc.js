@@ -29,6 +29,7 @@ module.exports = {
     "no-use-before-define": 0,
     "newline-per-chained-call": 0,
     "arrow-body-style": [2, "as-needed"],
+    "arrow-parens": 0,
     "no-unused-vars": ["error", { "args": "none" }],
     "jsx-a11y/href-no-hash": 2,
     "jsx-a11y/label-has-for": 2,
