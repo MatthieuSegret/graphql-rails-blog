@@ -16,6 +16,7 @@ class PostPreview extends Component {
         <td><Link to={`posts/${post.id}`}>{post.title}</Link></td>
         <td>{ post.author.name }</td>
         <td>{ moment(new Date(post.created_at)).fromNow() }</td>
+        <td className="post-edit"><Link to={`posts/${post.id}/edit`}>Edit</Link></td>
       </tr>
     );
   }
