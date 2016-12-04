@@ -14,6 +14,14 @@ QueryType = GraphQL::ObjectType.define do
     }
   end
 
+  field :postsCount do
+    type types.Int
+    description 'Number of post'
+    resolve ->(object, args, ctx) {
+      Post.count
+    }
+  end
+
   field :post, PostType do
     argument :id, types.ID
     description 'fetch a Post by id'

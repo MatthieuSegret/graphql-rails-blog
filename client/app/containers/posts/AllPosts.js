@@ -7,7 +7,8 @@ import PostPreview from 'containers/posts/_PostPreview';
 
 class AllPosts extends Component {
   static propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    loadMorePosts: PropTypes.func
   }
 
   constructor(props) {
@@ -24,7 +25,7 @@ class AllPosts extends Component {
   }
 
   render() {
-    const { loading } = this.props.data;
+    const { data: { posts, postsCount, loading }, loadMorePosts } = this.props;
     return (
       <div className="all-posts">
         <h1>Listing posts</h1>
@@ -43,18 +44,38 @@ class AllPosts extends Component {
         </table>
 
         {loading ? <Loading /> : null}
+
+        {(posts && posts.length < postsCount) ?
+          <button className="btn btn-sm btn-default center-block load-more" onClick={loadMorePosts}>Load more</button> : null}
       </div>
     );
   }
 }
 
 const GET_POSTS = gql`
-  query posts {
-    posts {
+  query posts($offset: Int) {
+    postsCount
+    posts(offset: $offset) {
       ...PostPreviewFragment
     }
   }
   ${PostPreview.fragments.post}
 `;
 
-export default graphql(GET_POSTS)(AllPosts);
+export default graphql(GET_POSTS, {
+  props: ({ data }) => ({
+    data,
+    loadMorePosts() {
+      return data.fetchMore({
+        variables: { offset: data.posts.length },
+        updateQuery: (state, { fetchMoreResult }) => {
+          const { posts, postsCount } = fetchMoreResult.data;
+          return {
+            posts: [...state.posts, ...posts],
+            postsCount
+          };
+        }
+      });
+    }
+  })
+})(AllPosts);
