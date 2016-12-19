@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import moment from 'moment';
 
 import Loading from 'components/Loading';
-import Comment from 'containers/comments/_Comment';
+import Comment, { fragments as CommentFragments } from 'containers/comments/_Comment';
 import NewComment from 'containers/comments/_NewComment';
 import withPost from 'queries/posts/postQuery';
 
@@ -74,7 +74,7 @@ export const fragments = {
         ...CommentFragment
       }
     }
-    ${Comment.fragments.comment}
+    ${CommentFragments.comment}
   `
 };
 

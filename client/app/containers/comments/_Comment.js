@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import gql from 'graphql-tag';
 import moment from 'moment';
 
-class Comment extends Component {
+export default class Comment extends Component {
   static propTypes = {
     comment: PropTypes.object
   }
@@ -28,7 +28,7 @@ class Comment extends Component {
   }
 }
 
-Comment.fragments = {
+export const fragments = {
   comment: gql`
     fragment CommentFragment on Comment {
       id,
@@ -40,5 +40,3 @@ Comment.fragments = {
     }
   `
 };
-
-export default Comment;
