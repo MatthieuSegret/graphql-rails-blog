@@ -1,7 +1,7 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { fragments as PostForEditingFragments } from 'containers/posts/EditPost';
+import { fragments } from 'containers/posts/EditPost';
 
 export default function (WrappedComponent) {
   const GET_POST = gql`
@@ -10,7 +10,7 @@ export default function (WrappedComponent) {
         ...PostForEditingFragment
       }
     }
-    ${PostForEditingFragments.post}
+    ${fragments.post}
   `;
 
   const withPostForEditing = graphql(GET_POST, {

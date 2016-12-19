@@ -4,11 +4,13 @@ import gql from 'graphql-tag';
 
 import PostForm from 'containers/posts/_PostForm';
 import withPostForEditing from 'queries/posts/postForEditingQuery';
+import withUpdatePost from 'mutations/posts/updatePostMutation';
 import Loading from 'components/Loading';
 
 class EditPost extends Component {
   static propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    updatePost: PropTypes.func
   }
 
   render() {
@@ -18,7 +20,7 @@ class EditPost extends Component {
     return (
       <div>
         <h1>Editing post</h1>
-        <PostForm action={null} initialValues={{ ...post }} submitName="Update Post" />
+        <PostForm action={this.props.updatePost} initialValues={{ ...post }} submitName="Update Post" />
         <Link to="/">Back</Link>
       </div>
     );
@@ -35,4 +37,4 @@ export const fragments = {
   `
 };
 
-export default withPostForEditing(EditPost);
+export default withPostForEditing(withUpdatePost(EditPost));
