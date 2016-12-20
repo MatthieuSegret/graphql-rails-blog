@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { fragments as PostPreviewFragments } from 'containers/posts/_PostPreview';
 import formatErrors from 'utils/errorsUtils';
 import withFlashMessage from 'components/withFlashMessage';
+import updateQueries from 'reducers/postsReducer';
 
 export default function (WrappedComponent) {
   const CREATE_POST = gql`
@@ -36,16 +37,7 @@ export default function (WrappedComponent) {
       createPost(post) {
         return mutate({
           variables: { ...post },
-          updateQueries: {
-            posts: (state, { mutationResult, queryVariables }) => {
-              const newPost = mutationResult.data.createPost.newPost;
-              if (!newPost) { return null; }
-              return {
-                posts: [newPost, ...state.posts],
-                postsCount: state.postsCount + 1
-              };
-            }
-          }
+          updateQueries
         }).then(onResult.bind(ownProps)).catch((error) => {
           ownProps.error("Oops, we're sorry, but something went wrong");
         });

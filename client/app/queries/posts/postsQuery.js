@@ -2,6 +2,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { fragments as PostPreviewFragments } from 'containers/posts/_PostPreview';
+import { updateQuery } from 'reducers/postsReducer';
 
 const GET_POSTS = gql`
   query posts($offset: Int, $keywords: String) {
@@ -26,13 +27,7 @@ export default graphql(GET_POSTS, {
       loadMorePosts() {
         return data.fetchMore({
           variables: { offset: data.posts.length },
-          updateQuery: (state, { fetchMoreResult }) => {
-            const { posts, postsCount } = fetchMoreResult.data;
-            return {
-              posts: [...state.posts, ...posts],
-              postsCount
-            };
-          }
+          updateQuery
         });
       }
     };

@@ -2,6 +2,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import withFlashMessage from 'components/withFlashMessage';
+import updateQueries from 'reducers/postsReducer';
 
 export default function (WrappedComponent) {
   const DESTROY_POST = gql`
@@ -26,16 +27,7 @@ export default function (WrappedComponent) {
       destroyPost(postID) {
         return mutate({
           variables: { id: postID },
-          updateQueries: {
-            posts: (state, { mutationResult, queryVariables }) => {
-              const postDestroyed = mutationResult.data.destroyPost.post;
-              if (!postDestroyed) { return null; }
-              return {
-                posts: state.posts.filter(post => post.id !== postDestroyed.id),
-                postsCount: state.postsCount - 1
-              };
-            }
-          }
+          updateQueries
         }).then(onResult.bind(ownProps));
       }
     })
