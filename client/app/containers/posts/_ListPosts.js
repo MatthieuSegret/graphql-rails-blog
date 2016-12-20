@@ -34,7 +34,7 @@ export default class ListPosts extends Component {
               <th>Title</th>
               <th>User</th>
               <th>Created at</th>
-              <th />
+              <th colSpan="2" />
             </tr>
           </thead>
 
