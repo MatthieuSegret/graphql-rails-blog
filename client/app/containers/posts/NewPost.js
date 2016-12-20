@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, withRouter } from 'react-router';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, SubmissionError } from 'redux-form';
 
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
@@ -23,7 +23,12 @@ class NewPost extends Component {
     this.setState({ loading: true });
     return this.props.createPost(values).then((errors) => {
       this.setState({ loading: false });
-      this.props.router.push('/');
+      console.log(errors);
+      if (!errors) {
+        this.props.router.push('/');
+      } else {
+        throw new SubmissionError(errors);
+      }
     });
   }
 
@@ -45,6 +50,14 @@ class NewPost extends Component {
   }
 }
 
+function validate(values) {
+  const errors = {};
+  if (!values.title) { errors.title = "can't be blank"; }
+  if (!values.content) { errors.content = "can't be blank"; }
+  return errors;
+}
+
 export default reduxForm({
-  form: 'PostForm'
+  form: 'PostForm',
+  validate
 })(withCreatePost(withRouter(NewPost)));

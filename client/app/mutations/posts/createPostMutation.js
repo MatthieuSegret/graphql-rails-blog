@@ -2,17 +2,26 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { fragments as PostPreviewFragments } from 'containers/posts/_PostPreview';
+import formatErrors from 'utils/errorsUtils';
 
 const CREATE_POST = gql`
   mutation createPost($title: String, $content: String) {
     createPost(input: { title: $title, content: $content }) {
       newPost: post {
         ...PostPreviewFragment
+      },
+      errors {
+        attribute,
+        message
       }
     }
   }
   ${PostPreviewFragments.post}
 `;
+
+function onResult(response) {
+  return response.errors || formatErrors(response.data.createPost.errors);
+}
 
 export default graphql(CREATE_POST, {
   props: ({ ownProps, mutate }) => ({
@@ -29,7 +38,7 @@ export default graphql(CREATE_POST, {
             };
           }
         }
-      });
+      }).then(onResult.bind(ownProps));
     }
   })
 });
