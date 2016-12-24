@@ -1,13 +1,22 @@
 import React, { Component, PropTypes } from 'react';
-import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { reduxForm, Field, SubmissionError, change } from 'redux-form';
 
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
+import withFlashMessage from 'components/withFlashMessage';
+import withPosts from 'queries/posts/postsQuery';
+import withSignUp from 'mutations/users/signUpMutation';
 
 class SignUpUser extends Component {
   static propTypes = {
-    handleSubmit: PropTypes.func
+    redirect: PropTypes.func,
+    change: PropTypes.func,
+    error: PropTypes.func,
+    handleSubmit: PropTypes.func,
+    signUp: PropTypes.func,
+    refetchPosts: PropTypes.func
   }
 
   constructor(props) {
@@ -16,8 +25,18 @@ class SignUpUser extends Component {
   }
 
   submitForm(values) {
-    console.log('SignUpUser');
-    console.log(values);
+    const { signUp } = this.props;
+    return signUp(values).then((errors) => {
+      if (!errors) {
+        this.props.refetchPosts();
+        this.props.redirect('/', { notice: 'Welcome! You have signed up successfully.' });
+      } else {
+        this.props.change('SignUpForm', 'password', '');
+        this.props.change('SignUpForm', 'password_confirmation', '');
+        this.props.error('Please review the problems below:');
+        throw new SubmissionError(errors);
+      }
+    });
   }
 
   render() {
@@ -48,4 +67,4 @@ function validate(values) {
 export default reduxForm({
   form: 'SignUpForm',
   validate
-})(SignUpUser);
+})(connect(null, { change })(withSignUp(withFlashMessage(withPosts(SignUpUser)))));

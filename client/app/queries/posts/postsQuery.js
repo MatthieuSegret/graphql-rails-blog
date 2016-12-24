@@ -24,6 +24,7 @@ export default graphql(GET_POSTS, {
     return {
       data,
       firstPostsLoading,
+      refetchPosts: data.refetch,
       loadMorePosts() {
         return data.fetchMore({
           variables: { offset: data.posts.length },

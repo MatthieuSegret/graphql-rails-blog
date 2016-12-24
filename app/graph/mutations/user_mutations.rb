@@ -15,6 +15,11 @@ module UserMutations
       user = User.new(inputs.to_params)
 
       if user.save
+        warden = ctx[:warden]
+        scope = Devise::Mapping.find_scope!(user)
+        if warden.user(scope) != user
+          warden.set_user(user, scope: scope)
+        end
         { user: user }
       else
         { errors: user.attributes_errors }
