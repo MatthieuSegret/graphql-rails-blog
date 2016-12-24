@@ -1,6 +1,7 @@
 class GraphqlController < ApplicationController
   def create
     query_string = params[:query]
+    puts GraphQLFormatter.new(query_string) if Rails.env.development?
     query_variables = ensure_hash(params[:variables])
     result = Schema.execute(query_string, variables: query_variables)
     render json: result

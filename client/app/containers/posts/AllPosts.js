@@ -51,14 +51,10 @@ class AllPosts extends Component {
 const GET_POSTS = gql`
   query posts {
     posts {
-      id,
-      title,
-      created_at,
-      author {
-        name
-      }
+      ...PostPreviewFragment
     }
   }
+  ${PostPreview.fragments.post}
 `;
 
 export default graphql(GET_POSTS)(AllPosts);

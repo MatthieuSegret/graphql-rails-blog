@@ -10,6 +10,7 @@ gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'activeadmin', github: 'activeadmin'
 gem 'graphql'
 gem 'graphiql-rails'
+gem 'graphql-formatter'
 gem 'rack-cors'
 
 group :development, :test do

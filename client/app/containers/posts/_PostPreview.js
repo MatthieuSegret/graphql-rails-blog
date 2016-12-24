@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import gql from 'graphql-tag';
 import moment from 'moment';
 
-export default class PostPreview extends Component {
+class PostPreview extends Component {
   static propTypes = {
     post: PropTypes.object.isRequired
   }
@@ -18,3 +19,18 @@ export default class PostPreview extends Component {
     );
   }
 }
+
+PostPreview.fragments = {
+  post: gql`
+    fragment PostPreviewFragment on Post {
+      id,
+      title,
+      created_at,
+      author {
+        name
+      }
+    }
+  `
+};
+
+export default PostPreview;
