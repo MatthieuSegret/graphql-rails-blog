@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/MatthieuSegret/graphql-rails-blog/issues"
   },
-  "homepage": "https://github.com/MatthieuSegret/graphql-rails-blog#readme"
+  "homepage": "https://github.com/MatthieuSegret/graphql-rails-blog#readme",
+  "devDependencies": {
+    "rimraf": "^2.5.4"
+  }
 }

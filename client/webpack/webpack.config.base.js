@@ -4,37 +4,37 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = (options) => ({
   entry: Object.assign({
-    vendor: ['react', 'react-dom', 'chalk']
+    vendor: ['react', 'react-dom', 'react-router', 'chalk']
   }, options.entry),
   output: Object.assign({ // Compile into js/build.js
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/'
-  }, options.output), // Merge with env dependent settings
+  }, options.output),
   module: {
     loaders: [{
-      test: /\.js$/, // Transform all .js files required somewhere with Babel
+      test: /\.js$/,
       loader: 'babel-loader',
-      exclude: /node_modules/,
-      query: options.babelQuery
+      query: options.babelQuery,
+      exclude: /node_modules/
     }, {
       test: /\.scss$/,
-      include: /node_modules/,
-      loader: ['style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader']
+      loader: options.sassLoaders
     }, {
       test: /\.css$/,
-      include: /node_modules/,
-      loaders: ['style-loader', 'css-loader', 'autoprefixer-loader']
+      loader: options.cssLoaders,
+      include: /node_modules/
     }, {
-      test: /\.(eot|svg|ttf|woff|woff2)$/,
+      test: /\.(eot|svg|ttf|woff|woff2|ico)$/,
       loader: 'file-loader'
     }, {
-      test: /\.(jpg|png|gif)$/,
+      test: /.*\.(gif|png|jpe?g|svg)$/i,
       loaders: [
-        'file-loader',
-        'image-webpack?{progressive:true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}'
+        'file-loader?hash=sha512&digest=hex&name=[name]-[hash].[ext]',
+        'image-webpack-loader?{optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}, mozjpeg: {quality: 65}}'
       ]
     }, {
       test: /\.html$/,
@@ -50,12 +50,14 @@ module.exports = (options) => ({
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
     }),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    new FaviconsWebpackPlugin(path.resolve('app/assets/images/icon.png'))
   ]),
   resolve: {
-    modules: ['app', 'node_modules'],
+    modules: [path.resolve('./app'), 'node_modules'],
     extensions: ['.js', '.jsx']
   },
   devtool: options.devtool,
+  performance: options.performance,
   target: 'web'
 });
