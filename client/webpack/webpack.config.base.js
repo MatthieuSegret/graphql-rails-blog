@@ -8,7 +8,7 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = (options) => ({
   entry: Object.assign({
-    vendor: ['react', 'react-dom', 'react-router', 'chalk', 'apollo-client', 'react-apollo']
+    vendor: ['react', 'react-dom', 'react-router', 'chalk', 'apollo-client', 'react-apollo', 'redux', 'redux-form', 'react-redux']
   }, options.entry),
   output: Object.assign({ // Compile into js/build.js
     path: path.resolve(process.cwd(), 'build'),

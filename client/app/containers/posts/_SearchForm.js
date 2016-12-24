@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { withRouter } from 'react-router';
 
-import Button from 'components/Button';
+import Button from 'components/form/Button';
 
 class SearchForm extends Component {
   static propTypes = {

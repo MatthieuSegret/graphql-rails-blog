@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import ListPosts from 'containers/posts/_ListPosts';
-import SearchForm from 'containers/posts/_SearchForm';
+import HeadListPosts from 'containers/posts/_HeadListPosts';
 import withPosts from 'queries/posts/postsQuery';
 
 class SearchPosts extends Component {
@@ -25,11 +25,7 @@ class SearchPosts extends Component {
     return (
       <div className="search-posts">
         <h1>Searching posts</h1>
-        <div className="head-posts row">
-          <div className="col-md-8">
-            <SearchForm initialKeywords={keywords} loading={firstPostsLoading} />
-          </div>
-        </div>
+        <HeadListPosts initialKeywords={keywords} loading={firstPostsLoading} />
 
         {(!firstPostsLoading && posts && posts.length === 0) ?
           <h3>Pas de résultats ...</h3>
