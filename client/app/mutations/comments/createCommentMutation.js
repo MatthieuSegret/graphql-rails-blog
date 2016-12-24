@@ -1,5 +1,6 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import shortid from 'shortid';
 
 import formatErrors from 'utils/errorsUtils';
 import withFlashMessage from 'components/withFlashMessage';
@@ -31,7 +32,25 @@ export default function (WrappedComponent) {
       createComment(postId, comment) {
         return mutate({
           variables: { postId, ...comment },
-          updateQueries
+          updateQueries,
+          optimisticResponse: {
+            __typename: 'Mutation',
+            createComment: {
+              __typename: 'Post',
+              newComment: {
+                __typename: 'Comment',
+                id: shortid.generate(),
+                content: comment.content,
+                created_at: +(new Date()),
+                pending: true,
+                author: {
+                  __typename: 'User',
+                  name: '...' // ownProps.currentUser.name
+                }
+              },
+              errors: null
+            }
+          }
         }).then(onResult.bind(ownProps)).catch((error) => {
           console.log(error);
           ownProps.error("Oops, we're sorry, but something went wrong");
