@@ -12,6 +12,11 @@ export default class Header extends Component {
               GraphQL rails blog
             </Link>
           </div>
+          <div className="collapse navbar-collapse">
+            <ul className="nav navbar-nav navbar-right">
+              <li><Link to="/users/signin">Login</Link></li>
+            </ul>
+          </div>
         </div>
       </nav>
     );

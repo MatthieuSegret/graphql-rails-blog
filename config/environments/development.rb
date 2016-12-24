@@ -55,7 +55,7 @@ Rails.application.configure do
   config.middleware.insert_before 0, Rack::Cors do
     allow do
       origins 'localhost:8080'
-      resource '/graphql*', :headers => :any, :methods => [:get, :post, :options]
+      resource '*', headers: :any, credentials: true, methods: [:get, :post, :put, :patch, :delete, :head, :options], expose: ['X-Requested-With', 'Content-Type', 'Accept']
     end
   end
 end

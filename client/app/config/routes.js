@@ -7,6 +7,7 @@ import SearchPosts from 'containers/posts/SearchPosts';
 import Post from 'containers/posts/Post';
 import NewPost from 'containers/posts/NewPost';
 import EditPost from 'containers/posts/EditPost';
+import SignInUser from 'containers/users/SignInUser';
 import NotFound from 'components/NotFound';
 
 import { deleteFlashMessage } from 'actions/flashActions';
@@ -19,6 +20,7 @@ export default (
     <Route path="/posts/new" component={NewPost} />
     <Route path="/posts/:id/edit" component={EditPost} />
     <Route path="/posts/:id" component={Post} />
+    <Route path="/users/signin" component={SignInUser} />
     <Route path="*" component={NotFound} />
   </Route>
 );

@@ -1,7 +1,12 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import ROOT_URL from 'config/rootUrl';
 
-const ROOT_URL = (process.env.NODE_ENV === 'development') ? 'http://localhost:3000' : '';
-const networkInterface = createNetworkInterface({ uri: `${ROOT_URL}/graphql` });
+const networkInterface = createNetworkInterface({
+  uri: `${ROOT_URL}/graphql`,
+  opts: {
+    credentials: (process.env.NODE_ENV === 'development') ? 'include' : 'same-origin'
+  }
+});
 
 export default new ApolloClient({
   networkInterface,
