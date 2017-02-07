@@ -68,6 +68,7 @@ export const fragments = {
       created_at,
       comments_count,
       author {
+        id,
         name
       }
       comments {

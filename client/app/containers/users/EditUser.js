@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, SubmissionError } from 'redux-form';
 import gql from 'graphql-tag';
 
 import withUserForEditing from 'queries/users/userForEditingQuery';
+import withUpdateUser from 'mutations/users/updateUserMutation';
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
 import Loading from 'components/Loading';
@@ -12,21 +13,30 @@ import Loading from 'components/Loading';
 class EditUser extends Component {
   static propTypes = {
     data: PropTypes.object,
+    updateUser: PropTypes.func,
     handleSubmit: PropTypes.func
   }
 
   constructor(props) {
     super(props);
+    this.state = { loading: false };
     this.submitForm = this.submitForm.bind(this);
   }
 
   submitForm(values) {
-    // TODO update user
+    this.setState({ loading: true });
+    return this.props.updateUser(values).then((errors) => {
+      if (errors) {
+        this.setState({ loading: false });
+        throw new SubmissionError(errors);
+      }
+    });
   }
 
   render() {
-    const { data: { loading } } = this.props;
-    if (loading) { return <Loading />; }
+    const { data: { loading: getUserloading } } = this.props;
+    if (getUserloading) { return <Loading />; }
+    const { loading } = this.state;
 
     return (
       <div className="users-edit">
@@ -34,7 +44,7 @@ class EditUser extends Component {
         <form onSubmit={this.props.handleSubmit(this.submitForm)}>
           <Field name="name" component={RenderField} type="text" />
           <Field name="email" component={RenderField} type="text" />
-          <Button value="Update" />
+          <Button loading={loading} value="Update" />
         </form>
         <Link to="/">Back</Link>
       </div>
@@ -45,6 +55,7 @@ class EditUser extends Component {
 export const fragments = {
   user: gql`
     fragment UserForEditingFragment on User {
+      id,
       name,
       email
     }
@@ -58,7 +69,7 @@ function validate(values) {
   return errors;
 }
 
-export default withUserForEditing(
+export default withUserForEditing(withUpdateUser(
   connect(
     (state, props) => ({
       initialValues: props.currentUser
@@ -67,4 +78,4 @@ export default withUserForEditing(
     form: 'EditUserForm',
     validate
   })(EditUser))
-);
+));

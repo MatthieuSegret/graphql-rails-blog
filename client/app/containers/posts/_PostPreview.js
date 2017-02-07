@@ -46,6 +46,7 @@ export const fragments = {
       title,
       created_at,
       author {
+        id,
         name
       }
     }

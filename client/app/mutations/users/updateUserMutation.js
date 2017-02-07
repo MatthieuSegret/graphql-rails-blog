@@ -1,17 +1,16 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { fragments as PostPreviewFragments } from 'containers/posts/_PostPreview';
 import formatErrors from 'utils/errorsUtils';
 import withFlashMessage from 'components/withFlashMessage';
-import updateQueries from 'reducers/postsReducer';
+import { fragments } from 'containers/users/EditUser';
 
 export default function (WrappedComponent) {
-  const CREATE_POST = gql`
-    mutation createPost($title: String, $content: String) {
-      createPost(input: { title: $title, content: $content }) {
-        newPost: post {
-          ...PostPreviewFragment
+  const UPDATE_USER = gql`
+    mutation updateUser($name: String, $email: String) {
+      updateUser(input: { name: $name, email: $email }) {
+        user {
+          ...UserForEditingFragment
         },
         errors {
           attribute,
@@ -19,13 +18,13 @@ export default function (WrappedComponent) {
         }
       }
     }
-    ${PostPreviewFragments.post}
+    ${fragments.user}
   `;
 
   function onResult(response) {
-    const errors = response.errors || formatErrors(response.data.createPost.errors);
+    const errors = response.errors || formatErrors(response.data.updateUser.errors);
     if (!errors) {
-      this.redirect('/', { notice: 'Post was successfully created' });
+      this.redirect('/', { notice: 'User was successfully updated' });
     } else {
       const errorMsg = (errors.base) ? errors.base : '';
       this.error(`Please review the problems below: ${errorMsg}`);
@@ -33,12 +32,11 @@ export default function (WrappedComponent) {
     return errors;
   }
 
-  const withCreatePost = graphql(CREATE_POST, {
+  const withUpdateUser = graphql(UPDATE_USER, {
     props: ({ ownProps, mutate }) => ({
-      createPost(post) {
+      updateUser(user) {
         return mutate({
-          variables: { ...post },
-          updateQueries
+          variables: { ...user }
         }).then(onResult.bind(ownProps)).catch((error) => {
           ownProps.error("Oops, we're sorry, but something went wrong");
         });
@@ -46,5 +44,5 @@ export default function (WrappedComponent) {
     })
   });
 
-  return withFlashMessage(withCreatePost(WrappedComponent));
+  return withFlashMessage(withUpdateUser(WrappedComponent));
 }
