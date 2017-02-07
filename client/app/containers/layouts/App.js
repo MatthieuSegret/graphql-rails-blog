@@ -5,6 +5,7 @@ import Header from 'containers/layouts/Header';
 import withCurrentUser from 'queries/users/currentUserQuery';
 
 import 'assets/stylesheets/styles.scss';
+import 'assets/stylesheets/users.scss';
 import 'assets/stylesheets/posts.scss';
 import 'assets/stylesheets/comments.scss';
 

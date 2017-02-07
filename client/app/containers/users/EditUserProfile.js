@@ -39,13 +39,20 @@ class EditUserProfile extends Component {
     const { loading } = this.state;
 
     return (
-      <div className="edit-user">
+      <div className="edit-user-profile">
         <h1>Edit user</h1>
         <form onSubmit={this.props.handleSubmit(this.submitForm)}>
           <Field name="name" component={RenderField} type="text" />
           <Field name="email" component={RenderField} type="text" />
           <Button loading={loading} value="Update" />
         </form>
+        <div className="change-password">
+          <h3>Password</h3>
+          <Link to="/users/password/edit" className="change-password-link">
+            <i className="glyphicon glyphicon-pencil" />
+            Change password
+          </Link>
+        </div>
         <Link to="/">Back</Link>
       </div>
     );
