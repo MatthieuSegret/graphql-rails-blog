@@ -39,7 +39,7 @@ class Header extends Component {
     if (currentUser) {
       return (
         <ul className="nav navbar-nav navbar-right">
-          <li><Link to="#">{currentUser.name}</Link></li>
+          <li><Link to="users/profile/edit">{currentUser.name}</Link></li>
           <li><a href="#logout" onClick={this.logout}>Logout</a></li>
         </ul>
       );
