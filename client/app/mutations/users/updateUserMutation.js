@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 
 import formatErrors from 'utils/errorsUtils';
 import withFlashMessage from 'components/withFlashMessage';
-import { fragments } from 'containers/users/EditUser';
+import { fragments } from 'containers/users/EditUserProfile';
 
 export default function (WrappedComponent) {
   const UPDATE_USER = gql`

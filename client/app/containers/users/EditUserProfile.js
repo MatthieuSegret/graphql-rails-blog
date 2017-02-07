@@ -10,7 +10,7 @@ import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
 import Loading from 'components/Loading';
 
-class EditUser extends Component {
+class EditUserProfile extends Component {
   static propTypes = {
     data: PropTypes.object,
     updateUser: PropTypes.func,
@@ -39,7 +39,7 @@ class EditUser extends Component {
     const { loading } = this.state;
 
     return (
-      <div className="users-edit">
+      <div className="edit-user">
         <h1>Edit user</h1>
         <form onSubmit={this.props.handleSubmit(this.submitForm)}>
           <Field name="name" component={RenderField} type="text" />
@@ -75,7 +75,7 @@ export default withUserForEditing(withUpdateUser(
       initialValues: props.currentUser
     })
   )(reduxForm({
-    form: 'EditUserForm',
+    form: 'EditUserProfileForm',
     validate
-  })(EditUser))
+  })(EditUserProfile))
 ));

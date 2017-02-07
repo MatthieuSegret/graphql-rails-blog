@@ -1,7 +1,7 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { fragments } from 'containers/users/EditUser';
+import { fragments } from 'containers/users/EditUserProfile';
 
 export default function (WrappedComponent) {
   const GET_USER_FOR_EDITING = gql`

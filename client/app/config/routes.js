@@ -9,7 +9,7 @@ import NewPost from 'containers/posts/NewPost';
 import EditPost from 'containers/posts/EditPost';
 import SignInUser from 'containers/users/SignInUser';
 import SignUpUser from 'containers/users/SignUpUser';
-import EditUser from 'containers/users/EditUser';
+import EditUserProfile from 'containers/users/EditUserProfile';
 
 import UserIsAuthenticated from 'components/UserIsAuthenticated';
 import NotFound from 'components/NotFound';
@@ -26,7 +26,7 @@ export default (
     <Route path="/posts/:id" component={Post} />
     <Route path="/users/signin" component={SignInUser} />
     <Route path="/users/signup" component={SignUpUser} />
-    <Route path="users/profile/edit" component={EditUser} />
+    <Route path="users/profile/edit" component={EditUserProfile} />
     <Route path="*" component={NotFound} />
   </Route>
 );
