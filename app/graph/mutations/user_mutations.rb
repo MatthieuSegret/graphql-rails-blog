@@ -47,4 +47,27 @@ module UserMutations
       end
     })
   end
+
+  ChangePassword = GraphQL::Relay::Mutation.define do
+    name "changePassword"
+    description "Change user password"
+
+    input_field :password, types.String
+    input_field :password_confirmation, types.String
+    input_field :current_password, types.String
+
+    return_field :user, UserType
+    return_field :errors, types[AttributeErrorType]
+
+    resolve(Auth.protect -> (obj, inputs, ctx) {
+      current_user = ctx[:current_user]
+      params_with_password = inputs.to_params.slice(:password, :password_confirmation, :current_password)
+
+      if current_user.update_with_password(params_with_password)
+        { user: current_user }
+      else
+        { errors: current_user.attributes_errors }
+      end
+    })
+  end
 end
