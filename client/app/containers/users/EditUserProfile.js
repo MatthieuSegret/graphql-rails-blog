@@ -40,7 +40,7 @@ class EditUserProfile extends Component {
 
     return (
       <div className="edit-user-profile">
-        <h1>Edit user</h1>
+        <h1>Edit profile</h1>
         <form onSubmit={this.props.handleSubmit(this.submitForm)}>
           <Field name="name" component={RenderField} type="text" />
           <Field name="email" component={RenderField} type="text" />
