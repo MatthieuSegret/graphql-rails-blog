@@ -1,9 +1,15 @@
 source 'https://rubygems.org'
 
+ruby '2.3.1'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
+group :development, :test do
+  gem 'sqlite3'
+end
+group :production do
+  gem "pg"
+end
 gem 'puma', '~> 3.0'
-gem 'pg'
 gem 'devise'
 gem 'faker'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
