@@ -10,6 +10,7 @@ group :production do
   gem "pg"
 end
 gem 'puma', '~> 3.0'
+gem 'uglifier'
 gem 'devise'
 gem 'faker'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
@@ -18,6 +19,7 @@ gem 'graphql'
 gem 'graphiql-rails'
 gem 'graphql-formatter'
 gem 'rack-cors'
+gem 'rails_12factor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
