@@ -24,6 +24,7 @@ module.exports = {
     "comma-dangle": ["error", "never"],
     "indent": [2, 2, { "SwitchCase": 1 }],
     "no-console": 0,
+    "no-alert": 0,
     "max-len": 0,
     "prefer-template": 2,
     "no-use-before-define": 0,

@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import gql from 'graphql-tag';
+import { withApollo } from 'react-apollo';
 
+import axios from 'config/axios';
 import withUserForEditing from 'queries/users/userForEditingQuery';
 import withUpdateUser from 'mutations/users/updateUserMutation';
+import withFlashMessage from 'components/withFlashMessage';
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
 import Loading from 'components/Loading';
@@ -13,6 +16,9 @@ import Loading from 'components/Loading';
 class EditUserProfile extends Component {
   static propTypes = {
     data: PropTypes.object,
+    client: PropTypes.object,
+    redirect: PropTypes.func,
+    error: PropTypes.func,
     updateUser: PropTypes.func,
     handleSubmit: PropTypes.func
   }
@@ -21,6 +27,7 @@ class EditUserProfile extends Component {
     super(props);
     this.state = { loading: false };
     this.submitForm = this.submitForm.bind(this);
+    this.cancelAccount = this.cancelAccount.bind(this);
   }
 
   submitForm(values) {
@@ -31,6 +38,20 @@ class EditUserProfile extends Component {
         throw new SubmissionError(errors);
       }
     });
+  }
+
+  cancelAccount() {
+    if (confirm('Are you sure ?')) {
+      return axios.delete('/users').then((response) => {
+        if (response.status !== 204) {
+          this.props.error("Oops, we're sorry, but something went wrong");
+        } else {
+          this.props.client.resetStore();
+          this.props.redirect('/', { notice: 'Bye! Your account has been successfully cancelled. We hope to see you again soon.' });
+        }
+      });
+    }
+    return false;
   }
 
   render() {
@@ -52,6 +73,11 @@ class EditUserProfile extends Component {
             <i className="glyphicon glyphicon-pencil" />
             Change password
           </Link>
+        </div>
+        <div className="cancel-account">
+          <h3>Cancel my account</h3>
+          Unhappy?
+          <button onClick={this.cancelAccount} className="btn btn-default btn-xs cancel-account-link">Cancel my account</button>
         </div>
         <Link to="/">Back</Link>
       </div>
@@ -84,5 +110,5 @@ export default withUserForEditing(withUpdateUser(
   )(reduxForm({
     form: 'EditUserProfileForm',
     validate
-  })(EditUserProfile))
+  })(withFlashMessage(withApollo(EditUserProfile))))
 ));

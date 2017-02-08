@@ -28,8 +28,8 @@ export default (
     <Route path="/posts/:id" component={Post} />
     <Route path="/users/signin" component={SignInUser} />
     <Route path="/users/signup" component={SignUpUser} />
-    <Route path="/users/profile/edit" component={EditUserProfile} />
-    <Route path="/users/password/edit" component={ChangeUserPassword} />
+    <Route path="/users/profile/edit" component={UserIsAuthenticated(EditUserProfile)} />
+    <Route path="/users/password/edit" component={UserIsAuthenticated(ChangeUserPassword)} />
     <Route path="*" component={NotFound} />
   </Route>
 );

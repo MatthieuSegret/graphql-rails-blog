@@ -19,7 +19,10 @@ class PostPreview extends Component {
   }
 
   destroy() {
-    this.props.destroyPost(this.props.post.id);
+    if (confirm('Are you sure ?')) {
+      this.props.destroyPost(this.props.post.id);
+    }
+    return false;
   }
 
   render() {
