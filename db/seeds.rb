@@ -11,7 +11,17 @@ user = User.create! name: "Admin", email: "admin@graphql-rails-blog.com", passwo
 user.admin = true
 user.save!
 
+# Posts association
 10.times do
+  post = user.posts.create! title: Faker::Lorem.sentence(rand(2..4)), content: Faker::Lorem.paragraph(rand(30..50))
+  rand(0..3).times do
+    user.comments.create! content: Faker::Lorem.paragraph(rand(1..5)), post: post
+  end
+end
+
+# Create users
+10.times do |i|
+  user = User.create! name: "user#{i}", email: "user#{i}@graphql-rails-blog.com", password: "password", password_confirmation: "password"
   post = user.posts.create! title: Faker::Lorem.sentence(rand(2..4)), content: Faker::Lorem.paragraph(rand(30..50))
   rand(0..3).times do
     user.comments.create! content: Faker::Lorem.paragraph(rand(1..5)), post: post

@@ -2,7 +2,7 @@ class Post < ApplicationRecord
 
   validates :title, :content, presence: true
   validates :title, length: { minimum: 3 }
-  cattr_accessor(:paginates_per) { 3 }
+  cattr_accessor(:paginates_per) { 10 }
 
   has_many :comments, dependent: :destroy
   belongs_to :user
