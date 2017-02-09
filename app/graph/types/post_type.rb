@@ -7,13 +7,18 @@ PostType = GraphQL::ObjectType.define do
   field :content, types.String, "The content of this post"
   field :comments_count, types.String,  "The total numner of comments on this post"
   field :created_at, types.String, "The time at which this post was created"
-  field :author, UserType, "Owner of this post" do resolve ->(post, args, ctx){ post.user } end
+
+  field :author, UserType, "Owner of this post" do
+    resolve ->(post, args, ctx) {
+      RecordLoader.for(User).load(post.user_id)
+    }
+  end
 
   field :comments do
     type !types[!CommentType]
     description "All comments association with this post."
     resolve ->(post, args, ctx){
-      post.comments.includes(:user).order(created_at: :desc)
+      post.comments.order(created_at: :desc)
     }
   end
 end
