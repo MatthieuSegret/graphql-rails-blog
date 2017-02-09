@@ -14,7 +14,7 @@ QueryType = GraphQL::ObjectType.define do
       else
         posts = Post.paginate(args[:offset])
       end
-      posts = posts.includes(:user, :comments).order(created_at: :desc)
+      posts = posts.order(created_at: :desc)
       posts = posts.search(args[:keywords]) if args[:keywords].present?
       posts
     }
