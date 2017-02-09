@@ -6,13 +6,33 @@
   version "2.0.33"
   resolved "https://registry.yarnpkg.com/@types/async/-/async-2.0.33.tgz#e676d725e21fff68cc392c02d9db1f6e57a4441c"
 
-"@types/graphql@^0.8.0":
-  version "0.8.6"
-  resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.8.6.tgz#b34fb880493ba835b0c067024ee70130d6f9bb68"
+"@types/chai@^3.4.32":
+  version "3.4.34"
+  resolved "https://registry.yarnpkg.com/@types/chai/-/chai-3.4.34.tgz#d5335792823bb09cddd5e38c3d211b709183854d"
 
 "@types/isomorphic-fetch@0.0.30":
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/isomorphic-fetch/-/isomorphic-fetch-0.0.30.tgz#a21717624cde9a48c2db53a4e500fc5c32a99bbc"
+
+"@types/lodash@^4.14.34":
+  version "4.14.52"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.52.tgz#de5c7ab14da1289733233c9b0ec6f9e377db90f5"
+
+"@types/node@^6.0.38":
+  version "6.0.63"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.63.tgz#e08acbbd5946e0e95990b1c76f3ce5b7882a48eb"
+
+"@types/promises-a-plus@0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@types/promises-a-plus/-/promises-a-plus-0.0.26.tgz#64d992f8e715dc6bb975766391eae54985fa4fe2"
+
+"@types/redux@^3.5.29":
+  version "3.6.31"
+  resolved "https://registry.yarnpkg.com/@types/redux/-/redux-3.6.31.tgz#40eafa7575db36b912ce0059b85de98c205b0708"
+
+"@types/sinon@^1.16.29":
+  version "1.16.35"
+  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-1.16.35.tgz#ee687cc42d1a79448256f1c012a33a0840e85c5c"
 
 Base64@~0.2.0:
   version "0.2.1"
@@ -99,19 +119,26 @@ anymatch@^1.3.0:
     arrify "^1.0.0"
     micromatch "^2.1.5"
 
-apollo-client@0.8.3:
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-0.8.3.tgz#28c4c08c05e1bf697e16cb55a35ce6352d42e405"
+apollo-client@0.5.21:
+  version "0.5.21"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-0.5.21.tgz#25698cf4cfff5f9923d03c19c23629e18b61304b"
   dependencies:
-    graphql-anywhere "^2.1.0"
+    graphql-anywhere "^1.0.0"
     graphql-tag "^1.1.1"
-    redux "^3.4.0"
+    lodash "^4.17.2"
+    redux "^3.3.1"
     symbol-observable "^1.0.2"
     whatwg-fetch "^2.0.0"
   optionalDependencies:
     "@types/async" "^2.0.31"
-    "@types/graphql" "^0.8.0"
+    "@types/chai" "^3.4.32"
     "@types/isomorphic-fetch" "0.0.30"
+    "@types/lodash" "^4.14.34"
+    "@types/node" "^6.0.38"
+    "@types/promises-a-plus" "0.0.26"
+    "@types/redux" "^3.5.29"
+    "@types/sinon" "^1.16.29"
+    typed-graphql "1.0.2"
 
 aproba@^1.0.3:
   version "1.0.4"
@@ -3080,9 +3107,9 @@ graceful-fs@^4.0.0, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-graphql-anywhere@^2.0.0, graphql-anywhere@^2.1.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-2.2.0.tgz#652c3fa23a4a6cfeb98817512fb48100b97f3d5c"
+graphql-anywhere@^1.0.0:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-1.1.2.tgz#897d2868d35723ce7d8b4ead3455c285ea51a2d2"
 
 graphql-tag@^1.1.1:
   version "1.1.2"
@@ -4179,7 +4206,7 @@ lodash@^3.2.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.11.1, lodash@^4.14.0, lodash@^4.17.3, lodash@^4.3.0, lodash@^4.6.1:
+lodash@^4.0.0, lodash@^4.11.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -5430,11 +5457,10 @@ rc@^1.1.2, rc@~1.1.6:
     minimist "^1.2.0"
     strip-json-comments "~1.0.4"
 
-react-apollo@0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-0.10.0.tgz#8f53a94fbd89210dde38d66f72df3f0f9c6a3810"
+react-apollo@0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-0.7.2.tgz#25c2b39caa07d6d61602479614446da3a62441f9"
   dependencies:
-    graphql-anywhere "^2.0.0"
     hoist-non-react-statics "^1.2.0"
     invariant "^2.2.1"
     lodash.flatten "^4.2.0"
@@ -5442,14 +5468,12 @@ react-apollo@0.10.0:
     lodash.isobject "^3.0.2"
     lodash.pick "^4.4.0"
     object-assign "^4.0.1"
-  optionalDependencies:
-    react-dom "0.14.x || 15.* || ^15.0.0"
 
 react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
-"react-dom@0.14.x || 15.* || ^15.0.0", react-dom@15.4.2:
+react-dom@15.4.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
   dependencies:
@@ -5642,7 +5666,7 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "~0.1.0"
 
-redux, redux@^3.4.0:
+redux, redux@^3.3.1:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.6.0.tgz#887c2b3d0b9bd86eca2be70571c27654c19e188d"
   dependencies:
@@ -6462,6 +6486,10 @@ type-is@~1.6.14:
   dependencies:
     media-typer "0.3.0"
     mime-types "~2.1.13"
+
+typed-graphql@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/typed-graphql/-/typed-graphql-1.0.2.tgz#4c0f788775d552df4d4ec3d73f25469252f40fb8"
 
 typedarray@~0.0.5:
   version "0.0.6"
