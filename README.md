@@ -1,6 +1,6 @@
 # GraphQL Rails Blog
 
-This application can be used a **starter kit** if you wish to get started building an app with **Rails**, **React** and **GraphQL**.
+This application can be used as a **starter kit** if you want to get started building an app with **Rails**, **React**, and **GraphQL**.
 This is a simple blog engine using ordinary features which can be found in most web applications.
 
 ## Technologies
@@ -8,26 +8,26 @@ This is a simple blog engine using ordinary features which can be found in most 
 ### Frontend
 
 - [React](https://facebook.github.io/react) - A JavaScript library for building user interfaces. It introduces many great concepts, such as, Virtual DOM, Data flow, etc.
-- [Babel](https://babeljs.io) - Babel is a JavaScript compiler which allows you to  use next generation, ES6/ES7, JavaScript, today.
+- [Babel](https://babeljs.io) - Babel is a JavaScript compiler which allows you to use next generation, ES6/ES7, JavaScript... today.
 - [Sass](http://sass-lang.com) - Sass is an extension of CSS, adding nested rules, variables, mixins, selector inheritance, and more.
-- [Redux](https://github.com/reactjs/redux) - Redux is a predictable state container for JavaScript apps
-- [Redux Form](http://redux-form.com/) - A Higher Order Component using react-redux to keep form state in a Redux store
-- [Apollo](http://dev.apollodata.com/) - A flexible, fully-featured GraphQL client for every platform
-- [Webpack 2 (with hot reloading)](https://webpack.js.org/) - webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset.
-- [ESlint](http://eslint.org/) - ESlint is a pluggable linting utility for JavaScript and JSX
+- [Redux](https://github.com/reactjs/redux) - Redux is a predictable state container for JavaScript apps.
+- [Redux Form](http://redux-form.com/) - A Higher Order Component using react-redux to keep form state in a Redux store.
+- [Apollo](http://dev.apollodata.com/) - A flexible, fully-featured GraphQL client for every platform.
+- [Webpack 2 (with hot reloading)](https://webpack.js.org/) - webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser. Yet it is also capable of transforming, bundling, or packaging just about any resource or asset.
+- [ESlint](http://eslint.org/) - ESlint is a pluggable linting utility for JavaScript, and JSX.
 
 ### Backend
 
 - Ruby 2.3
 - Rails 5
-- [Devise](https://github.com/plataformatec/devise) - Devise is a flexible authentication solution for Rails based on [Warden](https://github.com/hassox/warden)
-- [Active admin](http://activeadmin.info/) - Active Admin is a Ruby on Rails plugin for generating administration style interfaces
-- [GraphQL-Ruby](https://github.com/rmosolgo/graphql-ruby) - GraphQL-Ruby is a Ruby implementation of [GraphQL](http://graphql.org)
-- [GraphQL-batch](https://github.com/Shopify/graphql-batch) - GraphQL-batch is a query batching executor for the graphql gem
+- [Devise](https://github.com/plataformatec/devise) - Devise is a flexible authentication solution for Rails based on [Warden](https://github.com/hassox/warden).
+- [Active admin](http://activeadmin.info/) - Active Admin is a Ruby on Rails plugin for generating administration style interfaces.
+- [GraphQL-Ruby](https://github.com/rmosolgo/graphql-ruby) - GraphQL-Ruby is a Ruby implementation of [GraphQL](http://graphql.org).
+- [GraphQL-batch](https://github.com/Shopify/graphql-batch) - GraphQL-batch is a query batching executor for the graphql gem.
 - [Graphiql](https://github.com/graphql/graphiql) - Graphiql is an in-browser IDE for exploring GraphQL.
-- [Rack CORS](https://github.com/cyu/rack-cors) - Rack Middleware for handling Cross-Origin Resource Sharing (CORS), which makes cross-origin AJAX possible
-- [Optics Agent](http://www.apollodata.com/optics) - Optics Agent for GraphQL Monitoring
-- SQLite3 for development and PostgreSQL for production
+- [Rack CORS](https://github.com/cyu/rack-cors) - Rack Middleware for handling Cross-Origin Resource Sharing (CORS), which makes cross-origin AJAX possible.
+- [Optics Agent](http://www.apollodata.com/optics) - Optics Agent for GraphQL Monitoring.
+- SQLite3 for development and PostgreSQL for production.
 
 ## Features
 
