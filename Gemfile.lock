@@ -149,6 +149,7 @@ GEM
     minitest (5.10.1)
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
+    newrelic_rpm (3.18.0.329)
     nio4r (1.2.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
@@ -254,6 +255,7 @@ DEPENDENCIES
   graphql
   graphql-formatter
   inherited_resources!
+  newrelic_rpm
   optics-agent
   pg
   puma (~> 3.0)
