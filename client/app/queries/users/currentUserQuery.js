@@ -12,7 +12,7 @@ const CURRENT_USER = gql`
 `;
 
 export function fetchCurrentUser() {
-  return client.query({ query: CURRENT_USER, forceFetch: true });
+  return client.query({ query: CURRENT_USER, fetchPolicy: 'network-only' });
 }
 
 export default graphql(CURRENT_USER, {

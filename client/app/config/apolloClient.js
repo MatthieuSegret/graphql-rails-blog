@@ -15,6 +15,5 @@ export default new ApolloClient({
       return result.__typename + result.id;
     }
     return null;
-  },
-  queryDeduplication: true
+  }
 });

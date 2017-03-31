@@ -99,7 +99,6 @@ This is a simple blog engine using ordinary features which can be found in most 
 
 ## Next step
 
-- [ ] Upgrade to last version of Apollo. Until now I had to downgrade to version 0.5.21 because of a bug on *updatequeries* ([https://github.com/apollographql/apollo-client/issues/1129](https://github.com/apollographql/apollo-client/issues/1129))
 - [ ] Use [query batching in Apollo](https://dev-blog.apollodata.com/query-batching-in-apollo-63acfd859862#.dusr3dyde). Until now GraphQL-Ruby does not support this functionality in a simple way
 - [ ] Parallelism in GraphQL-Ruby
 

@@ -25,7 +25,7 @@ export default {
 };
 
 export function updateQuery(state, { fetchMoreResult }) {
-  const { posts, postsCount } = fetchMoreResult.data;
+  const { posts, postsCount } = fetchMoreResult;
   return {
     posts: [...state.posts, ...posts],
     postsCount

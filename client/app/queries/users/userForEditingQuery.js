@@ -15,7 +15,7 @@ export default function (WrappedComponent) {
 
   const withUserForEditing = graphql(GET_USER_FOR_EDITING, {
     options: (ownProps) => ({
-      forceFetch: true
+      fetchPolicy: 'network-only'
     })
   });
 

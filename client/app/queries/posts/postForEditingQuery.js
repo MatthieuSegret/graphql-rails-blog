@@ -18,7 +18,7 @@ export default function (WrappedComponent) {
       variables: {
         id: ownProps.params.id
       },
-      forceFetch: true
+      fetchPolicy: 'network-only'
     })
   });
 
