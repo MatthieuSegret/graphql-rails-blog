@@ -21,19 +21,21 @@ module.exports = require('./webpack.config.base')({
   },
 
   sassLoaders: ExtractTextPlugin.extract({
-    fallbackLoader: 'style-loader',
-    loader: ['css-loader', 'postcss-loader', 'sass-loader']
+    fallback: 'style-loader',
+    use: ['css-loader', 'postcss-loader', 'sass-loader']
   }),
 
   cssLoaders: ExtractTextPlugin.extract({
-    fallbackLoader: 'style-loader',
-    loader: ['css-loader', 'postcss-loader']
+    fallback: 'style-loader',
+    use: ['css-loader', 'postcss-loader']
   }),
 
   plugins: [
 
     // Extract the CSS into a seperate file
     new ExtractTextPlugin('[name].[contenthash].css'),
+
+    new webpack.optimize.ModuleConcatenationPlugin(),
 
     new webpack.LoaderOptionsPlugin({
       options: { postcss: [autoprefixer()] }

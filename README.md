@@ -105,13 +105,13 @@ This is a simple blog engine using ordinary features which can be found in most 
 ## Screens
 
 #### Listing posts
-<img alt="Listing posts" src="https://d17oy1vhnax1f7.cloudfront.net/items/463k3o2E2l1Z3N1J3230/listing-posts.png?v=b0949e51" width="500">
+<img alt="Listing posts" src="http://documents.matthieusegret.com/listing-posts.png" width="500">
 
 #### Creating comments
-<img alt="Creating comments" src="https://d3uepj124s5rcx.cloudfront.net/items/152S143C2l1a2r0N2n37/creating-comments.png?v=b8dfc71e" width="500">
+<img alt="Creating comments" src="http://documents.matthieusegret.com/creating-comments.png" width="500">
 
 #### Post page
-<img alt="Post page" src="https://d17oy1vhnax1f7.cloudfront.net/items/0G2h1l1v2b0I2y1t0j3F/get-post.png?v=6ae0993c" width="500">
+<img alt="Post page" src="http://documents.matthieusegret.com/get-post.png" width="500">
 
 ## License
 
