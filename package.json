@@ -13,7 +13,7 @@
   "scripts": {
     "start": "cd client && npm start",
     "build:clean": "rimraf ./public/*",
-    "build": "npm run build:clean && cd client && npm run build",
+    "build": "npm run build:clean && cd client && npm run build && cp -rf build/** ../public",
     "postinstall": "cd client && npm install && npm run build"
   },
   "author": "Matthieu Segret <matthieu.segret@gmail.com>",

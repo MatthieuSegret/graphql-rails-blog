@@ -1,6 +1,6 @@
 module.exports = {
-  "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": ["react-app", "plugin:jsx-a11y/recommended"],
+  "plugins": ["jsx-a11y"],
   "env": {
     "browser": true,
     "node": true,
@@ -8,7 +8,6 @@ module.exports = {
     "es6": true
   },
   "plugins": [
-    "react",
     "jsx-a11y"
   ],
   "parserOptions": {
