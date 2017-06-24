@@ -13,7 +13,7 @@ This is a simple blog engine using ordinary features which can be found in most 
 - [Redux](https://github.com/reactjs/redux) - Redux is a predictable state container for JavaScript apps
 - [Redux Form](http://redux-form.com/) - A Higher Order Component using react-redux to keep form state in a Redux store.
 - [Apollo](http://dev.apollodata.com/) - A flexible, fully-featured GraphQL client for every platform.
-- [Webpack 2 (with hot reloading)](https://webpack.js.org/) - webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser. Yet it is also capable of transforming, bundling, or packaging just about any resource or asset.
+- [Create React App](https://github.com/facebookincubator/create-react-app) - is a new officially supported way to create single-page React applications. It offers a modern build setup with no configuration.
 - [ESlint](http://eslint.org/) - ESlint is a pluggable linting utility for JavaScript, and JSX.
 
 ### Backend

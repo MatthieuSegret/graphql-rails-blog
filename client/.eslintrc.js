@@ -1,6 +1,6 @@
 module.exports = {
-  "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": ["react-app", "plugin:jsx-a11y/recommended"],
+  "plugins": ["jsx-a11y"],
   "env": {
     "browser": true,
     "node": true,
@@ -8,7 +8,6 @@ module.exports = {
     "es6": true
   },
   "plugins": [
-    "react",
     "jsx-a11y"
   ],
   "parserOptions": {
@@ -19,8 +18,6 @@ module.exports = {
     }
   },
   "rules": {
-    "import/no-unresolved": 2,
-    "import/no-named-default": 0,
     "comma-dangle": ["error", "never"],
     "indent": [2, 2, { "SwitchCase": 1 }],
     "no-multi-assign": 0,
@@ -42,6 +39,7 @@ module.exports = {
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
     "import/extensions": 0,
+    "import/no-named-default": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": 0,
     "react/forbid-prop-types": 0,

@@ -22,6 +22,7 @@
 
 npm-debug.log
 node_modules
+.vscode
 client/npm-debug.log*
 public/*
 client/data/schema.json

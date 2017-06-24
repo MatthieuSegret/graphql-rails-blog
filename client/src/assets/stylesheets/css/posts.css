@@ -1,0 +1,23 @@
+.all-posts .head-posts, .search-posts .head-posts {
+  margin-top: 40px;
+  margin-bottom: 20px; }
+  .all-posts .head-posts .search-form form input, .search-posts .head-posts .search-form form input {
+    margin-bottom: 0;
+    margin-right: 4px; }
+  .all-posts .head-posts .create-post, .search-posts .head-posts .create-post {
+    float: right; }
+
+.all-posts .title, .search-posts .title {
+  width: 40%; }
+
+.all-posts .load-more, .search-posts .load-more {
+  margin-top: 10px;
+  width: 200px; }
+
+.post .post-content {
+  margin-top: 25px; }
+
+.post .post-meta {
+  color: #999; }
+  .post .post-meta .post-author, .post .post-meta .post-date, .post .post-meta .post-count-comments {
+    margin-right: 20px; }

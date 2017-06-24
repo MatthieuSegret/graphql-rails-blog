@@ -1,0 +1,19 @@
+{
+  "name": "graphql-rails-blog",
+  "short_name": "graphql-rails-blog",
+  "description": null,
+  "dir": "auto",
+  "lang": "en-US",
+  "display": "standalone",
+  "orientation": "any",
+    "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

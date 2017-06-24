@@ -1,0 +1,9 @@
+.edit-user-profile .change-password-link i.glyphicon {
+  margin-right: 8px; }
+
+.edit-user-profile .cancel-account-link {
+  margin-left: 8px; }
+
+.edit-user-profile .change-password, .edit-user-profile .cancel-account {
+  margin-top: 25px;
+  margin-bottom: 25px; }
