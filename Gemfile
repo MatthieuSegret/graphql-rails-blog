@@ -8,7 +8,7 @@ group :development, :test do
 end
 group :production do
   gem 'pg'
-  # gem 'optics-agent'
+  gem 'optics-agent'
 end
 gem 'puma', '~> 3.0'
 gem 'uglifier'

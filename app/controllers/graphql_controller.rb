@@ -1,4 +1,4 @@
-class GraphqlController < ApplicationController
+class GraphqlController < ApiController
   def create
     query_string = params[:query]
     puts GraphQLFormatter.new(query_string) if Rails.env.development?
@@ -8,8 +8,8 @@ class GraphqlController < ApplicationController
       variables: query_variables,
       context: {
         current_user: current_user,
-        warden: warden
-        # optics_agent: (Rails.env.production? ? request.env[:optics_agent].with_document(query_string) : nil)
+        warden: warden,
+        optics_agent: (Rails.env.production? ? request.env[:optics_agent].with_document(query_string) : nil)
       })
     render json: result
   end
