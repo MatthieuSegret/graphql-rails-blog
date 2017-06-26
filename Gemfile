@@ -3,13 +3,6 @@ source 'https://rubygems.org'
 ruby '2.4.1'
 gem 'rails', '5.1.1'
 
-group :development, :test do
-  gem 'sqlite3'
-end
-group :production do
-  gem 'pg'
-  gem 'optics-agent'
-end
 gem 'puma', '~> 3.0'
 gem 'uglifier'
 gem 'devise'
@@ -23,9 +16,15 @@ gem 'rack-cors'
 gem 'rails_12factor'
 gem 'newrelic_rpm'
 
+group :production do
+  gem 'pg'
+  gem 'optics-agent'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'sqlite3'
 end
 
 group :development do

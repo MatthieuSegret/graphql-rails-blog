@@ -1,16 +1,24 @@
 class GraphqlController < ApiController
   def create
-    query_string = params[:query]
-    puts GraphQLFormatter.new(query_string) if Rails.env.development?
-    query_variables = ensure_hash(params[:variables])
-    result = Schema.execute(
-      query_string,
-      variables: query_variables,
-      context: {
-        current_user: current_user,
-        warden: warden,
-        optics_agent: (Rails.env.production? ? request.env[:optics_agent].with_document(query_string) : nil)
-      })
+    queries_params = params[:_json]
+
+    if Rails.env.development?
+      queries_params.each { |query| puts GraphQLFormatter.new(query[:query]) }
+    end
+
+    queries = queries_params.map do |query|
+      {
+        query: query[:query],
+        variables: ensure_hash(query[:variables]),
+        context: {
+          current_user: current_user,
+          warden: warden,
+          optics_agent: (Rails.env.production? ? request.env[:optics_agent].with_document(query[:query]) : nil)
+        }
+      }
+    end
+
+    result = Schema.multiplex(queries)
     render json: result
   end
 

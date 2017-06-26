@@ -2,5 +2,6 @@ Schema = GraphQL::Schema.define do
   query QueryType
   mutation MutationType
 
-  use GraphQL::Batch
+  instrument :query, ConcurrentBatchSetup
+  lazy_resolve GraphQL::Batch::Promise, :sync
 end

@@ -51,7 +51,8 @@ This is a simple blog engine using ordinary features which can be found in most 
 - Validation management and integration with Redux Form
 - Authentication and authorizations
 - Protect queries and mutations on GraphQL API
-- Batching of SQL queries side backend
+- Batching of GraphQL queries into one HTTP request
+- Batching of SQL queries backend side
 
 ## Prerequisites
 
@@ -99,8 +100,10 @@ This is a simple blog engine using ordinary features which can be found in most 
 
 ## Next step
 
-- [ ] Use [query batching in Apollo](https://dev-blog.apollodata.com/query-batching-in-apollo-63acfd859862#.dusr3dyde). Until now GraphQL-Ruby does not support this functionality in a simple way
-- [ ] Parallelism in GraphQL-Ruby
+- [ ] Use subscription GraphQL feature
+- [ ] Migrating to React Router v4
+- [ ] Use TypeScript
+- [ ] Create mobile app with React Native
 
 ## Screens
 

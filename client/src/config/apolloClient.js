@@ -1,7 +1,7 @@
-import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import ApolloClient, { createBatchingNetworkInterface } from 'apollo-client';
 import ROOT_URL from 'config/rootUrl';
 
-const networkInterface = createNetworkInterface({
+const networkInterface = createBatchingNetworkInterface({
   uri: `${ROOT_URL}/graphql`,
   opts: {
     credentials: (process.env.NODE_ENV === 'development') ? 'include' : 'same-origin'
