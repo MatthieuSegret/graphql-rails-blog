@@ -1,21 +1,20 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+ruby '2.4.1'
+gem 'rails', '5.1.1'
 
 group :development, :test do
   gem 'sqlite3'
 end
 group :production do
   gem 'pg'
-  gem 'optics-agent'
+  # gem 'optics-agent'
 end
 gem 'puma', '~> 3.0'
 gem 'uglifier'
 gem 'devise'
 gem 'faker'
-gem 'inherited_resources', github: 'activeadmin/inherited_resources'
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin'
 gem 'graphql'
 gem 'graphql-batch'
 gem 'graphiql-rails'

@@ -13,8 +13,9 @@
   "scripts": {
     "start": "cd client && npm start",
     "build:clean": "rimraf ./public/*",
-    "build": "npm run build:clean && cd client && npm run build",
-    "postinstall": "cd client && npm install && npm run build"
+    "build": "npm run build:clean && cd client && npm install && npm run build && cd ..",
+    "deploy": "cp -a client/build/. public/",
+    "postinstall": "npm run build && npm run deploy && echo 'Client built!'"
   },
   "author": "Matthieu Segret <matthieu.segret@gmail.com>",
   "license": "MIT",

@@ -18,8 +18,8 @@ This is a simple blog engine using ordinary features which can be found in most 
 
 ### Backend
 
-- Ruby 2.3
-- Rails 5
+- Ruby 2.4
+- Rails 5.1
 - [Devise](https://github.com/plataformatec/devise) - Devise is a flexible authentication solution for Rails based on [Warden](https://github.com/hassox/warden).
 - [Active admin](http://activeadmin.info/) - Active Admin is a Ruby on Rails plugin for generating administration style interfaces.
 - [GraphQL-Ruby](https://github.com/rmosolgo/graphql-ruby) - GraphQL-Ruby is a Ruby implementation of [GraphQL](http://graphql.org).
@@ -55,7 +55,7 @@ This is a simple blog engine using ordinary features which can be found in most 
 
 ## Prerequisites
 
-- Ruby 2.3
+- Ruby 2.4
 - [Node.js](https://nodejs.org) v6 or newer + [Yarn](https://yarnpkg.com) package manager
 - SQLite3
 
