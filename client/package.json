@@ -24,7 +24,6 @@
     "babel-polyfill": "6.23.0",
     "bootstrap-sass": "^3.3.7",
     "classnames": "^2.2.5",
-    "express": "4.15.3",
     "moment": "2.18.1",
     "react": "15.6.1",
     "react-apollo": "1.4.2",

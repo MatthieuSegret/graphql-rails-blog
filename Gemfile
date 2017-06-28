@@ -19,6 +19,7 @@ gem 'newrelic_rpm'
 group :production do
   gem 'pg'
   gem 'optics-agent'
+  gem 'heroku-deflater'
 end
 
 group :development, :test do
