@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field, SubmissionError, change } from 'redux-form';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import axios from 'config/axios';
 import RenderField from 'components/form/RenderField';

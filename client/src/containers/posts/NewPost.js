@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import PostForm from 'containers/posts/_PostForm';
 import withCreatePost from 'mutations/posts/createPostMutation';

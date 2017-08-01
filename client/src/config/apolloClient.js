@@ -10,6 +10,7 @@ const networkInterface = createBatchingNetworkInterface({
 
 export default new ApolloClient({
   networkInterface,
+  queryDeduplication: true,
   dataIdFromObject: (result) => {
     if (result.id && result.__typename) {
       return result.__typename + result.id;

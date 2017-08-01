@@ -16,7 +16,7 @@ export default function (WrappedComponent) {
   const withPost = graphql(GET_POST, {
     options: (ownProps) => ({
       variables: {
-        id: ownProps.params.id
+        id: ownProps.match.params.id
       }
     })
   });

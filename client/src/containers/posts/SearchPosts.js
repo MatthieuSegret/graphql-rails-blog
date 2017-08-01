@@ -10,18 +10,18 @@ class SearchPosts extends Component {
     data: PropTypes.object,
     loadMorePosts: PropTypes.func,
     firstPostsLoading: PropTypes.bool,
-    params: PropTypes.object
+    match: PropTypes.object
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextProps.params.keywords !== this.props.params.keywords) {
+    if (nextProps.match.params.keywords !== this.props.match.params.keywords) {
       this.props.data.posts = [];
     }
   }
 
   render() {
     const { posts, postsCount, loading } = this.props.data;
-    const { params: { keywords }, loadMorePosts, firstPostsLoading } = this.props;
+    const { match: { params: { keywords } }, loadMorePosts, firstPostsLoading } = this.props;
 
     return (
       <div className="search-posts">

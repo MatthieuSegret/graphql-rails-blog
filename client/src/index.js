@@ -2,16 +2,18 @@ import 'babel-polyfill';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { BrowserRouter as Router } from 'react-router-dom'
 import { ApolloProvider } from 'react-apollo';
 
 import client from 'config/apolloClient';
 import store from 'config/store';
-import routes from 'config/routes';
+import App from 'containers/layouts/App';
 
 ReactDOM.render(
   <ApolloProvider store={store} client={client}>
-    <Router history={browserHistory} routes={routes} />
+    <Router>
+      <App />
+    </Router>
   </ApolloProvider>,
   document.getElementById('application')
 );

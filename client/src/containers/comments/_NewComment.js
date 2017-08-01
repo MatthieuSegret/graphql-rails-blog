@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';

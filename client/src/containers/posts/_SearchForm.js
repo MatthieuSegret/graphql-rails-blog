@@ -8,7 +8,7 @@ class SearchForm extends Component {
   static propTypes = {
     initialKeywords: PropTypes.string,
     loading: PropTypes.bool,
-    router: PropTypes.object
+    history: PropTypes.object
   }
 
   static defaultProps = {
@@ -34,7 +34,7 @@ class SearchForm extends Component {
     event.preventDefault();
     const { keywords } = this.state;
     const pathName = (keywords) ? `/posts/search/${keywords}` : '/';
-    this.props.router.push(pathName);
+    this.props.history.push(pathName);
   }
 
   render() {

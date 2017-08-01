@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import withDestroyPost from 'mutations/posts/destroyPostMutation';
@@ -31,11 +31,11 @@ class PostPreview extends Component {
 
     return (
       <tr>
-        <td className="title"><Link to={`posts/${post.id}`}>{post.title}</Link></td>
+        <td className="title"><Link to={`/posts/${post.id}`}>{post.title}</Link></td>
         <td>{ post.author.name }</td>
         <td>{ moment(new Date(post.created_at)).fromNow() }</td>
         {currentUser ? [
-          <td key="post-edit"><Link to={`posts/${post.id}/edit`}>Edit</Link></td>,
+          <td key="post-edit"><Link to={`/posts/${post.id}/edit`}>Edit</Link></td>,
           <td key="post-delete"><button className="btn btn-default btn-xs" onClick={this.destroy}>Delete</button></td>
         ] : null}
       </tr>

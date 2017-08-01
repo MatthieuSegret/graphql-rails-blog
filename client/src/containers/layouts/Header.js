@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { withApollo } from 'react-apollo';
 
 import withFlashMessage from 'components/withFlashMessage';
@@ -40,7 +40,7 @@ class Header extends Component {
     if (currentUser) {
       return (
         <ul className="nav navbar-nav navbar-right">
-          <li><Link to="users/profile/edit">{currentUser.name}</Link></li>
+          <li><Link to="/users/profile/edit">{currentUser.name}</Link></li>
           <li><a href="#logout" onClick={this.logout}>Logout</a></li>
         </ul>
       );
