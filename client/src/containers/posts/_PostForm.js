@@ -10,7 +10,7 @@ class PostForm extends Component {
     action: PropTypes.func,
     submitName: PropTypes.string.isRequired,
     handleSubmit: PropTypes.func
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -20,7 +20,7 @@ class PostForm extends Component {
 
   submitForm(values) {
     this.setState({ loading: true });
-    return this.props.action(values).then((errors) => {
+    return this.props.action(values).then(errors => {
       if (errors) {
         this.setState({ loading: false });
         throw new SubmissionError(errors);
@@ -44,8 +44,12 @@ class PostForm extends Component {
 
 function validate(values) {
   const errors = {};
-  if (!values.title) { errors.title = "can't be blank"; }
-  if (!values.content) { errors.content = "can't be blank"; }
+  if (!values.title) {
+    errors.title = "can't be blank";
+  }
+  if (!values.content) {
+    errors.content = "can't be blank";
+  }
   return errors;
 }
 

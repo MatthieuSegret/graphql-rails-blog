@@ -4,7 +4,9 @@ export default {
 
     if (signUp) {
       const currentUser = signUp.currentUser;
-      if (!currentUser) { return null; }
+      if (!currentUser) {
+        return null;
+      }
       return { currentUser };
     }
 

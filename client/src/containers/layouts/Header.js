@@ -7,14 +7,13 @@ import withFlashMessage from 'components/withFlashMessage';
 import axios from 'config/axios';
 
 class Header extends Component {
-
   static propTypes = {
     redirect: PropTypes.func,
     error: PropTypes.func,
     currentUser: PropTypes.object,
     currentUserLoading: PropTypes.bool,
     client: PropTypes.object
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -23,7 +22,7 @@ class Header extends Component {
 
   logout(event) {
     event.preventDefault();
-    axios.delete('/users/sign_out').then((response) => {
+    axios.delete('/users/sign_out').then(response => {
       if (response.status !== 204) {
         this.props.error("Oops, we're sorry, but something went wrong");
       } else {
@@ -35,21 +34,35 @@ class Header extends Component {
 
   renderSignInLinks() {
     const { currentUser, currentUserLoading } = this.props;
-    if (currentUserLoading) { return null; }
+    if (currentUserLoading) {
+      return null;
+    }
 
     if (currentUser) {
       return (
         <ul className="nav navbar-nav navbar-right">
-          <li><Link to="/users/profile/edit">{currentUser.name}</Link></li>
-          <li><a href="#logout" onClick={this.logout}>Logout</a></li>
+          <li>
+            <Link to="/users/profile/edit">
+              {currentUser.name}
+            </Link>
+          </li>
+          <li>
+            <a href="#logout" onClick={this.logout}>
+              Logout
+            </a>
+          </li>
         </ul>
       );
     }
 
     return (
       <ul className="nav navbar-nav navbar-right">
-        <li><Link to="/users/signup">Register</Link></li>
-        <li><Link to="/users/signin">Login</Link></li>
+        <li>
+          <Link to="/users/signup">Register</Link>
+        </li>
+        <li>
+          <Link to="/users/signin">Login</Link>
+        </li>
       </ul>
     );
   }

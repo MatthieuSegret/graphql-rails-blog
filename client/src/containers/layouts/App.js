@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom';
 
 import AllPosts from 'containers/posts/AllPosts';
 import SearchPosts from 'containers/posts/SearchPosts';
@@ -26,7 +26,7 @@ class App extends Component {
   static propTypes = {
     currentUser: PropTypes.object,
     currentUserLoading: PropTypes.bool
-  }
+  };
 
   render() {
     const { currentUser, currentUserLoading } = this.props;
@@ -46,7 +46,10 @@ class App extends Component {
             <Route path="/users/signin" component={SignInUser} />
             <Route path="/users/signup" component={SignUpUser} />
             <Route path="/users/profile/edit" component={UserIsAuthenticated(EditUserProfile)} />
-            <Route path="/users/password/edit" component={UserIsAuthenticated(ChangeUserPassword)} />
+            <Route
+              path="/users/password/edit"
+              component={UserIsAuthenticated(ChangeUserPassword)}
+            />
             <Route component={NotFound} />
           </Switch>
         </div>

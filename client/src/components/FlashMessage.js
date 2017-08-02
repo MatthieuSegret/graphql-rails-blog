@@ -8,7 +8,7 @@ class FlashMessage extends Component {
   static propTypes = {
     message: PropTypes.object,
     deleteFlashMessage: PropTypes.func
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -20,12 +20,21 @@ class FlashMessage extends Component {
   }
 
   render() {
-    if (!this.props.message) { return null; }
+    if (!this.props.message) {
+      return null;
+    }
 
     const { type, text } = this.props.message;
     return (
-      <div className={classnames('alert', { 'alert-success': type === 'notice', 'alert-danger': type === 'error' })}>
-        <button onClick={this.onClick} className="close"><span>&times;</span></button>
+      <div
+        className={classnames('alert', {
+          'alert-success': type === 'notice',
+          'alert-danger': type === 'error'
+        })}
+      >
+        <button onClick={this.onClick} className="close">
+          <span>&times;</span>
+        </button>
         {text}
       </div>
     );

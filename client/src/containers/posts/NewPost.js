@@ -8,7 +8,7 @@ import withCreatePost from 'mutations/posts/createPostMutation';
 class NewPost extends Component {
   static propTypes = {
     createPost: PropTypes.func
-  }
+  };
 
   render() {
     return (

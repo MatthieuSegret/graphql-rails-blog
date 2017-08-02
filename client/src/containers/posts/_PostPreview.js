@@ -12,7 +12,7 @@ class PostPreview extends Component {
     post: PropTypes.object.isRequired,
     destroyPost: PropTypes.func.isRequired,
     currentUser: PropTypes.object
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -31,13 +31,29 @@ class PostPreview extends Component {
 
     return (
       <tr>
-        <td className="title"><Link to={`/posts/${post.id}`}>{post.title}</Link></td>
-        <td>{ post.author.name }</td>
-        <td>{ moment(new Date(post.created_at)).fromNow() }</td>
-        {currentUser ? [
-          <td key="post-edit"><Link to={`/posts/${post.id}/edit`}>Edit</Link></td>,
-          <td key="post-delete"><button className="btn btn-default btn-xs" onClick={this.destroy}>Delete</button></td>
-        ] : null}
+        <td className="title">
+          <Link to={`/posts/${post.id}`}>
+            {post.title}
+          </Link>
+        </td>
+        <td>
+          {post.author.name}
+        </td>
+        <td>
+          {moment(new Date(post.created_at)).fromNow()}
+        </td>
+        {currentUser
+          ? [
+              <td key="post-edit">
+                <Link to={`/posts/${post.id}/edit`}>Edit</Link>
+              </td>,
+              <td key="post-delete">
+                <button className="btn btn-default btn-xs" onClick={this.destroy}>
+                  Delete
+                </button>
+              </td>
+            ]
+          : null}
       </tr>
     );
   }
@@ -46,11 +62,11 @@ class PostPreview extends Component {
 export const fragments = {
   post: gql`
     fragment PostPreviewFragment on Post {
-      id,
-      title,
-      created_at,
+      id
+      title
+      created_at
       author {
-        id,
+        id
         name
       }
     }

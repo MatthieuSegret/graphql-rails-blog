@@ -11,15 +11,15 @@ export default class RenderField extends Component {
     placeholder: PropTypes.string,
     label: PropTypes.string,
     initialValue: PropTypes.object,
-    hint: PropTypes.string,
-  }
+    hint: PropTypes.string
+  };
 
   static defaultProps = {
     type: 'text',
     rows: 6,
     placeholder: '',
     label: ''
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -31,9 +31,25 @@ export default class RenderField extends Component {
   input() {
     const { input, type, rows, placeholder, input: { name } } = this.props;
     if (type === 'textarea') {
-      return <textarea className="string optional form-control" rows={rows} id={name} placeholder={placeholder} {...input} />;
+      return (
+        <textarea
+          className="string optional form-control"
+          rows={rows}
+          id={name}
+          placeholder={placeholder}
+          {...input}
+        />
+      );
     }
-    return <input type={type} className="string optional form-control" id={name} placeholder={placeholder} {...input} />;
+    return (
+      <input
+        type={type}
+        className="string optional form-control"
+        id={name}
+        placeholder={placeholder}
+        {...input}
+      />
+    );
   }
 
   render() {
@@ -41,12 +57,19 @@ export default class RenderField extends Component {
 
     return (
       <div className={`form-group ${meta.touched && meta.invalid ? 'has-error' : ''}`}>
-        <label className="string optional control-label" htmlFor={name}>{this.state.label}</label>
+        <label className="string optional control-label" htmlFor={name}>
+          {this.state.label}
+        </label>
         {this.input()}
-        { meta.touched &&
+        {meta.touched &&
           meta.error &&
-          <span className="help-block">{meta.error}</span>}
-        { hint && <p className="help-block">{hint}</p>}
+          <span className="help-block">
+            {meta.error}
+          </span>}
+        {hint &&
+          <p className="help-block">
+            {hint}
+          </p>}
       </div>
     );
   }

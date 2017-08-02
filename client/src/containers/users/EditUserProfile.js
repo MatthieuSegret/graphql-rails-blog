@@ -22,7 +22,7 @@ class EditUserProfile extends Component {
     error: PropTypes.func,
     updateUser: PropTypes.func,
     handleSubmit: PropTypes.func
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ class EditUserProfile extends Component {
 
   submitForm(values) {
     this.setState({ loading: true });
-    return this.props.updateUser(values).then((errors) => {
+    return this.props.updateUser(values).then(errors => {
       if (errors) {
         this.setState({ loading: false });
         throw new SubmissionError(errors);
@@ -43,12 +43,15 @@ class EditUserProfile extends Component {
 
   cancelAccount() {
     if (window.confirm('Are you sure ?')) {
-      return axios.delete('/users').then((response) => {
+      return axios.delete('/users').then(response => {
         if (response.status !== 204) {
           this.props.error("Oops, we're sorry, but something went wrong");
         } else {
           this.props.client.resetStore();
-          this.props.redirect('/', { notice: 'Bye! Your account has been successfully cancelled. We hope to see you again soon.' });
+          this.props.redirect('/', {
+            notice:
+              'Bye! Your account has been successfully cancelled. We hope to see you again soon.'
+          });
         }
       });
     }
@@ -57,7 +60,9 @@ class EditUserProfile extends Component {
 
   render() {
     const { data: { loading: getUserloading } } = this.props;
-    if (getUserloading) { return <Loading />; }
+    if (getUserloading) {
+      return <Loading />;
+    }
     const { loading } = this.state;
 
     return (
@@ -78,7 +83,12 @@ class EditUserProfile extends Component {
         <div className="cancel-account">
           <h3>Cancel my account</h3>
           Unhappy?
-          <button onClick={this.cancelAccount} className="btn btn-default btn-xs cancel-account-link">Cancel my account</button>
+          <button
+            onClick={this.cancelAccount}
+            className="btn btn-default btn-xs cancel-account-link"
+          >
+            Cancel my account
+          </button>
         </div>
         <Link to="/">Back</Link>
       </div>
@@ -89,8 +99,8 @@ class EditUserProfile extends Component {
 export const fragments = {
   user: gql`
     fragment UserForEditingFragment on User {
-      id,
-      name,
+      id
+      name
       email
     }
   `
@@ -98,18 +108,24 @@ export const fragments = {
 
 function validate(values) {
   const errors = {};
-  if (!values.name) { errors.name = "can't be blank"; }
-  if (!values.email) { errors.email = "can't be blank"; }
+  if (!values.name) {
+    errors.name = "can't be blank";
+  }
+  if (!values.email) {
+    errors.email = "can't be blank";
+  }
   return errors;
 }
 
-export default withUserForEditing(withUpdateUser(
-  connect(
-    (state, props) => ({
+export default withUserForEditing(
+  withUpdateUser(
+    connect((state, props) => ({
       initialValues: props.currentUser
-    })
-  )(reduxForm({
-    form: 'EditUserProfileForm',
-    validate
-  })(withFlashMessage(withApollo(EditUserProfile))))
-));
+    }))(
+      reduxForm({
+        form: 'EditUserProfileForm',
+        validate
+      })(withFlashMessage(withApollo(EditUserProfile)))
+    )
+  )
+);

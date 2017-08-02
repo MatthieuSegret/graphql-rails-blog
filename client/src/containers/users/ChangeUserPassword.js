@@ -12,7 +12,7 @@ class ChangeUserPassword extends Component {
     changePassword: PropTypes.func,
     change: PropTypes.func,
     handleSubmit: PropTypes.func
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -22,7 +22,7 @@ class ChangeUserPassword extends Component {
 
   submitForm(values) {
     this.setState({ loading: true });
-    return this.props.changePassword(values).then((errors) => {
+    return this.props.changePassword(values).then(errors => {
       if (errors) {
         this.setState({ loading: false });
         this.props.change('ChangeUserPasswordForm', 'password', '');
@@ -40,9 +40,25 @@ class ChangeUserPassword extends Component {
       <div className="change-user-password">
         <h1>Change password</h1>
         <form onSubmit={this.props.handleSubmit(this.submitForm)}>
-          <Field name="password" component={RenderField} type="password" hint="leave it blank if you don't want to change it" />
-          <Field name="password_confirmation" component={RenderField} type="password" label="Password confirmation" />
-          <Field name="current_password" component={RenderField} type="password" label="Current password" hint="we need your current password to confirm your changes" />
+          <Field
+            name="password"
+            component={RenderField}
+            type="password"
+            hint="leave it blank if you don't want to change it"
+          />
+          <Field
+            name="password_confirmation"
+            component={RenderField}
+            type="password"
+            label="Password confirmation"
+          />
+          <Field
+            name="current_password"
+            component={RenderField}
+            type="password"
+            label="Current password"
+            hint="we need your current password to confirm your changes"
+          />
           <Button loading={loading} value="Update" />
         </form>
       </div>

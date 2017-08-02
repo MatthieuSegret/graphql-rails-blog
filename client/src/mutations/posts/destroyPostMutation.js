@@ -5,15 +5,15 @@ import formatErrors from 'utils/errorsUtils';
 import withFlashMessage from 'components/withFlashMessage';
 import updateQueries from 'reducers/postsReducer';
 
-export default function (WrappedComponent) {
+export default function(WrappedComponent) {
   const DESTROY_POST = gql`
     mutation destroyPost($id: ID) {
       destroyPost(input: { id: $id }) {
         post {
           id
-        },
+        }
         errors {
-          attribute,
+          attribute
           message
         }
       }
@@ -31,7 +31,6 @@ export default function (WrappedComponent) {
 
   const withDestroyPost = graphql(DESTROY_POST, {
     props: ({ ownProps, mutate }) => ({
-
       destroyPost(postID) {
         return mutate({
           variables: { id: postID },

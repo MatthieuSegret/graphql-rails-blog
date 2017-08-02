@@ -11,7 +11,7 @@ class SearchPosts extends Component {
     loadMorePosts: PropTypes.func,
     firstPostsLoading: PropTypes.bool,
     match: PropTypes.object
-  }
+  };
 
   componentWillUpdate(nextProps, nextState) {
     if (nextProps.match.params.keywords !== this.props.match.params.keywords) {
@@ -28,10 +28,14 @@ class SearchPosts extends Component {
         <h1>Searching posts</h1>
         <HeadListPosts initialKeywords={keywords} loading={firstPostsLoading} />
 
-        {(!firstPostsLoading && posts && posts.length === 0) ?
-          <h3>Pas de résultats ...</h3>
-        :
-          <ListPosts posts={posts} postsCount={postsCount} loading={loading} loadMorePosts={loadMorePosts} />}
+        {!firstPostsLoading && posts && posts.length === 0
+          ? <h3>Pas de résultats ...</h3>
+          : <ListPosts
+              posts={posts}
+              postsCount={postsCount}
+              loading={loading}
+              loadMorePosts={loadMorePosts}
+            />}
       </div>
     );
   }

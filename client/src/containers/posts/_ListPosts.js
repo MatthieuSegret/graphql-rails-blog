@@ -13,7 +13,7 @@ class ListPosts extends Component {
     loading: PropTypes.bool,
     loadMorePosts: PropTypes.func,
     currentUser: PropTypes.object
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -22,8 +22,10 @@ class ListPosts extends Component {
 
   postsPreview() {
     const { posts } = this.props;
-    if (!posts) { return null; }
-    return posts.map((post) => {
+    if (!posts) {
+      return null;
+    }
+    return posts.map(post => {
       return <PostPreview key={post.id} post={post} />;
     });
   }
@@ -49,8 +51,14 @@ class ListPosts extends Component {
 
         {loading ? <Loading /> : null}
 
-        {(!loading && posts && posts.length < postsCount) ?
-          <button className="btn btn-sm btn-default center-block load-more" onClick={loadMorePosts}>Load more</button> : null}
+        {!loading && posts && posts.length < postsCount
+          ? <button
+              className="btn btn-sm btn-default center-block load-more"
+              onClick={loadMorePosts}
+            >
+              Load more
+            </button>
+          : null}
       </div>
     );
   }

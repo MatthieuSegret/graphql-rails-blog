@@ -10,7 +10,7 @@ export default function withFlashMessage(WrappedComponent) {
       notice: PropTypes.func,
       error: PropTypes.func,
       history: PropTypes.object
-    }
+    };
 
     constructor(props) {
       super(props);
@@ -19,8 +19,12 @@ export default function withFlashMessage(WrappedComponent) {
 
     redirect(path, message) {
       this.props.history.push(path);
-      if (message && message.error) { this.props.error(message.error); }
-      if (message && message.notice) { this.props.notice(message.notice); }
+      if (message && message.error) {
+        this.props.error(message.error);
+      }
+      if (message && message.notice) {
+        this.props.notice(message.notice);
+      }
     }
 
     render() {

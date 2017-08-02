@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 
 import { fragments } from 'containers/posts/EditPost';
 
-export default function (WrappedComponent) {
+export default function(WrappedComponent) {
   const GET_POST = gql`
     query getPost($id: ID) {
       post(id: $id) {
@@ -14,7 +14,7 @@ export default function (WrappedComponent) {
   `;
 
   const withPostForEditing = graphql(GET_POST, {
-    options: (ownProps) => ({
+    options: ownProps => ({
       variables: {
         id: ownProps.match.params.id
       },

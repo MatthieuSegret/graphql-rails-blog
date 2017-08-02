@@ -18,7 +18,7 @@ class SignUpUser extends Component {
     handleSubmit: PropTypes.func,
     signUp: PropTypes.func,
     refetchPosts: PropTypes.func
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -27,7 +27,7 @@ class SignUpUser extends Component {
 
   submitForm(values) {
     const { signUp } = this.props;
-    return signUp(values).then((errors) => {
+    return signUp(values).then(errors => {
       if (!errors) {
         this.props.refetchPosts();
         this.props.redirect('/', { notice: 'Welcome! You have signed up successfully.' });
@@ -46,8 +46,18 @@ class SignUpUser extends Component {
         <form onSubmit={this.props.handleSubmit(this.submitForm)}>
           <Field name="name" component={RenderField} type="text" />
           <Field name="email" component={RenderField} type="text" />
-          <Field name="password" component={RenderField} type="password" hint="6 characters minimum" />
-          <Field name="password_confirmation" component={RenderField} type="password" label="Password confirmation" />
+          <Field
+            name="password"
+            component={RenderField}
+            type="password"
+            hint="6 characters minimum"
+          />
+          <Field
+            name="password_confirmation"
+            component={RenderField}
+            type="password"
+            label="Password confirmation"
+          />
           <Button value="Sign up" />
         </form>
         <Link to="/users/signin">Log in</Link>
@@ -58,10 +68,18 @@ class SignUpUser extends Component {
 
 function validate(values) {
   const errors = {};
-  if (!values.name) { errors.name = "can't be blank"; }
-  if (!values.email) { errors.email = "can't be blank"; }
-  if (!values.password) { errors.password = "can't be blank"; }
-  if (!values.password_confirmation) { errors.password_confirmation = "can't be blank"; }
+  if (!values.name) {
+    errors.name = "can't be blank";
+  }
+  if (!values.email) {
+    errors.email = "can't be blank";
+  }
+  if (!values.password) {
+    errors.password = "can't be blank";
+  }
+  if (!values.password_confirmation) {
+    errors.password_confirmation = "can't be blank";
+  }
   return errors;
 }
 

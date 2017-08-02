@@ -4,7 +4,9 @@ export default {
 
     if (createPost) {
       const newPost = createPost.newPost;
-      if (!newPost) { return null; }
+      if (!newPost) {
+        return null;
+      }
       return {
         posts: [newPost, ...state.posts],
         postsCount: state.postsCount + 1
@@ -13,7 +15,9 @@ export default {
 
     if (destroyPost) {
       const postDestroyed = destroyPost.post;
-      if (!postDestroyed) { return null; }
+      if (!postDestroyed) {
+        return null;
+      }
       return {
         posts: state.posts.filter(post => post.id !== postDestroyed.id),
         postsCount: state.postsCount - 1

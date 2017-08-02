@@ -7,18 +7,24 @@ export default class Button extends Component {
     value: PropTypes.string.isRequired,
     className: PropTypes.string,
     loading: PropTypes.bool
-  }
+  };
 
   static defaultProps = {
     loading: false,
     className: ''
-  }
+  };
 
   render() {
     const { loading, value, className } = this.props;
 
     return (
-      <button type="submit" className={classnames('btn btn-default', className)} disabled={loading ? 'disabled' : false}>{loading ? 'Loading...' : value}</button>
+      <button
+        type="submit"
+        className={classnames('btn btn-default', className)}
+        disabled={loading ? 'disabled' : false}
+      >
+        {loading ? 'Loading...' : value}
+      </button>
     );
   }
 }

@@ -5,16 +5,28 @@ import formatErrors from 'utils/errorsUtils';
 import withFlashMessage from 'components/withFlashMessage';
 import updateQueries from 'reducers/usersReducer';
 
-export default function (WrappedComponent) {
+export default function(WrappedComponent) {
   const SIGN_UP = gql`
-    mutation signUp($name: String, $email: String, $password: String, $password_confirmation: String) {
-      signUp(input: { name: $name, email: $email, password: $password, password_confirmation: $password_confirmation }) {
+    mutation signUp(
+      $name: String
+      $email: String
+      $password: String
+      $password_confirmation: String
+    ) {
+      signUp(
+        input: {
+          name: $name
+          email: $email
+          password: $password
+          password_confirmation: $password_confirmation
+        }
+      ) {
         currentUser: user {
-          name,
+          name
           email
-        },
+        }
         errors {
-          attribute,
+          attribute
           message
         }
       }
@@ -31,10 +43,12 @@ export default function (WrappedComponent) {
         return mutate({
           variables: { ...user },
           updateQueries
-        }).then(onResult.bind(ownProps)).catch((error) => {
-          console.log(error);
-          ownProps.error("Oops, we're sorry, but something went wrong");
-        });
+        })
+          .then(onResult.bind(ownProps))
+          .catch(error => {
+            console.log(error);
+            ownProps.error("Oops, we're sorry, but something went wrong");
+          });
       }
     })
   });

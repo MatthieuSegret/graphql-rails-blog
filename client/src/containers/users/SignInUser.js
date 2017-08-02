@@ -20,7 +20,7 @@ class SignInUser extends Component {
     error: PropTypes.func,
     currentUser: PropTypes.object,
     currentUserLoading: PropTypes.bool
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -44,19 +44,22 @@ class SignInUser extends Component {
   }
 
   submitForm(values) {
-    return axios.post('/users/sign_in', { user: values }).then((response) => {
-      if (response.status === 201) {
-        this.props.client.resetStore();
-        fetchCurrentUser().then(() => {
-          this.props.redirect('/', { notice: 'Signed in successfully.' });
-        });
-      }
-    }).catch((err) => {
-      console.log(err);
-      this.props.change('SignInForm', 'password', '');
-      this.props.error('Invalid Email or password.');
-      throw new SubmissionError({ _error: 'Login failed' });
-    });
+    return axios
+      .post('/users/sign_in', { user: values })
+      .then(response => {
+        if (response.status === 201) {
+          this.props.client.resetStore();
+          fetchCurrentUser().then(() => {
+            this.props.redirect('/', { notice: 'Signed in successfully.' });
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        this.props.change('SignInForm', 'password', '');
+        this.props.error('Invalid Email or password.');
+        throw new SubmissionError({ _error: 'Login failed' });
+      });
   }
 
   render() {

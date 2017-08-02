@@ -10,7 +10,7 @@ class ListPosts extends Component {
     keywords: PropTypes.string,
     searchLoading: PropTypes.bool,
     currentUser: PropTypes.object
-  }
+  };
 
   render() {
     const { keywords, searchLoading, currentUser } = this.props;
@@ -20,11 +20,13 @@ class ListPosts extends Component {
         <div className="col-md-8">
           <SearchForm initialKeywords={keywords} loading={searchLoading} />
         </div>
-        {currentUser ?
-          <div className="col-md-4">
-            <Link to="/posts/new" className="btn btn-primary create-post">New Post</Link>
-          </div>
-        : null}
+        {currentUser
+          ? <div className="col-md-4">
+              <Link to="/posts/new" className="btn btn-primary create-post">
+                New Post
+              </Link>
+            </div>
+          : null}
       </div>
     );
   }

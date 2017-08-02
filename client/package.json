@@ -35,8 +35,10 @@
     "shortid": "2.2.8"
   },
   "devDependencies": {
+    "eslint-config-prettier": "^2.3.0",
     "node-sass": "^4.5.3",
     "npm-run-all": "^4.0.2",
+    "prettier": "^1.5.3",
     "react-scripts": "1.0.10"
   }
 }

@@ -2,7 +2,6 @@ import { ADD_FLASH_MESSAGE, DELETE_FLASH_MESSAGE } from 'actions/flashActions';
 
 export default (state = null, action = {}) => {
   switch (action.type) {
-
     case ADD_FLASH_MESSAGE: {
       return action.message;
     }
@@ -11,6 +10,7 @@ export default (state = null, action = {}) => {
       return null;
     }
 
-    default: return state;
+    default:
+      return state;
   }
 };

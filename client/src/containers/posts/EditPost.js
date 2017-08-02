@@ -12,16 +12,22 @@ class EditPost extends Component {
   static propTypes = {
     data: PropTypes.object,
     updatePost: PropTypes.func
-  }
+  };
 
   render() {
     const { data: { post, loading } } = this.props;
-    if (loading) { return <Loading />; }
+    if (loading) {
+      return <Loading />;
+    }
 
     return (
       <div>
         <h1>Editing post</h1>
-        <PostForm action={this.props.updatePost} initialValues={{ ...post }} submitName="Update Post" />
+        <PostForm
+          action={this.props.updatePost}
+          initialValues={{ ...post }}
+          submitName="Update Post"
+        />
         <Link to="/">Back</Link>
       </div>
     );
@@ -31,8 +37,8 @@ class EditPost extends Component {
 export const fragments = {
   post: gql`
     fragment PostForEditingFragment on Post {
-      id,
-      title,
+      id
+      title
       content
     }
   `

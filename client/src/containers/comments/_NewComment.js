@@ -15,7 +15,7 @@ class NewComment extends Component {
     handleSubmit: PropTypes.func,
     reset: PropTypes.func,
     currentUser: PropTypes.object
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -26,9 +26,13 @@ class NewComment extends Component {
   submitForm(values) {
     const { createComment, postId, reset } = this.props;
     this.setState({ loading: true });
-    return createComment(postId, values).then((errors) => {
+    return createComment(postId, values).then(errors => {
       this.setState({ loading: false });
-      if (errors) { throw new SubmissionError(errors); } else { reset(); }
+      if (errors) {
+        throw new SubmissionError(errors);
+      } else {
+        reset();
+      }
     });
   }
 
@@ -38,14 +42,23 @@ class NewComment extends Component {
 
     if (!currentUser) {
       return (
-        <p>You need to <Link to="/users/signin">sign in</Link> or <Link to="/users/signup">sign up</Link> before continuing.</p>
+        <p>
+          You need to <Link to="/users/signin">sign in</Link> or{' '}
+          <Link to="/users/signup">sign up</Link> before continuing.
+        </p>
       );
     }
 
     return (
       <div className="new-comment">
         <form onSubmit={handleSubmit(this.submitForm)}>
-          <Field name="content" component={RenderField} type="textarea" rows={2} label="New comment" />
+          <Field
+            name="content"
+            component={RenderField}
+            type="textarea"
+            rows={2}
+            label="New comment"
+          />
           <Button loading={loading} value="Create comment" />
         </form>
       </div>

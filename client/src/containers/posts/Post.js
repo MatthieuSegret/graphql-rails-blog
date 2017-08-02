@@ -11,7 +11,7 @@ import withPost from 'queries/posts/postQuery';
 class Post extends Component {
   static propTypes = {
     data: PropTypes.object
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -20,30 +20,34 @@ class Post extends Component {
 
   listComments() {
     const { comments } = this.props.data.post;
-    if (!comments || comments.length === 0) { return null; }
-    return comments.map((comment) => {
+    if (!comments || comments.length === 0) {
+      return null;
+    }
+    return comments.map(comment => {
       return <Comment key={comment.id} comment={comment} />;
     });
   }
 
   render() {
     const { post, loading } = this.props.data;
-    if (loading) { return <Loading />; }
+    if (loading) {
+      return <Loading />;
+    }
 
     return (
       <article className="post">
         <h2 className="post-heading">
-          { post.title }
+          {post.title}
         </h2>
         <div className="post-meta">
           <span className="post-author">
-            Posted by: <em>{ post.author.name }</em>
+            Posted by: <em>{post.author.name}</em>
           </span>
           <span className="post-date">
-            { moment(new Date(post.created_at)).fromNow() }
+            {moment(new Date(post.created_at)).fromNow()}
           </span>
           <span className="post-count-comments">
-            Comments: { post.comments_count }
+            Comments: {post.comments_count}
           </span>
         </div>
         <div className="post-content">

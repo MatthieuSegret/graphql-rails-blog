@@ -15,12 +15,12 @@ const GET_POSTS = gql`
 `;
 
 export default graphql(GET_POSTS, {
-  options: (ownProps) => ({
+  options: ownProps => ({
     variables: { offset: 0, keywords: ownProps.match.params.keywords }
   }),
   props: ({ data }) => {
     const { variables: { offset }, loading } = data;
-    const firstPostsLoading = (loading && offset === 0);
+    const firstPostsLoading = loading && offset === 0;
     return {
       data,
       firstPostsLoading,

@@ -9,7 +9,7 @@ export default function UserIsAuthenticated(WrappedComponent) {
     static propTypes = {
       redirect: PropTypes.func,
       currentUser: PropTypes.object
-    }
+    };
 
     constructor(props) {
       super(props);
@@ -27,7 +27,9 @@ export default function UserIsAuthenticated(WrappedComponent) {
     redirectIfUserIsNotAuthenticated(props = null) {
       const { currentUser } = props || this.props;
       if (!currentUser) {
-        this.props.redirect('/users/signin', { error: 'You need to sign in or sign up before continuing.' });
+        this.props.redirect('/users/signin', {
+          error: 'You need to sign in or sign up before continuing.'
+        });
       }
     }
 

@@ -4,7 +4,9 @@ export default {
 
     if (createComment) {
       const newComment = createComment.newComment;
-      if (!newComment) { return null; }
+      if (!newComment) {
+        return null;
+      }
       return {
         post: {
           ...state.post,

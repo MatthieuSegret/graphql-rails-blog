@@ -5,15 +5,25 @@ import formatErrors from 'utils/errorsUtils';
 import withFlashMessage from 'components/withFlashMessage';
 import { fragments } from 'containers/users/EditUserProfile';
 
-export default function (WrappedComponent) {
+export default function(WrappedComponent) {
   const CHANGE_PASSWORD = gql`
-    mutation changePassword($password: String, $password_confirmation: String, $current_password: String) {
-      changePassword(input: { password: $password, password_confirmation: $password_confirmation, current_password: $current_password }) {
+    mutation changePassword(
+      $password: String
+      $password_confirmation: String
+      $current_password: String
+    ) {
+      changePassword(
+        input: {
+          password: $password
+          password_confirmation: $password_confirmation
+          current_password: $current_password
+        }
+      ) {
         user {
           ...UserForEditingFragment
-        },
+        }
         errors {
-          attribute,
+          attribute
           message
         }
       }
@@ -26,7 +36,7 @@ export default function (WrappedComponent) {
     if (!errors) {
       this.redirect('/', { notice: 'User password was successfully updated' });
     } else {
-      const errorMsg = (errors.base) ? errors.base : '';
+      const errorMsg = errors.base ? errors.base : '';
       this.error(`Please review the problems below: ${errorMsg}`);
     }
     return errors;
@@ -37,9 +47,11 @@ export default function (WrappedComponent) {
       changePassword(user) {
         return mutate({
           variables: { ...user }
-        }).then(onResult.bind(ownProps)).catch((error) => {
-          ownProps.error("Oops, we're sorry, but something went wrong");
-        });
+        })
+          .then(onResult.bind(ownProps))
+          .catch(error => {
+            ownProps.error("Oops, we're sorry, but something went wrong");
+          });
       }
     })
   });

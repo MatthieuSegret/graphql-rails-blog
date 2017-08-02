@@ -7,6 +7,6 @@ export default createStore(
   {}, // initial state
   compose(
     applyMiddleware(client.middleware()),
-    window.devToolsExtension ? window.devToolsExtension() : (f) => f
+    window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 );

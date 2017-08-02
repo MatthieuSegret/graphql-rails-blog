@@ -5,15 +5,15 @@ import formatErrors from 'utils/errorsUtils';
 import withFlashMessage from 'components/withFlashMessage';
 import { fragments } from 'containers/posts/EditPost';
 
-export default function (WrappedComponent) {
+export default function(WrappedComponent) {
   const UPDATE_POST = gql`
     mutation updatePost($id: ID, $title: String, $content: String) {
       updatePost(input: { id: $id, title: $title, content: $content }) {
         post {
           ...PostForEditingFragment
-        },
+        }
         errors {
-          attribute,
+          attribute
           message
         }
       }
@@ -26,7 +26,7 @@ export default function (WrappedComponent) {
     if (!errors) {
       this.redirect('/', { notice: 'Note was successfully updated' });
     } else {
-      const errorMsg = (errors.base) ? errors.base : '';
+      const errorMsg = errors.base ? errors.base : '';
       this.error(`Please review the problems below: ${errorMsg}`);
     }
     return errors;
@@ -37,9 +37,11 @@ export default function (WrappedComponent) {
       updatePost(post) {
         return mutate({
           variables: { ...post }
-        }).then(onResult.bind(ownProps)).catch((error) => {
-          ownProps.error("Oops, we're sorry, but something went wrong");
-        });
+        })
+          .then(onResult.bind(ownProps))
+          .catch(error => {
+            ownProps.error("Oops, we're sorry, but something went wrong");
+          });
       }
     })
   });

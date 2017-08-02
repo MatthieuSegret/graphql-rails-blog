@@ -9,12 +9,12 @@ class SearchForm extends Component {
     initialKeywords: PropTypes.string,
     loading: PropTypes.bool,
     history: PropTypes.object
-  }
+  };
 
   static defaultProps = {
     initialKeywords: '',
     loading: false
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ class SearchForm extends Component {
   onSearch(event) {
     event.preventDefault();
     const { keywords } = this.state;
-    const pathName = (keywords) ? `/posts/search/${keywords}` : '/';
+    const pathName = keywords ? `/posts/search/${keywords}` : '/';
     this.props.history.push(pathName);
   }
 

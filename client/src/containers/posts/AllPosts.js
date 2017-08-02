@@ -9,7 +9,7 @@ class AllPosts extends Component {
   static propTypes = {
     data: PropTypes.object,
     loadMorePosts: PropTypes.func
-  }
+  };
 
   render() {
     const { data: { posts, postsCount, loading }, loadMorePosts } = this.props;
@@ -17,7 +17,12 @@ class AllPosts extends Component {
       <div className="all-posts">
         <h1>Listing posts</h1>
         <HeadListPosts />
-        <ListPosts posts={posts} postsCount={postsCount} loading={loading} loadMorePosts={loadMorePosts} />
+        <ListPosts
+          posts={posts}
+          postsCount={postsCount}
+          loading={loading}
+          loadMorePosts={loadMorePosts}
+        />
       </div>
     );
   }

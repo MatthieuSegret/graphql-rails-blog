@@ -7,15 +7,15 @@ import withFlashMessage from 'components/withFlashMessage';
 import { fragments as CommentFragments } from 'containers/comments/_Comment';
 import updateQueries from 'reducers/commentsReducer';
 
-export default function (WrappedComponent) {
+export default function(WrappedComponent) {
   const CREATE_COMMENT = gql`
     mutation createComment($postId: ID, $content: String) {
       createComment(input: { postId: $postId, content: $content }) {
         newComment: comment {
           ...CommentFragment
-        },
+        }
         errors {
-          attribute,
+          attribute
           message
         }
       }
@@ -41,7 +41,7 @@ export default function (WrappedComponent) {
                 __typename: 'Comment',
                 id: shortid.generate(),
                 content: comment.content,
-                created_at: +(new Date()),
+                created_at: +new Date(),
                 pending: true,
                 author: {
                   __typename: 'User',
@@ -51,10 +51,12 @@ export default function (WrappedComponent) {
               errors: null
             }
           }
-        }).then(onResult.bind(ownProps)).catch((error) => {
-          console.log(error);
-          ownProps.error("Oops, we're sorry, but something went wrong");
-        });
+        })
+          .then(onResult.bind(ownProps))
+          .catch(error => {
+            console.log(error);
+            ownProps.error("Oops, we're sorry, but something went wrong");
+          });
       }
     })
   });
