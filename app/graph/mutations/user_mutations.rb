@@ -11,7 +11,7 @@ module UserMutations
     return_field :user, UserType
     return_field :errors, types[AttributeErrorType]
 
-    resolve -> (obj, inputs, ctx) {
+    resolve ->(obj, inputs, ctx) {
       user = User.new(inputs.to_params)
 
       if user.save
@@ -37,7 +37,7 @@ module UserMutations
     return_field :user, UserType
     return_field :errors, types[AttributeErrorType]
 
-    resolve(Auth.protect -> (obj, inputs, ctx) {
+    resolve(Auth.protect ->(obj, inputs, ctx) {
       current_user = ctx[:current_user]
 
       if current_user.update(inputs.to_params)
@@ -59,7 +59,7 @@ module UserMutations
     return_field :user, UserType
     return_field :errors, types[AttributeErrorType]
 
-    resolve(Auth.protect -> (obj, inputs, ctx) {
+    resolve(Auth.protect ->(obj, inputs, ctx) {
       current_user = ctx[:current_user]
       params_with_password = inputs.to_params.slice(:password, :password_confirmation, :current_password)
 

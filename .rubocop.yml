@@ -1,0 +1,47 @@
+AllCops:
+  DisabledByDefault: true
+  TargetRubyVersion: 2.4.1
+  Exclude:
+    - 'lib/graphql/language/lexer.rb'
+    - 'lib/graphql/language/parser.rb'
+    - 'gemfiles/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - '**/node_modules/**/*'
+
+# def ...
+# end
+Lint/DefEndAlignment:
+  EnforcedStyleAlignWith: def
+
+# value = if
+#   # ...
+# end
+Lint/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+Lint/UselessAssignment:
+  Enabled: true
+
+Metrics/ParameterLists:
+  Max: 7
+  CountKeywordArgs: false
+
+Layout/EmptyLineBetweenDefs:
+  AllowAdjacentOneLineDefs: true
+
+Layout/IndentationWidth:
+  Width: 2
+
+Style/LambdaCall:
+  EnforcedStyle: call
+
+Layout/LeadingCommentSpace:
+  Enabled: true
+
+Style/MethodName:
+  EnforcedStyle: snake_case
+
+# ->(...) { ... }
+Layout/SpaceInLambdaLiteral:
+  Enabled: true # Default is "require_no_space"

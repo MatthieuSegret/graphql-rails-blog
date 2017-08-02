@@ -9,7 +9,7 @@ module PostMutations
     return_field :post, PostType
     return_field :errors, types[AttributeErrorType]
 
-    resolve(Auth.protect -> (obj, inputs, ctx) {
+    resolve(Auth.protect ->(obj, inputs, ctx) {
       new_post = ctx[:current_user].posts.build(inputs.to_params)
 
       if new_post.save
@@ -31,7 +31,7 @@ module PostMutations
     return_field :post, PostType
     return_field :errors, types[AttributeErrorType]
 
-    resolve(Auth.protect -> (obj, inputs, ctx) {
+    resolve(Auth.protect ->(obj, inputs, ctx) {
       post = Post.find(inputs[:id])
 
       if ctx[:current_user] != post.user
@@ -52,7 +52,7 @@ module PostMutations
     return_field :post, PostType
     return_field :errors, types[AttributeErrorType]
 
-    resolve(Auth.protect -> (obj, inputs, ctx) {
+    resolve(Auth.protect ->(obj, inputs, ctx) {
       post = Post.find(inputs[:id])
 
       if ctx[:current_user] != post.user
