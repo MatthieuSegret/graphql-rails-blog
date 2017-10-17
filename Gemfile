@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 ruby '2.4.1'
-gem 'rails', '5.1.1'
+gem 'rails', '5.1.4'
 
 gem 'puma', '~> 3.0'
 gem 'uglifier'
@@ -13,7 +13,6 @@ gem 'graphql-batch'
 gem 'graphiql-rails'
 gem 'graphql-formatter'
 gem 'rack-cors'
-gem 'rails_12factor'
 gem 'newrelic_rpm'
 
 group :production do
