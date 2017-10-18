@@ -1,9 +1,6 @@
 class ApplicationController < ActionController::Base
   respond_to :json, :html
 
-  # Temporarily disabled
-  # protect_from_forgery with: :exception
-
   def index
     render file: 'public/index.html'
   end

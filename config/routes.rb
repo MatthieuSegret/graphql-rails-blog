@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   post "/graphql", to: "graphql#create"
 
   scope defaults: { format: :json } do
-    devise_for :users
+    devise_for :users, skip: :all
   end
 
   ActiveAdmin.routes(self)

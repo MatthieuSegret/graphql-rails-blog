@@ -25,7 +25,8 @@ class GraphqlController < ApiController
       variables: query_variables,
       context: {
         current_user: current_user,
-        warden: warden
+        warden: warden,
+        session: session
       })
   end
 
@@ -42,6 +43,7 @@ class GraphqlController < ApiController
         context: {
           current_user: current_user,
           warden: warden,
+          session: session,
           optics_agent: (Rails.env.production? ? request.env[:optics_agent].with_document(query[:query]) : nil)
         }
       }
