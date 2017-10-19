@@ -46,18 +46,8 @@ class SignUpUser extends Component {
         <form onSubmit={this.props.handleSubmit(this.submitForm)}>
           <Field name="name" component={RenderField} type="text" />
           <Field name="email" component={RenderField} type="text" />
-          <Field
-            name="password"
-            component={RenderField}
-            type="password"
-            hint="6 characters minimum"
-          />
-          <Field
-            name="password_confirmation"
-            component={RenderField}
-            type="password"
-            label="Password confirmation"
-          />
+          <Field name="password" component={RenderField} type="password" hint="6 characters minimum" />
+          <Field name="password_confirmation" component={RenderField} type="password" label="Password confirmation" />
           <Button value="Sign up" />
         </form>
         <Link to="/users/signin">Log in</Link>

@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, Field, SubmissionError, change } from 'redux-form';
+import { reduxForm, Field, change } from 'redux-form';
 import { connect } from 'react-redux';
-import { withApollo } from 'react-apollo';
+import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 
-import axios from 'config/axios';
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
 import withFlashMessage from 'components/withFlashMessage';
-import { fetchCurrentUser } from 'queries/users/currentUserQuery';
+import withSignIn from 'mutations/auth/signInMutation';
+import withCurrentUser from 'queries/users/currentUserQuery';
 
 class SignInUser extends Component {
   static propTypes = {
     redirect: PropTypes.func,
-    client: PropTypes.object,
     handleSubmit: PropTypes.func,
     change: PropTypes.func,
+    signIn: PropTypes.func,
     error: PropTypes.func,
     currentUser: PropTypes.object,
     currentUserLoading: PropTypes.bool
@@ -44,22 +44,14 @@ class SignInUser extends Component {
   }
 
   submitForm(values) {
-    return axios
-      .post('/users/sign_in', { user: values })
-      .then(response => {
-        if (response.status === 201) {
-          this.props.client.resetStore();
-          fetchCurrentUser().then(() => {
-            this.props.redirect('/', { notice: 'Signed in successfully.' });
-          });
-        }
-      })
-      .catch(err => {
-        console.log(err);
+    this.setState({ loading: true });
+
+    return this.props.signIn(values).then(error => {
+      if (error) {
+        this.setState({ loading: false });
         this.props.change('SignInForm', 'password', '');
-        this.props.error('Invalid Email or password.');
-        throw new SubmissionError({ _error: 'Login failed' });
-      });
+      }
+    });
   }
 
   render() {
@@ -76,6 +68,12 @@ class SignInUser extends Component {
   }
 }
 
-export default reduxForm({
-  form: 'SignInForm'
-})(connect(null, { change })(withFlashMessage(withApollo(SignInUser))));
+export default compose(
+  reduxForm({
+    form: 'SignInForm'
+  }),
+  connect(null, { change }),
+  withCurrentUser,
+  withSignIn,
+  withFlashMessage
+)(SignInUser);

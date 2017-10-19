@@ -280,7 +280,7 @@ module Devise
         token   = request.headers.fetch("Authorization", "").split(" ").last
         payload = JsonWebToken.decode(token)
         success! User.find(payload["sub"])
-      rescue ::JWT::ExpiredSignature
+      rescue ::JWT::ExpiredSignature => e
         fail! "Auth token has expired"
       rescue ::JWT::DecodeError
         fail! "Auth token is invalid"

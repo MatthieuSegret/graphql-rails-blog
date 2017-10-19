@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { withApollo } from 'react-apollo';
 
+import { removeToken } from 'utils/tokenUtils';
 import withFlashMessage from 'components/withFlashMessage';
-import axios from 'config/axios';
+import withRevokeRefreshToken from 'mutations/auth/revokeRefreshTokenMutation';
 
 class Header extends Component {
   static propTypes = {
     redirect: PropTypes.func,
     error: PropTypes.func,
+    revokeRefreshToken: PropTypes.func,
     currentUser: PropTypes.object,
-    currentUserLoading: PropTypes.bool,
-    client: PropTypes.object
+    currentUserLoading: PropTypes.bool
   };
 
   constructor(props) {
@@ -22,13 +22,9 @@ class Header extends Component {
 
   logout(event) {
     event.preventDefault();
-    axios.delete('/users/sign_out').then(response => {
-      if (response.status !== 204) {
-        this.props.error("Oops, we're sorry, but something went wrong");
-      } else {
-        this.props.client.resetStore();
-        this.props.redirect('/', { notice: 'Logout in successfully.' });
-      }
+    this.props.revokeRefreshToken().then(response => {
+      removeToken();
+      window.location.reload();
     });
   }
 
@@ -42,9 +38,7 @@ class Header extends Component {
       return (
         <ul className="nav navbar-nav navbar-right">
           <li>
-            <Link to="/users/profile/edit">
-              {currentUser.name}
-            </Link>
+            <Link to="/users/profile/edit">{currentUser.name}</Link>
           </li>
           <li>
             <a href="#logout" onClick={this.logout}>
@@ -76,13 +70,11 @@ class Header extends Component {
               GraphQL rails blog
             </Link>
           </div>
-          <div className="collapse navbar-collapse">
-            {this.renderSignInLinks()}
-          </div>
+          <div className="collapse navbar-collapse">{this.renderSignInLinks()}</div>
         </div>
       </nav>
     );
   }
 }
 
-export default withFlashMessage(withApollo(Header));
+export default withFlashMessage(withRevokeRefreshToken(Header));
