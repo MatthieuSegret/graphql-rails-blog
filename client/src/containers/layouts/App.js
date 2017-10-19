@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 
 import AllPosts from 'containers/posts/AllPosts';
@@ -15,17 +18,34 @@ import ChangeUserPassword from 'containers/users/ChangeUserPassword';
 
 import UserIsAuthenticated from 'components/UserIsAuthenticated';
 import NotFound from 'components/NotFound';
-
-import FlashMessage from 'components/FlashMessage';
 import Header from 'containers/layouts/Header';
+
+import { deleteFlashMessage } from 'actions/flashActions';
+import FlashMessage from 'components/FlashMessage';
 import withCurrentUser from 'queries/users/currentUserQuery';
 
 import 'assets/stylesheets/css/styles.css';
 
 class App extends Component {
   static propTypes = {
+    history: PropTypes.object,
+    deleteFlashMessage: PropTypes.func,
     currentUser: PropTypes.object,
     currentUserLoading: PropTypes.bool
+  };
+
+  componentWillMount() {
+    const { history } = this.props;
+    this.unsubscribeFromHistory = history.listen(this.handleLocationChange);
+    this.handleLocationChange(history.location);
+  }
+
+  componentWillUnmount() {
+    if (this.unsubscribeFromHistory) this.unsubscribeFromHistory();
+  }
+
+  handleLocationChange = location => {
+    this.props.deleteFlashMessage();
   };
 
   render() {
@@ -46,10 +66,7 @@ class App extends Component {
             <Route path="/users/signin" component={SignInUser} />
             <Route path="/users/signup" component={SignUpUser} />
             <Route path="/users/profile/edit" component={UserIsAuthenticated(EditUserProfile)} />
-            <Route
-              path="/users/password/edit"
-              component={UserIsAuthenticated(ChangeUserPassword)}
-            />
+            <Route path="/users/password/edit" component={UserIsAuthenticated(ChangeUserPassword)} />
             <Route component={NotFound} />
           </Switch>
         </div>
@@ -58,4 +75,4 @@ class App extends Component {
   }
 }
 
-export default withCurrentUser(App);
+export default compose(withCurrentUser, withRouter, connect(null, { deleteFlashMessage }))(App);
