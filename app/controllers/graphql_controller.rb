@@ -1,4 +1,4 @@
-class GraphqlController < ApiController
+class GraphqlController < ApplicationController
   def create
     if params[:query].present?
       # Execute one query
@@ -25,7 +25,7 @@ class GraphqlController < ApiController
       variables: query_variables,
       context: {
         current_user: current_user,
-        warden: warden,
+        request: request,
         session: session
       })
   end
@@ -42,7 +42,7 @@ class GraphqlController < ApiController
         variables: ensure_hash(query[:variables]),
         context: {
           current_user: current_user,
-          warden: warden,
+          request: request,
           session: session,
           optics_agent: (Rails.env.production? ? request.env[:optics_agent].with_document(query[:query]) : nil)
         }

@@ -12,8 +12,9 @@ module AuthMutations
 
     resolve ->(obj, inputs, ctx) {
       user = User.find_by(email: inputs[:email])
-      if user.present? && user.valid_password?(inputs[:password])
-        ctx[:session][:refresh_token] = user.generate_refresh_token!        
+      if user.present? && user.authenticate(inputs[:password])
+        ctx[:session][:refresh_token] = user.generate_refresh_token!
+        user.update_tracked_fields(ctx[:request])
         { token: user.generate_jwt_token, refresh_token: user.refresh_token }
       else
         AttributeError.error("Invalid email or password")
@@ -47,8 +48,7 @@ module AuthMutations
     return_field :errors, types[AttributeErrorType]
 
     resolve(Auth.protect ->(obj, inputs, ctx) {
-      current_user, session, warden = ctx[:current_user], ctx[:session], ctx[:warden]
-      warden.logout
+      current_user, session = ctx[:current_user], ctx[:session]
       session[:refresh_token] = nil      
       current_user.update(refresh_token: nil) if current_user.present?
       {}

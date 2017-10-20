@@ -23,8 +23,11 @@ class Header extends Component {
   logout(event) {
     event.preventDefault();
     this.props.revokeRefreshToken().then(response => {
-      removeToken();
-      window.location.reload();
+      if (!response.errors) {
+        this.props.redirect('/');
+        removeToken();
+        window.location.reload();
+      }
     });
   }
 

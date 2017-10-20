@@ -41,24 +41,14 @@ class ChangeUserPassword extends Component {
         <h1>Change password</h1>
         <form onSubmit={this.props.handleSubmit(this.submitForm)}>
           <Field
-            name="password"
-            component={RenderField}
-            type="password"
-            hint="leave it blank if you don't want to change it"
-          />
-          <Field
-            name="password_confirmation"
-            component={RenderField}
-            type="password"
-            label="Password confirmation"
-          />
-          <Field
             name="current_password"
             component={RenderField}
             type="password"
             label="Current password"
             hint="we need your current password to confirm your changes"
           />
+          <Field name="password" component={RenderField} type="password" label="New password" />
+          <Field name="password_confirmation" component={RenderField} type="password" label="Password confirmation" />
           <Button loading={loading} value="Update" />
         </form>
       </div>

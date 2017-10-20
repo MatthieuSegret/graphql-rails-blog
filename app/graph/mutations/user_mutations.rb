@@ -8,6 +8,7 @@ module UserMutations
     input_field :password, types.String
     input_field :password_confirmation, types.String
 
+    return_field :token, types.String
     return_field :user, UserType
     return_field :errors, types[AttributeErrorType]
 
@@ -15,12 +16,9 @@ module UserMutations
       user = User.new(inputs.to_params)
 
       if user.save
-        warden = ctx[:warden]
-        scope = Devise::Mapping.find_scope!(user)
-        if warden.user(scope) != user
-          warden.set_user(user, scope: scope)
-        end
-        { user: user }
+        ctx[:session][:refresh_token] = user.generate_refresh_token!
+        user.update_tracked_fields(ctx[:request])
+        { user: user, token: user.generate_jwt_token }
       else
         { errors: user.attributes_errors }
       end
@@ -61,13 +59,26 @@ module UserMutations
 
     resolve(Auth.protect ->(obj, inputs, ctx) {
       current_user = ctx[:current_user]
-      params_with_password = inputs.to_params.slice(:password, :password_confirmation, :current_password)
-
+      params_with_password = inputs.to_h.symbolize_keys
       if current_user.update_with_password(params_with_password)
         { user: current_user }
       else
         { errors: current_user.attributes_errors }
       end
+    })
+  end
+
+  CancelAccount = GraphQL::Relay::Mutation.define do
+    name "cancelAccount"
+    description "Cancel Account"
+
+    return_field :errors, types[AttributeErrorType]
+
+    resolve(Auth.protect ->(obj, inputs, ctx) {
+      current_user = ctx[:current_user]
+      #current_user.destroy
+      ctx[:session][:refresh_token] = nil
+      {}
     })
   end
 end

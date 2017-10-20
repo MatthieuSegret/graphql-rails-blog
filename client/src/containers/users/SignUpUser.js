@@ -64,12 +64,6 @@ function validate(values) {
   if (!values.email) {
     errors.email = "can't be blank";
   }
-  if (!values.password) {
-    errors.password = "can't be blank";
-  }
-  if (!values.password_confirmation) {
-    errors.password_confirmation = "can't be blank";
-  }
   return errors;
 }
 

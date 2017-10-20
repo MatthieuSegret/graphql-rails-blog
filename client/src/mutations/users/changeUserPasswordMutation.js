@@ -3,15 +3,10 @@ import gql from 'graphql-tag';
 
 import formatErrors from 'utils/errorsUtils';
 import withFlashMessage from 'components/withFlashMessage';
-import { fragments } from 'containers/users/EditUserProfile';
 
 export default function(WrappedComponent) {
   const CHANGE_PASSWORD = gql`
-    mutation changePassword(
-      $password: String
-      $password_confirmation: String
-      $current_password: String
-    ) {
+    mutation changePassword($password: String, $password_confirmation: String, $current_password: String) {
       changePassword(
         input: {
           password: $password
@@ -19,16 +14,12 @@ export default function(WrappedComponent) {
           current_password: $current_password
         }
       ) {
-        user {
-          ...UserForEditingFragment
-        }
         errors {
           attribute
           message
         }
       }
     }
-    ${fragments.user}
   `;
 
   function onResult(response) {

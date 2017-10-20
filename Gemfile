@@ -5,10 +5,9 @@ gem 'rails', '5.1.4'
 
 gem 'puma', '~> 3.0'
 gem 'uglifier'
-gem 'devise'
+gem 'bcrypt'
 gem 'jwt'
 gem 'faker'
-gem 'activeadmin'
 gem 'graphql'
 gem 'graphql-batch'
 gem 'graphiql-rails'
@@ -19,7 +18,6 @@ gem 'newrelic_rpm'
 group :production do
   gem 'pg'
   gem 'optics-agent'
-  gem 'heroku-deflater'
 end
 
 group :development, :test do

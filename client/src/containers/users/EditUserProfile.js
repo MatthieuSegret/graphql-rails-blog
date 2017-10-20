@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import gql from 'graphql-tag';
-import { withApollo } from 'react-apollo';
 
-import axios from 'config/axios';
-import withUserForEditing from 'queries/users/userForEditingQuery';
-import withUpdateUser from 'mutations/users/updateUserMutation';
+import { removeToken } from 'utils/tokenUtils';
 import withFlashMessage from 'components/withFlashMessage';
+import withUserForEditing from 'queries/users/userForEditingQuery';
+import withCancelAccount from 'mutations/users/cancelAccountMutation';
+import withUpdateUser from 'mutations/users/updateUserMutation';
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
 import Loading from 'components/Loading';
 
 class EditUserProfile extends Component {
   static propTypes = {
-    data: PropTypes.object,
-    client: PropTypes.object,
     redirect: PropTypes.func,
-    error: PropTypes.func,
+    cancelAccount: PropTypes.func,
     updateUser: PropTypes.func,
     handleSubmit: PropTypes.func
   };
@@ -28,7 +27,7 @@ class EditUserProfile extends Component {
     super(props);
     this.state = { loading: false };
     this.submitForm = this.submitForm.bind(this);
-    this.cancelAccount = this.cancelAccount.bind(this);
+    this.onCancelAccount = this.onCancelAccount.bind(this);
   }
 
   submitForm(values) {
@@ -41,17 +40,13 @@ class EditUserProfile extends Component {
     });
   }
 
-  cancelAccount() {
+  onCancelAccount() {
     if (window.confirm('Are you sure ?')) {
-      return axios.delete('/users').then(response => {
-        if (response.status !== 204) {
-          this.props.error("Oops, we're sorry, but something went wrong");
-        } else {
-          this.props.client.resetStore();
-          this.props.redirect('/', {
-            notice:
-              'Bye! Your account has been successfully cancelled. We hope to see you again soon.'
-          });
+      return this.props.cancelAccount().then(response => {
+        if (!response.errors) {
+          this.props.redirect('/');
+          removeToken(); // logout user
+          window.location.reload();
         }
       });
     }
@@ -59,10 +54,10 @@ class EditUserProfile extends Component {
   }
 
   render() {
-    const { data: { loading: getUserloading } } = this.props;
-    if (getUserloading) {
-      return <Loading />;
-    }
+    // const { data: { loading: getUserloading } } = this.props;
+    // if (getUserloading) {
+    //   return <Loading />;
+    // }
     const { loading } = this.state;
 
     return (
@@ -83,10 +78,7 @@ class EditUserProfile extends Component {
         <div className="cancel-account">
           <h3>Cancel my account</h3>
           Unhappy?
-          <button
-            onClick={this.cancelAccount}
-            className="btn btn-default btn-xs cancel-account-link"
-          >
+          <button onClick={this.onCancelAccount} className="btn btn-default btn-xs cancel-account-link">
             Cancel my account
           </button>
         </div>
@@ -117,15 +109,25 @@ function validate(values) {
   return errors;
 }
 
-export default withUserForEditing(
-  withUpdateUser(
-    connect((state, props) => ({
-      initialValues: props.currentUser
-    }))(
+EditUserProfile = withUpdateUser(
+  withFlashMessage(
+    withCancelAccount(
       reduxForm({
         form: 'EditUserProfileForm',
         validate
-      })(withFlashMessage(withApollo(EditUserProfile)))
+      })(EditUserProfile)
     )
   )
 );
+
+EditUserProfile = compose(
+  withUserForEditing,
+  connect((state, props) => {
+    const user = props.data.currentUser;
+    return {
+      initialValues: { name: user.name, email: user.email }
+    };
+  })
+)(EditUserProfile);
+
+export default EditUserProfile;

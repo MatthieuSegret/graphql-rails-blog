@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Comment.destroy_all
+Post.destroy_all
+User.destroy_all
+
 # Create Admin
 user = User.create! name: "Admin", email: "admin@graphql-rails-blog.com", password: "password", password_confirmation: "password"
 user.admin = true

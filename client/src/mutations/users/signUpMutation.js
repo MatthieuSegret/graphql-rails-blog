@@ -2,24 +2,15 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import formatErrors from 'utils/errorsUtils';
+import { saveToken } from 'utils/tokenUtils';
 import withFlashMessage from 'components/withFlashMessage';
 import updateQueries from 'reducers/usersReducer';
 
 export default function(WrappedComponent) {
   const SIGN_UP = gql`
-    mutation signUp(
-      $name: String
-      $email: String
-      $password: String
-      $password_confirmation: String
-    ) {
+    mutation signUp($name: String, $email: String, $password: String, $password_confirmation: String) {
       signUp(
-        input: {
-          name: $name
-          email: $email
-          password: $password
-          password_confirmation: $password_confirmation
-        }
+        input: { name: $name, email: $email, password: $password, password_confirmation: $password_confirmation }
       ) {
         currentUser: user {
           name
@@ -34,7 +25,11 @@ export default function(WrappedComponent) {
   `;
 
   function onResult(response) {
-    return response.errors || formatErrors(response.data.signUp.errors);
+    const errors = response.errors || formatErrors(response.data.signUp.errors);
+    if (!errors) {
+      saveToken(response.data.signUp.token);
+    }
+    return errors;
   }
 
   const withSignUp = graphql(SIGN_UP, {

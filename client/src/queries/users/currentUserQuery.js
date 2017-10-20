@@ -5,6 +5,7 @@ import client from 'config/apolloClient';
 const CURRENT_USER = gql`
   query currentUser {
     currentUser {
+      id
       name
       email
     }

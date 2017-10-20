@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 
 import withFlashMessage from 'components/withFlashMessage';
 import withCurrentUser from 'queries/users/currentUserQuery';
+import Loading from 'components/Loading';
 
 export default function UserIsAuthenticated(WrappedComponent) {
   class ComponentUserIsAuthenticated extends Component {
     static propTypes = {
       redirect: PropTypes.func,
-      currentUser: PropTypes.object
+      currentUser: PropTypes.object,
+      currentUserLoading: PropTypes.bool
     };
 
     constructor(props) {
@@ -25,8 +27,8 @@ export default function UserIsAuthenticated(WrappedComponent) {
     }
 
     redirectIfUserIsNotAuthenticated(props = null) {
-      const { currentUser } = props || this.props;
-      if (!currentUser) {
+      const { currentUser, currentUserLoading } = props || this.props;
+      if (!currentUserLoading && !currentUser) {
         this.props.redirect('/users/signin', {
           error: 'You need to sign in or sign up before continuing.'
         });
@@ -34,6 +36,10 @@ export default function UserIsAuthenticated(WrappedComponent) {
     }
 
     render() {
+      const { currentUser, currentUserLoading } = this.props;
+      if (currentUserLoading || !currentUser) {
+        return <Loading />;
+      }
       return <WrappedComponent {...this.props} />;
     }
   }

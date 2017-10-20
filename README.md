@@ -20,8 +20,7 @@ This is a simple blog engine using ordinary features which can be found in most 
 
 - Ruby 2.4
 - Rails 5.1
-- [Devise](https://github.com/plataformatec/devise) - Devise is a flexible authentication solution for Rails based on [Warden](https://github.com/hassox/warden).
-- [Active admin](http://activeadmin.info/) - Active Admin is a Ruby on Rails plugin for generating administration style interfaces.
+- [JWT authentication](https://jwt.io) with [Ruby JWT gem](https://github.com/jwt/ruby-jwt).
 - [GraphQL-Ruby](https://github.com/rmosolgo/graphql-ruby) - GraphQL-Ruby is a Ruby implementation of [GraphQL](http://graphql.org).
 - [GraphQL-batch](https://github.com/Shopify/graphql-batch) - GraphQL-batch is a query batching executor for the graphql gem.
 - [Graphiql](https://github.com/graphql/graphiql) - Graphiql is an in-browser IDE for exploring GraphQL.
@@ -96,12 +95,11 @@ This is a simple blog engine using ordinary features which can be found in most 
 - Start client in development mode. You should be able to go to
 `http://localhost:8080` :
 
-          graphql-rails-blog/client$ npm start
+          graphql-rails-blog/client$ yarn start
 
 ## Next step
 
 - [ ] Use subscription GraphQL feature
-- [ ] Migrating to React Router v4
 - [ ] Use TypeScript
 - [ ] Create mobile app with React Native
 
