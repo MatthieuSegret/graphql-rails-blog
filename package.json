@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Blog App build with Rails 5, React and GraphQL",
   "engines": {
-    "node": "6.8.1",
-    "npm": "3.10.3"
+    "node": "9.2.0",
+    "npm": "5.5.1"
   },
   "repository": {
     "url": "git@github.com:MatthieuSegret/graphql-rails-blog.git",
@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/MatthieuSegret/graphql-rails-blog#readme",
   "devDependencies": {
-    "rimraf": "^2.5.4"
+    "rimraf": "^2.6.2"
   }
 }
