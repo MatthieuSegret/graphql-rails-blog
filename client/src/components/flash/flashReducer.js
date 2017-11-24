@@ -1,4 +1,4 @@
-import { ADD_FLASH_MESSAGE, DELETE_FLASH_MESSAGE } from 'actions/flashActions';
+import { ADD_FLASH_MESSAGE, DELETE_FLASH_MESSAGE } from 'components/flash/flashActions';
 
 export default (state = null, action = {}) => {
   switch (action.type) {

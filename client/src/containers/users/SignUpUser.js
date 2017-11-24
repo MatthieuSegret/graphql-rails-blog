@@ -6,7 +6,7 @@ import { reduxForm, Field, SubmissionError, change } from 'redux-form';
 
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
-import withFlashMessage from 'components/withFlashMessage';
+import withFlashMessage from 'components/flash/withFlashMessage';
 import withPosts from 'queries/posts/postsQuery';
 import withSignUp from 'mutations/users/signUpMutation';
 

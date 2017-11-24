@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import gql from 'graphql-tag';
 
-import withFlashMessage from 'components/withFlashMessage';
+import withFlashMessage from 'components/flash/withFlashMessage';
 import withUserForEditing from 'queries/users/userForEditingQuery';
 import withCancelAccount from 'mutations/users/cancelAccountMutation';
 import withUpdateUser from 'mutations/users/updateUserMutation';

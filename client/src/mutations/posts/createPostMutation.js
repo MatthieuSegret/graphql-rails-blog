@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 
 import { fragments as PostPreviewFragments } from 'containers/posts/_PostPreview';
 import formatErrors from 'utils/errorsUtils';
-import withFlashMessage from 'components/withFlashMessage';
+import withFlashMessage from 'components/flash/withFlashMessage';
 import updateQueries from 'reducers/postsReducer';
 
 export default function(WrappedComponent) {

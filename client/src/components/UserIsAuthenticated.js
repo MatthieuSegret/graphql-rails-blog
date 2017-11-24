@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import withFlashMessage from 'components/withFlashMessage';
+import withFlashMessage from 'components/flash/withFlashMessage';
 import withCurrentUser from 'queries/users/currentUserQuery';
 import Loading from 'components/Loading';
 

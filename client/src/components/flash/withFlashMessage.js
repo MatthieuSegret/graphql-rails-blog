@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { notice, error } from 'actions/flashActions';
 import { withRouter } from 'react-router';
+
+import { notice, error, deleteFlashMessage } from 'components/flash/flashActions';
 
 export default function withFlashMessage(WrappedComponent) {
   class ComponentWithFlashMessage extends Component {
     static propTypes = {
       notice: PropTypes.func,
       error: PropTypes.func,
+      deleteFlashMessage: PropTypes.func,
       history: PropTypes.object
     };
 
@@ -32,5 +34,5 @@ export default function withFlashMessage(WrappedComponent) {
     }
   }
 
-  return connect(null, { notice, error })(withRouter(ComponentWithFlashMessage));
+  return connect(null, { notice, error, deleteFlashMessage })(withRouter(ComponentWithFlashMessage));
 }

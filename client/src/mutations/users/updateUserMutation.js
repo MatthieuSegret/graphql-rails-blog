@@ -2,7 +2,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import formatErrors from 'utils/errorsUtils';
-import withFlashMessage from 'components/withFlashMessage';
+import withFlashMessage from 'components/flash/withFlashMessage';
 import { fragments } from 'containers/users/EditUserProfile';
 
 export default function(WrappedComponent) {

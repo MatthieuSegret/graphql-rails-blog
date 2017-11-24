@@ -20,8 +20,8 @@ import UserIsAuthenticated from 'components/UserIsAuthenticated';
 import NotFound from 'components/NotFound';
 import Header from 'containers/layouts/Header';
 
-import { deleteFlashMessage } from 'actions/flashActions';
-import FlashMessage from 'components/FlashMessage';
+import { deleteFlashMessage } from 'components/flash/flashActions';
+import FlashMessage from 'components/flash/FlashMessage';
 import withCurrentUser from 'queries/users/currentUserQuery';
 
 import 'assets/stylesheets/css/styles.css';

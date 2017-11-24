@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
-import withFlashMessage from 'components/withFlashMessage';
+import withFlashMessage from 'components/flash/withFlashMessage';
 import withSignIn from 'mutations/auth/signInMutation';
 import withCurrentUser from 'queries/users/currentUserQuery';
 

@@ -10,10 +10,8 @@
   "author": "Matthieu Segret <matthieu.segret@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build-css":
-      "node-sass --include-path node_modules/ --include-path src/ src/assets/stylesheets/scss -o src/assets/stylesheets/css",
-    "watch-css":
-      "npm run build-css && node-sass --include-path node_modules/ --include-path src/ src/assets/stylesheets/scss -o src/assets/stylesheets/css --watch --recursive",
+    "build-css": "node-sass --include-path node_modules/ --include-path src/ src/assets/stylesheets/scss -o src/assets/stylesheets/css",
+    "watch-css": "npm run build-css && node-sass --include-path node_modules/ --include-path src/ src/assets/stylesheets/scss -o src/assets/stylesheets/css --watch --recursive",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
@@ -21,24 +19,31 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "apollo-client": "1.9.3",
+    "apollo-cache-inmemory": "^1.0.0",
+    "apollo-client": "^2.0.1",
+    "apollo-link": "^1.0.3",
+    "apollo-link-batch-http": "^1.0.1",
+    "apollo-link-context": "^1.0.0",
+    "apollo-link-dedup": "^1.0.2",
+    "apollo-link-error": "^1.0.0",
     "bootstrap-sass": "3.3.7",
     "classnames": "^2.2.5",
-    "moment": "2.19.1",
-    "react": "16.0.0",
-    "react-apollo": "1.4.16",
-    "react-dom": "16.0.0",
+    "graphql-tag": "^2.5.0",
+    "moment": "2.19.2",
+    "react": "16.1.1",
+    "react-apollo": "2.0.1",
+    "react-dom": "16.1.1",
     "react-redux": "5.0.6",
     "react-router-dom": "4.2.2",
     "react-scripts": "^1.0.17",
     "redux": "3.7.2",
-    "redux-form": "7.1.1",
+    "redux-form": "7.1.2",
     "shortid": "2.2.8"
   },
   "devDependencies": {
-    "eslint-config-prettier": "2.6.0",
+    "eslint-config-prettier": "2.8.0",
     "node-sass": "^4.5.3",
-    "npm-run-all": "4.1.1",
-    "prettier": "1.7.4"
+    "npm-run-all": "4.1.2",
+    "prettier": "1.8.2"
   }
 }

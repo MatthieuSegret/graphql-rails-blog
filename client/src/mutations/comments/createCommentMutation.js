@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import shortid from 'shortid';
 
 import formatErrors from 'utils/errorsUtils';
-import withFlashMessage from 'components/withFlashMessage';
+import withFlashMessage from 'components/flash/withFlashMessage';
 import { fragments as CommentFragments } from 'containers/comments/_Comment';
 import updateQueries from 'reducers/commentsReducer';
 

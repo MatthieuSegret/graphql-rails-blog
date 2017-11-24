@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteFlashMessage } from 'actions/flashActions';
 import classnames from 'classnames';
+
+import { deleteFlashMessage } from 'components/flash/flashActions';
 
 class FlashMessage extends Component {
   static propTypes = {
