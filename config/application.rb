@@ -31,8 +31,5 @@ module GraphqlRailsBlog
     config.autoload_paths << Rails.root.join('app/graph/utils')
     config.autoload_paths << Rails.root.join('app/graph/mutations')
     config.autoload_paths << Rails.root.join('app/graph/types')
-
-    config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore, key: '_graphql_rails_blog_session', expire_after: 30.days
   end
 end

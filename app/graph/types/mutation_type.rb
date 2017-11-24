@@ -8,8 +8,7 @@ MutationType = GraphQL::ObjectType.define do
   field :createComment, field: CommentMutations::Create.field
 
   field :signIn, field: AuthMutations::SignIn.field
-  field :refreshToken, field: AuthMutations::RefreshToken.field
-  field :revokeRefreshToken, field: AuthMutations::RevokeRefreshToken.field
+  field :revokeToken, field: AuthMutations::RevokeToken.field
 
   field :signUp, field: UserMutations::SignUp.field
   field :updateUser, field: UserMutations::Update.field

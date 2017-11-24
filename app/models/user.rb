@@ -9,14 +9,10 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  def generate_refresh_token!
-    self.refresh_token = Digest::SHA1.hexdigest("#{Time.now}-#{self.id}-#{SecureRandom.hex}")
+  def generate_access_token!
+    self.access_token = Digest::SHA1.hexdigest("#{Time.now}-#{self.id}-#{SecureRandom.hex}")
     self.save!
-    self.refresh_token
-  end
-
-  def generate_jwt_token
-    JsonWebToken.encode(sub: self.id, name: self.name, email: self.email)
+    self.access_token
   end
 
   def update_with_password(password:, password_confirmation:, current_password:)

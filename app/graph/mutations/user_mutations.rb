@@ -8,7 +8,6 @@ module UserMutations
     input_field :password, types.String
     input_field :password_confirmation, types.String
 
-    return_field :token, types.String
     return_field :user, UserType
     return_field :errors, types[AttributeErrorType]
 
@@ -16,9 +15,9 @@ module UserMutations
       user = User.new(inputs.to_params)
 
       if user.save
-        ctx[:session][:refresh_token] = user.generate_refresh_token!
         user.update_tracked_fields(ctx[:request])
-        { user: user, token: user.generate_jwt_token }
+        user.generate_access_token!
+        { user: user }
       else
         { errors: user.attributes_errors }
       end
@@ -75,9 +74,7 @@ module UserMutations
     return_field :errors, types[AttributeErrorType]
 
     resolve(Auth.protect ->(obj, inputs, ctx) {
-      current_user = ctx[:current_user]
-      #current_user.destroy
-      ctx[:session][:refresh_token] = nil
+      ctx[:current_user].destroy
       {}
     })
   end

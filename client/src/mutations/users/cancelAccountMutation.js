@@ -2,7 +2,6 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import formatErrors from 'utils/errorsUtils';
-import { removeToken } from 'utils/tokenUtils';
 import withFlashMessage from 'components/withFlashMessage';
 
 export default function(WrappedComponent) {
@@ -32,7 +31,7 @@ export default function(WrappedComponent) {
           return mutate()
             .then(onResult.bind(ownProps))
             .catch(error => {
-              removeToken();
+              window.localStorage.removeItem('blog:token');
               ownProps.error("Oops, we're sorry, but something went wrong");
             });
         }

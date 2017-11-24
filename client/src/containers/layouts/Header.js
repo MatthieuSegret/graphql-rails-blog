@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { removeToken } from 'utils/tokenUtils';
 import withFlashMessage from 'components/withFlashMessage';
-import withRevokeRefreshToken from 'mutations/auth/revokeRefreshTokenMutation';
+import withRevokeToken from 'mutations/auth/revokeTokenMutation';
 
 class Header extends Component {
   static propTypes = {
     redirect: PropTypes.func,
     error: PropTypes.func,
-    revokeRefreshToken: PropTypes.func,
+    revokeToken: PropTypes.func,
     currentUser: PropTypes.object,
     currentUserLoading: PropTypes.bool
   };
@@ -22,11 +21,10 @@ class Header extends Component {
 
   logout(event) {
     event.preventDefault();
-    this.props.revokeRefreshToken().then(response => {
+    this.props.revokeToken().then(response => {
       if (!response.errors) {
-        this.props.redirect('/');
-        removeToken();
-        window.location.reload();
+        window.localStorage.removeItem('blog:token');
+        window.location = '/';
       }
     });
   }
@@ -80,4 +78,4 @@ class Header extends Component {
   }
 }
 
-export default withFlashMessage(withRevokeRefreshToken(Header));
+export default withFlashMessage(withRevokeToken(Header));

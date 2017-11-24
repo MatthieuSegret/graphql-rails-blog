@@ -2,7 +2,6 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import formatErrors from 'utils/errorsUtils';
-import { saveToken } from 'utils/tokenUtils';
 import withFlashMessage from 'components/withFlashMessage';
 import updateQueries from 'reducers/usersReducer';
 
@@ -15,6 +14,7 @@ export default function(WrappedComponent) {
         currentUser: user {
           name
           email
+          token
         }
         errors {
           attribute
@@ -27,7 +27,8 @@ export default function(WrappedComponent) {
   function onResult(response) {
     const errors = response.errors || formatErrors(response.data.signUp.errors);
     if (!errors) {
-      saveToken(response.data.signUp.token);
+      const token = response.data.signUp.currentUser.token;
+      if (token) window.localStorage.setItem('blog:token', token);
     }
     return errors;
   }

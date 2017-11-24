@@ -5,9 +5,9 @@ import formatErrors from 'utils/errorsUtils';
 import withFlashMessage from 'components/withFlashMessage';
 
 export default function(WrappedComponent) {
-  const REVOKE_REFRESH_TOKEN = gql`
-    mutation revokeRefreshToken {
-      revokeRefreshToken(input: {}) {
+  const REVOKE_TOKEN = gql`
+    mutation revokeToken {
+      revokeToken(input: {}) {
         errors {
           message
           attribute
@@ -17,16 +17,16 @@ export default function(WrappedComponent) {
   `;
 
   function onResult(response) {
-    const errors = response.errors || formatErrors(response.data.revokeRefreshToken.errors);
+    const errors = response.errors || formatErrors(response.data.revokeToken.errors);
     if (errors && errors.base) {
       this.error(errors.base);
     }
-    return response.data.revokeRefreshToken;
+    return response.data.revokeToken;
   }
 
-  const withRevokeRefreshToken = graphql(REVOKE_REFRESH_TOKEN, {
+  const withRevokeToken = graphql(REVOKE_TOKEN, {
     props: ({ ownProps, mutate }) => ({
-      revokeRefreshToken() {
+      revokeToken() {
         return mutate()
           .then(onResult.bind(ownProps))
           .catch(error => {
@@ -36,5 +36,5 @@ export default function(WrappedComponent) {
     })
   });
 
-  return withFlashMessage(withRevokeRefreshToken(WrappedComponent));
+  return withFlashMessage(withRevokeToken(WrappedComponent));
 }

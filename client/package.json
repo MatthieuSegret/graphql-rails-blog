@@ -22,17 +22,15 @@
   },
   "dependencies": {
     "apollo-client": "1.9.3",
-    "axios": "0.16.2",
-    "babel-polyfill": "6.26.0",
     "bootstrap-sass": "3.3.7",
     "classnames": "^2.2.5",
-    "jwt-decode": "^2.2.0",
     "moment": "2.19.1",
     "react": "16.0.0",
     "react-apollo": "1.4.16",
     "react-dom": "16.0.0",
     "react-redux": "5.0.6",
     "react-router-dom": "4.2.2",
+    "react-scripts": "^1.0.17",
     "redux": "3.7.2",
     "redux-form": "7.1.1",
     "shortid": "2.2.8"
@@ -41,7 +39,6 @@
     "eslint-config-prettier": "2.6.0",
     "node-sass": "^4.5.3",
     "npm-run-all": "4.1.1",
-    "prettier": "1.7.4",
-    "react-scripts": "1.0.14"
+    "prettier": "1.7.4"
   }
 }

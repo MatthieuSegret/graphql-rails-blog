@@ -2,7 +2,6 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import formatErrors from 'utils/errorsUtils';
-import { saveToken, removeToken } from 'utils/tokenUtils';
 import withFlashMessage from 'components/withFlashMessage';
 import { fetchCurrentUser } from 'queries/users/currentUserQuery';
 
@@ -12,12 +11,13 @@ export default function(WrappedComponent) {
   function onResult(response) {
     const errors = response.errors || formatErrors(response.data.signIn.errors);
     if (errors) {
-      removeToken();
+      window.localStorage.removeItem('blog:token');
       this.error(errors.base || fatalMessage);
       return errors;
     }
 
-    saveToken(response.data.signIn.token);
+    const token = response.data.signIn.token;
+    if (token) window.localStorage.setItem('blog:token', response.data.signIn.token);
     fetchCurrentUser().then(() => {
       this.redirect('/', { notice: 'Signed in successfully.' });
     });

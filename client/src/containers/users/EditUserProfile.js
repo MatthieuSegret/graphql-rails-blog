@@ -6,14 +6,12 @@ import { Link } from 'react-router-dom';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import gql from 'graphql-tag';
 
-import { removeToken } from 'utils/tokenUtils';
 import withFlashMessage from 'components/withFlashMessage';
 import withUserForEditing from 'queries/users/userForEditingQuery';
 import withCancelAccount from 'mutations/users/cancelAccountMutation';
 import withUpdateUser from 'mutations/users/updateUserMutation';
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
-import Loading from 'components/Loading';
 
 class EditUserProfile extends Component {
   static propTypes = {
@@ -44,9 +42,8 @@ class EditUserProfile extends Component {
     if (window.confirm('Are you sure ?')) {
       return this.props.cancelAccount().then(response => {
         if (!response.errors) {
-          this.props.redirect('/');
-          removeToken(); // logout user
-          window.location.reload();
+          window.localStorage.removeItem('blog:token');
+          window.location = '/';
         }
       });
     }
@@ -54,10 +51,6 @@ class EditUserProfile extends Component {
   }
 
   render() {
-    // const { data: { loading: getUserloading } } = this.props;
-    // if (getUserloading) {
-    //   return <Loading />;
-    // }
     const { loading } = this.state;
 
     return (

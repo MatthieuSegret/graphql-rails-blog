@@ -1,14 +1,18 @@
 module Authenticatable
   def authenticate
     if request.headers["Authorization"].present?
-      token   = request.headers.fetch("Authorization", "").split(" ").last
-      payload = JsonWebToken.decode(token)
-      @current_user = User.find(payload["sub"])
+      pattern = /^Bearer /
+      header  = request.headers['Authorization']
+      token = header.gsub(pattern, '') if header && header.match(pattern)
+
+      if token.present?
+        @current_user = User.find_by_access_token(token)
+
+        if @current_user.nil?
+          render json: AttributeError.error("Auth token is invalid")
+        end
+      end
     end
-  rescue ::JWT::ExpiredSignature => e
-    render json: AttributeError.error("Auth token has expired")
-  rescue ::JWT::DecodeError
-    render json: AttributeError.error("Auth token is invalid")
   end
 
   def current_user
