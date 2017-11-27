@@ -7,7 +7,7 @@ module CommentMutations
     input_field :content, types.String
 
     return_field :comment, CommentType
-    return_field :errors, types[AttributeErrorType]
+    return_field :messages, types[FieldErrorType]
 
     resolve(Auth.protect ->(obj, inputs, ctx) {
       post = Post.find(inputs[:postId])
@@ -17,7 +17,7 @@ module CommentMutations
       if new_comment.save
         { comment: new_comment }
       else
-        { errors: new_comment.attributes_errors }
+        { messages: new_comment.fields_errors }
       end
     })
   end

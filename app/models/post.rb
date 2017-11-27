@@ -12,6 +12,7 @@ class Post < ApplicationRecord
   end
 
   def self.search(keywords)
+    return self if keywords.blank?
     where('lower(title) like :keywords OR lower(content) like :keywords', :keywords => "%#{keywords.downcase}%")
   end
 end

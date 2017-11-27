@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { reduxForm, Field, SubmissionError, change } from 'redux-form';
+import { graphql } from 'react-apollo';
+import { reduxForm, Field, SubmissionError } from 'redux-form';
 
-import withChangeUserPassword from 'mutations/users/changeUserPasswordMutation';
+import withFlashMessage from 'components/flash/withFlashMessage';
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
+
+import CHANGE_USER_PASSWORD from 'graphql/users/changeUserPasswordMutation.graphql';
 
 class ChangeUserPassword extends Component {
   static propTypes = {
@@ -22,12 +24,12 @@ class ChangeUserPassword extends Component {
 
   submitForm(values) {
     this.setState({ loading: true });
-    return this.props.changePassword(values).then(errors => {
-      if (errors) {
+    return this.props.changePassword(values).then(response => {
+      const errors = response.data.changePassword.errors;
+      if (!errors) {
+        this.props.redirect('/', { notice: 'User password was successfully updated' });
+      } else {
         this.setState({ loading: false });
-        this.props.change('ChangeUserPasswordForm', 'password', '');
-        this.props.change('ChangeUserPasswordForm', 'password_confirmation', '');
-        this.props.change('ChangeUserPasswordForm', 'current_password', '');
         throw new SubmissionError(errors);
       }
     });
@@ -56,6 +58,14 @@ class ChangeUserPassword extends Component {
   }
 }
 
+const withChangeUserPassword = graphql(CHANGE_USER_PASSWORD, {
+  props: ({ mutate }) => ({
+    changePassword(user) {
+      return mutate({ variables: { ...user } });
+    }
+  })
+});
+
 export default reduxForm({
   form: 'ChangeUserPasswordForm'
-})(connect(null, { change })(withChangeUserPassword(ChangeUserPassword)));
+})(withFlashMessage(withChangeUserPassword(ChangeUserPassword)));

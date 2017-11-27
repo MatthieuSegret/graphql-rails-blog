@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import ListPosts from 'containers/posts/_ListPosts';
 import HeadListPosts from 'containers/posts/_HeadListPosts';
-import withPosts from 'queries/posts/postsQuery';
+import withPosts from 'queries/postsQuery';
 
 class SearchPosts extends Component {
   static propTypes = {
@@ -28,14 +28,11 @@ class SearchPosts extends Component {
         <h1>Searching posts</h1>
         <HeadListPosts initialKeywords={keywords} loading={firstPostsLoading} />
 
-        {!firstPostsLoading && posts && posts.length === 0
-          ? <h3>Pas de résultats ...</h3>
-          : <ListPosts
-              posts={posts}
-              postsCount={postsCount}
-              loading={loading}
-              loadMorePosts={loadMorePosts}
-            />}
+        {!firstPostsLoading && posts && posts.length === 0 ? (
+          <h3>Pas de résultats ...</h3>
+        ) : (
+          <ListPosts posts={posts} postsCount={postsCount} loading={loading} loadMorePosts={loadMorePosts} />
+        )}
       </div>
     );
   }

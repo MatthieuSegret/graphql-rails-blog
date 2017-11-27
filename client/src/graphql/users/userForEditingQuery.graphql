@@ -1,0 +1,7 @@
+#import "graphql/fragments/userFragment.graphql"
+
+query getUserForEditing {
+  currentUser {
+    ...UserForEditingFragment
+  }
+}

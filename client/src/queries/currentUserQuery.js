@@ -1,16 +1,7 @@
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import client from 'config/apolloClient';
 
-const CURRENT_USER = gql`
-  query currentUser {
-    currentUser {
-      id
-      name
-      email
-    }
-  }
-`;
+import CURRENT_USER from 'graphql/users/currentUserQuery.graphql';
 
 export function fetchCurrentUser() {
   return client.query({ query: CURRENT_USER, fetchPolicy: 'network-only' });

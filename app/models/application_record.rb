@@ -1,11 +1,11 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
-  def attributes_errors
-    attribute_errors = []
+  def fields_errors
+    field_errors = []
     self.errors.each do |attr, msg|
-      attribute_errors.push(AttributeError.new(attr.to_s, msg))
+      field_errors.push(FieldError.new(attr.to_s, msg))
     end
-    attribute_errors
+    field_errors
   end
 end

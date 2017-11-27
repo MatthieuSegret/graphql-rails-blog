@@ -29,15 +29,16 @@ export const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 export const formatErrorsLink = new ApolloLink((operation, forward) => {
   return forward(operation).map(response => {
-    const operationName = Object.keys(response.data);
-    const payload = response.data[operationName] || null;
-    if (payload && payload.errors && payload.errors.length > 0) {
-      response.data[operationName].errors = formatErrors(payload.errors);
-      const errors = response.data[operationName].errors;
-      if (errors.base) {
-        store.dispatch(error(errors.base));
-      } else {
-        store.dispatch(error('Please review the problems below:'));
+    // Add format errors properties to payload if an error is happend
+    for (let operationName in response.data) {
+      const payload = response.data[operationName];
+      if (payload && payload.messages && payload.messages.length > 0) {
+        response.data[operationName].errors = formatErrors(payload.messages);
+        if (payload.errors.base) {
+          store.dispatch(error(payload.errors.base));
+        } else {
+          store.dispatch(error('Please review the problems below:'));
+        }
       }
     }
     return response;

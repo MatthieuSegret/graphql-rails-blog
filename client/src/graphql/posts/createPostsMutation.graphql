@@ -1,0 +1,13 @@
+#import "graphql/fragments/postPreviewFragment.graphql"
+
+mutation createPost($title: String, $content: String) {
+  createPost(input: { title: $title, content: $content }) {
+    newPost: post {
+      ...PostPreviewFragment
+    }
+    messages {
+      field
+      message
+    }
+  }
+}

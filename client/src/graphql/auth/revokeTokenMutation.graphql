@@ -1,0 +1,8 @@
+mutation revokeToken {
+  revokeToken(input: {}) {
+    messages {
+      message
+      field
+    }
+  }
+}

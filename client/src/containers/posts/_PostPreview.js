@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
-import withDestroyPost from 'mutations/posts/destroyPostMutation';
-import withCurrentUser from 'queries/users/currentUserQuery';
+import withCurrentUser from 'queries/currentUserQuery';
+import withFlashMessage from 'components/flash/withFlashMessage';
+
+import DELETE_POST from 'graphql/posts/deletePostMutation.graphql';
+import POSTS from 'graphql/posts/postsQuery.graphql';
 
 class PostPreview extends Component {
   static propTypes = {
     post: PropTypes.object.isRequired,
-    destroyPost: PropTypes.func.isRequired,
-    currentUser: PropTypes.object
+    deletePost: PropTypes.func.isRequired,
+    currentUser: PropTypes.object,
+    notice: PropTypes.func
   };
 
   constructor(props) {
@@ -21,7 +25,11 @@ class PostPreview extends Component {
 
   destroy() {
     if (window.confirm('Are you sure ?')) {
-      this.props.destroyPost(this.props.post.id);
+      this.props.deletePost(this.props.post.id).then(response => {
+        if (!response.data.deletePost.errors) {
+          this.props.notice('Post was successfully destroyed');
+        }
+      });
     }
     return false;
   }
@@ -32,17 +40,11 @@ class PostPreview extends Component {
     return (
       <tr>
         <td className="title">
-          <Link to={`/posts/${post.id}`}>
-            {post.title}
-          </Link>
+          <Link to={`/posts/${post.id}`}>{post.title}</Link>
         </td>
-        <td>
-          {post.author.name}
-        </td>
-        <td>
-          {moment(new Date(post.created_at)).fromNow()}
-        </td>
-        {currentUser
+        <td>{post.author.name}</td>
+        <td>{moment(new Date(post.created_at)).fromNow()}</td>
+        {currentUser && currentUser.id === post.author.id
           ? [
               <td key="post-edit">
                 <Link to={`/posts/${post.id}/edit`}>Edit</Link>
@@ -59,18 +61,21 @@ class PostPreview extends Component {
   }
 }
 
-export const fragments = {
-  post: gql`
-    fragment PostPreviewFragment on Post {
-      id
-      title
-      created_at
-      author {
-        id
-        name
-      }
+const withDeletePost = graphql(DELETE_POST, {
+  props: ({ ownProps, mutate }) => ({
+    deletePost(postID) {
+      return mutate({
+        variables: { id: postID },
+        update: (store, { data: { deletePost: { post: postDeleted } } }) => {
+          if (!postDeleted) return false;
+          const data = store.readQuery({ query: POSTS });
+          data.posts = data.posts.filter(post => post.id !== postDeleted.id);
+          data.postsCount -= 1;
+          store.writeQuery({ query: POSTS, data });
+        }
+      });
     }
-  `
-};
+  })
+});
 
-export default withDestroyPost(withCurrentUser(PostPreview));
+export default withDeletePost(withCurrentUser(withFlashMessage(PostPreview)));

@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 
 import PostForm from 'containers/posts/_PostForm';
-import withPostForEditing from 'queries/posts/postForEditingQuery';
-import withUpdatePost from 'mutations/posts/updatePostMutation';
 import Loading from 'components/Loading';
+
+import POST_FOR_EDITING from 'graphql/posts/postForEditingQuery.graphql';
+import UPDATE_POST from 'graphql/posts/updatePostMutation.graphql';
 
 class EditPost extends Component {
   static propTypes = {
     data: PropTypes.object,
     updatePost: PropTypes.func
   };
+
+  constructor(props) {
+    super(props);
+    this.action = this.action.bind(this);
+  }
+
+  action(values) {
+    return new Promise((resolve, reject) => {
+      this.props.updatePost(values).then(response => {
+        const errors = response.data.updatePost.errors;
+        if (!errors) {
+          this.props.redirect('/', { notice: 'Post was successfully updated' });
+        } else {
+          reject(errors);
+        }
+      });
+    });
+  }
 
   render() {
     const { data: { post, loading } } = this.props;
@@ -23,25 +42,28 @@ class EditPost extends Component {
     return (
       <div>
         <h1>Editing post</h1>
-        <PostForm
-          action={this.props.updatePost}
-          initialValues={{ ...post }}
-          submitName="Update Post"
-        />
+        <PostForm action={this.action} initialValues={{ ...post }} submitName="Update Post" />
         <Link to="/">Back</Link>
       </div>
     );
   }
 }
 
-export const fragments = {
-  post: gql`
-    fragment PostForEditingFragment on Post {
-      id
-      title
-      content
+const withPostForEditing = graphql(POST_FOR_EDITING, {
+  options: ownProps => ({
+    variables: {
+      id: ownProps.match.params.id
+    },
+    fetchPolicy: 'network-only'
+  })
+});
+
+const withUpdatePost = graphql(UPDATE_POST, {
+  props: ({ mutate }) => ({
+    updatePost(post) {
+      return mutate({ variables: { ...post } });
     }
-  `
-};
+  })
+});
 
 export default withPostForEditing(withUpdatePost(EditPost));

@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import shortid from 'shortid';
 
 import RenderField from 'components/form/RenderField';
 import Button from 'components/form/Button';
-import withCreateComment from 'mutations/comments/createCommentMutation';
-import withCurrentUser from 'queries/users/currentUserQuery';
+import withCurrentUser from 'queries/currentUserQuery';
+import withFlashMessage from 'components/flash/withFlashMessage';
+
+import CREATE_COMMENT from 'graphql/posts/createCommentMutation.graphql';
+import POST from 'graphql/posts/postQuery.graphql';
 
 class NewComment extends Component {
   static propTypes = {
@@ -26,12 +31,14 @@ class NewComment extends Component {
   submitForm(values) {
     const { createComment, postId, reset } = this.props;
     this.setState({ loading: true });
-    return createComment(postId, values).then(errors => {
-      this.setState({ loading: false });
-      if (errors) {
-        throw new SubmissionError(errors);
-      } else {
+    return createComment(postId, values).then(response => {
+      const errors = response.data.createComment.errors;
+      if (!errors) {
+        this.props.deleteFlashMessage();
+        this.setState({ loading: false });
         reset();
+      } else {
+        throw new SubmissionError(errors);
       }
     });
   }
@@ -43,8 +50,8 @@ class NewComment extends Component {
     if (!currentUser) {
       return (
         <p>
-          You need to <Link to="/users/signin">sign in</Link> or{' '}
-          <Link to="/users/signup">sign up</Link> before continuing.
+          You need to <Link to="/users/signin">sign in</Link> or <Link to="/users/signup">sign up</Link> before
+          continuing.
         </p>
       );
     }
@@ -52,13 +59,7 @@ class NewComment extends Component {
     return (
       <div className="new-comment">
         <form onSubmit={handleSubmit(this.submitForm)}>
-          <Field
-            name="content"
-            component={RenderField}
-            type="textarea"
-            rows={2}
-            label="New comment"
-          />
+          <Field name="content" component={RenderField} type="textarea" rows={2} label="New comment" />
           <Button loading={loading} value="Create comment" />
         </form>
       </div>
@@ -66,6 +67,41 @@ class NewComment extends Component {
   }
 }
 
+const withCreateComment = graphql(CREATE_COMMENT, {
+  props: ({ ownProps, mutate }) => ({
+    createComment(postId, comment) {
+      return mutate({
+        variables: { postId, ...comment },
+        update: (store, { data: { createComment: { newComment } } }) => {
+          if (!newComment) return false;
+          const id = ownProps.postId;
+          const data = store.readQuery({ query: POST, variables: { id } });
+          data.post.comments.unshift(newComment);
+          store.writeQuery({ query: POST, variables: { id }, data });
+        },
+        optimisticResponse: {
+          __typename: 'Mutation',
+          createComment: {
+            __typename: 'Post',
+            newComment: {
+              __typename: 'Comment',
+              id: shortid.generate(),
+              content: comment.content,
+              created_at: +new Date(),
+              pending: true,
+              author: {
+                __typename: 'User',
+                name: ownProps.currentUser.name
+              }
+            },
+            messages: null
+          }
+        }
+      });
+    }
+  })
+});
+
 export default reduxForm({
   form: 'CommentForm'
-})(withCurrentUser(withCreateComment(NewComment)));
+})(withCurrentUser(withCreateComment(withFlashMessage(NewComment))));

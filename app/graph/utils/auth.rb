@@ -4,7 +4,7 @@ module Auth
       if ctx[:current_user]
         resolve.call(obj, args, ctx)
       else
-        AttributeError.error("You need to sign in or sign up before continuing")
+        FieldError.error("You need to sign in or sign up before continuing")
       end
     end
   end

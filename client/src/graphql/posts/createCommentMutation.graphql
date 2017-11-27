@@ -1,0 +1,13 @@
+#import "graphql/fragments/commentFragment.graphql"
+
+mutation createComment($postId: ID, $content: String) {
+  createComment(input: { postId: $postId, content: $content }) {
+    newComment: comment {
+      ...CommentFragment
+    }
+    messages {
+      field
+      message
+    }
+  }
+}

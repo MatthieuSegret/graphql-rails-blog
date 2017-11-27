@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import SearchForm from 'containers/posts/_SearchForm';
-import withCurrentUser from 'queries/users/currentUserQuery';
+import withCurrentUser from 'queries/currentUserQuery';
 
 class ListPosts extends Component {
   static propTypes = {
@@ -20,13 +20,13 @@ class ListPosts extends Component {
         <div className="col-md-8">
           <SearchForm initialKeywords={keywords} loading={searchLoading} />
         </div>
-        {currentUser
-          ? <div className="col-md-4">
-              <Link to="/posts/new" className="btn btn-primary create-post">
-                New Post
-              </Link>
-            </div>
-          : null}
+        {currentUser ? (
+          <div className="col-md-4">
+            <Link to="/posts/new" className="btn btn-primary create-post">
+              New Post
+            </Link>
+          </div>
+        ) : null}
       </div>
     );
   }

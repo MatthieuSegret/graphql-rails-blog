@@ -9,16 +9,13 @@ and **GraphQL**. This is a simple blog engine using ordinary features which can 
 
 * [React](https://facebook.github.io/react) - A JavaScript library for building user interfaces. It introduces many
   great concepts, such as, Virtual DOM, Data flow, etc.
-* [Babel](https://babeljs.io) - Babel is a JavaScript compiler which allows you to use next generation, ES6/ES7,
-  JavaScript... today.
-* [Sass](http://sass-lang.com) - Sass is an extension of CSS, adding nested rules, variables, mixins, selector
-  inheritance, and more.
-* [Redux](https://github.com/reactjs/redux) - Redux is a predictable state container for JavaScript apps
-* [Redux Form](http://redux-form.com/) - A Higher Order Component using react-redux to keep form state in a Redux store.
-* [Apollo](http://dev.apollodata.com/) - A flexible, fully-featured GraphQL client for every platform.
 * [Create React App](https://github.com/facebookincubator/create-react-app) - is a new officially supported way to
   create single-page React applications. It offers a modern build setup with no configuration.
-* [ESlint](http://eslint.org/) - ESlint is a pluggable linting utility for JavaScript, and JSX.
+* [Sass](http://sass-lang.com) - Sass is an extension of CSS, adding nested rules, variables, mixins, selector
+  inheritance, and more.
+* [Apollo 2](http://dev.apollodata.com/) - A flexible, fully-featured GraphQL client for every platform.
+* [Redux](https://github.com/reactjs/redux) - Redux is a predictable state container for JavaScript apps
+* [Redux Form](http://redux-form.com/) - A Higher Order Component using react-redux to keep form state in a Redux store.
 
 ### Backend
 
@@ -50,9 +47,10 @@ and **GraphQL**. This is a simple blog engine using ordinary features which can 
 
 * Queries et mutations
 * FetchMore for pagination
-* Integrating with Redux and updating store
+* Using `apollo-cache-inmemory`
+* Apollo Link (dedup, errors, custom)
 * Optimistic UI
-* Colocate data / component with fragments
+* [Static GraphQL queries](https://dev-blog.apollodata.com/5-benefits-of-static-graphql-queries-b7fa90b0b69a)
 * Validation management and integration with Redux Form
 * Authentication and authorizations
 * Protect queries and mutations on GraphQL API
@@ -62,7 +60,7 @@ and **GraphQL**. This is a simple blog engine using ordinary features which can 
 ## Prerequisites
 
 * Ruby 2.4
-* [Node.js](https://nodejs.org) v6 or newer + [Yarn](https://yarnpkg.com) package manager
+* Node 9.2 ([Installing Node](https://nodejs.org/en/download/package-manager))
 * SQLite3
 
 ## Getting Started
@@ -104,8 +102,9 @@ and **GraphQL**. This is a simple blog engine using ordinary features which can 
 
 ## Next step
 
+* [ ] Remove Redux and Redux Form
+* [ ] Use Flow Type
 * [ ] Use subscription GraphQL feature
-* [ ] Use TypeScript
 * [ ] Create mobile app with React Native
 
 ## Screens

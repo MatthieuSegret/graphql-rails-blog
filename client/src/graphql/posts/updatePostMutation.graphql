@@ -1,0 +1,13 @@
+#import "graphql/fragments/postForEditingFragment.graphql"
+
+mutation updatePost($id: ID, $title: String, $content: String) {
+  updatePost(input: { id: $id, title: $title, content: $content }) {
+    post {
+      ...PostForEditingFragment
+    }
+    messages {
+      field
+      message
+    }
+  }
+}

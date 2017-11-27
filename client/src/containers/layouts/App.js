@@ -22,7 +22,7 @@ import Header from 'containers/layouts/Header';
 
 import { deleteFlashMessage } from 'components/flash/flashActions';
 import FlashMessage from 'components/flash/FlashMessage';
-import withCurrentUser from 'queries/users/currentUserQuery';
+import withCurrentUser from 'queries/currentUserQuery';
 
 import 'assets/stylesheets/css/styles.css';
 

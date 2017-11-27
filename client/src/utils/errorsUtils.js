@@ -1,10 +1,10 @@
 export default function formatErrors(errors) {
-  if (!errors) {
+  if (!errors || errors.length === 0) {
     return null;
   }
   const errorsFormatted = {};
   errors.forEach(error => {
-    errorsFormatted[error.attribute] = error.message;
+    errorsFormatted[error.field || 'base'] = error.message;
   });
   return errorsFormatted;
 }

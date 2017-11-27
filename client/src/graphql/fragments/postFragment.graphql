@@ -1,0 +1,16 @@
+#import "graphql/fragments/commentFragment.graphql"
+
+fragment PostFragment on Post {
+  id
+  title
+  content
+  created_at
+  comments_count
+  author {
+    id
+    name
+  }
+  comments {
+    ...CommentFragment
+  }
+}

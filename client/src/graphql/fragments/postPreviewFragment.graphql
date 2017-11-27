@@ -1,0 +1,9 @@
+fragment PostPreviewFragment on Post {
+  id
+  title
+  created_at
+  author {
+    id
+    name
+  }
+}

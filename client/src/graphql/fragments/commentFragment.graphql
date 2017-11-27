@@ -1,0 +1,8 @@
+fragment CommentFragment on Comment {
+  id
+  content
+  created_at
+  author {
+    name
+  }
+}

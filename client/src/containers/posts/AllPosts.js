@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import ListPosts from 'containers/posts/_ListPosts';
 import HeadListPosts from 'containers/posts/_HeadListPosts';
-import withPosts from 'queries/posts/postsQuery';
+import withPosts from 'queries/postsQuery';
 
 class AllPosts extends Component {
   static propTypes = {
@@ -17,12 +17,7 @@ class AllPosts extends Component {
       <div className="all-posts">
         <h1>Listing posts</h1>
         <HeadListPosts />
-        <ListPosts
-          posts={posts}
-          postsCount={postsCount}
-          loading={loading}
-          loadMorePosts={loadMorePosts}
-        />
+        <ListPosts posts={posts} postsCount={postsCount} loading={loading} loadMorePosts={loadMorePosts} />
       </div>
     );
   }

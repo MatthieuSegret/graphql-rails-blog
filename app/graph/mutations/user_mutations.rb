@@ -9,7 +9,7 @@ module UserMutations
     input_field :password_confirmation, types.String
 
     return_field :user, UserType
-    return_field :errors, types[AttributeErrorType]
+    return_field :messages, types[FieldErrorType]
 
     resolve ->(obj, inputs, ctx) {
       user = User.new(inputs.to_params)
@@ -19,7 +19,7 @@ module UserMutations
         user.generate_access_token!
         { user: user }
       else
-        { errors: user.attributes_errors }
+        { messages: user.fields_errors }
       end
     }
   end
@@ -32,7 +32,7 @@ module UserMutations
     input_field :email, types.String
 
     return_field :user, UserType
-    return_field :errors, types[AttributeErrorType]
+    return_field :messages, types[FieldErrorType]
 
     resolve(Auth.protect ->(obj, inputs, ctx) {
       current_user = ctx[:current_user]
@@ -40,7 +40,7 @@ module UserMutations
       if current_user.update(inputs.to_params)
         { user: current_user }
       else
-        { errors: current_user.attributes_errors }
+        { messages: current_user.fields_errors }
       end
     })
   end
@@ -54,7 +54,7 @@ module UserMutations
     input_field :current_password, types.String
 
     return_field :user, UserType
-    return_field :errors, types[AttributeErrorType]
+    return_field :messages, types[FieldErrorType]
 
     resolve(Auth.protect ->(obj, inputs, ctx) {
       current_user = ctx[:current_user]
@@ -62,7 +62,7 @@ module UserMutations
       if current_user.update_with_password(params_with_password)
         { user: current_user }
       else
-        { errors: current_user.attributes_errors }
+        { messages: current_user.fields_errors }
       end
     })
   end
@@ -71,11 +71,11 @@ module UserMutations
     name "cancelAccount"
     description "Cancel Account"
 
-    return_field :errors, types[AttributeErrorType]
+    return_type types.Boolean
 
     resolve(Auth.protect ->(obj, inputs, ctx) {
       ctx[:current_user].destroy
-      {}
+      true
     })
   end
 end

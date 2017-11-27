@@ -9,7 +9,7 @@ module Authenticatable
         @current_user = User.find_by_access_token(token)
 
         if @current_user.nil?
-          render json: AttributeError.error("Auth token is invalid")
+          render json: FieldError.error("Auth token is invalid")
         end
       end
     end

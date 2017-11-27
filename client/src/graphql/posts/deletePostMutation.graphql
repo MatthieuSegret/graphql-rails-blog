@@ -1,0 +1,11 @@
+mutation deletePost($id: ID) {
+  deletePost(input: { id: $id }) {
+    post {
+      id
+    }
+    messages {
+      field
+      message
+    }
+  }
+}

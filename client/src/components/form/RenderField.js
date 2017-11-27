@@ -32,23 +32,11 @@ export default class RenderField extends Component {
     const { input, type, rows, placeholder, input: { name } } = this.props;
     if (type === 'textarea') {
       return (
-        <textarea
-          className="string optional form-control"
-          rows={rows}
-          id={name}
-          placeholder={placeholder}
-          {...input}
-        />
+        <textarea className="string optional form-control" rows={rows} id={name} placeholder={placeholder} {...input} />
       );
     }
     return (
-      <input
-        type={type}
-        className="string optional form-control"
-        id={name}
-        placeholder={placeholder}
-        {...input}
-      />
+      <input type={type} className="string optional form-control" id={name} placeholder={placeholder} {...input} />
     );
   }
 
@@ -61,15 +49,8 @@ export default class RenderField extends Component {
           {this.state.label}
         </label>
         {this.input()}
-        {meta.touched &&
-          meta.error &&
-          <span className="help-block">
-            {meta.error}
-          </span>}
-        {hint &&
-          <p className="help-block">
-            {hint}
-          </p>}
+        {meta.touched && meta.error && <span className="help-block">{meta.error}</span>}
+        {hint && <p className="help-block">{hint}</p>}
       </div>
     );
   }

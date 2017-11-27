@@ -20,23 +20,22 @@ class PostForm extends Component {
 
   submitForm(values) {
     this.setState({ loading: true });
-    return this.props.action(values).then(errors => {
-      if (errors) {
-        this.setState({ loading: false });
-        throw new SubmissionError(errors);
-      }
+    return this.props.action(values).catch(errors => {
+      this.setState({ loading: false });
+      console.log(errors);
+      throw new SubmissionError(errors);
     });
   }
 
   render() {
-    const { handleSubmit, submitName } = this.props;
+    const { handleSubmit, submitName, pristine, submitting } = this.props;
     const { loading } = this.state;
 
     return (
       <form onSubmit={handleSubmit(this.submitForm)}>
         <Field name="title" component={RenderField} type="text" />
         <Field name="content" component={RenderField} type="textarea" />
-        <Button loading={loading} value={submitName} />
+        <Button loading={loading} value={submitName} disabled={pristine || submitting} />
       </form>
     );
   }

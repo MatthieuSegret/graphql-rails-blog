@@ -7,7 +7,7 @@ module PostMutations
     input_field :content, types.String
 
     return_field :post, PostType
-    return_field :errors, types[AttributeErrorType]
+    return_field :messages, types[FieldErrorType]
 
     resolve(Auth.protect ->(obj, inputs, ctx) {
       new_post = ctx[:current_user].posts.build(inputs.to_params)
@@ -15,7 +15,7 @@ module PostMutations
       if new_post.save
         { post: new_post }
       else
-        { errors: new_post.attributes_errors }
+        { messages: new_post.fields_errors }
       end
     })
   end
@@ -29,34 +29,34 @@ module PostMutations
     input_field :content, types.String
 
     return_field :post, PostType
-    return_field :errors, types[AttributeErrorType]
+    return_field :messages, types[FieldErrorType]
 
     resolve(Auth.protect ->(obj, inputs, ctx) {
       post = Post.find(inputs[:id])
 
       if ctx[:current_user] != post.user
-        AttributeError.error("You can not modify this post because you are not the owner")
+        FieldError.error("You can not modify this post because you are not the owner")
       elsif post.update(inputs.to_params)
         { post: post }
       else
-        { errors: post.attributes_errors }
+        { messages: post.fields_errors }
       end
     })
   end
 
   Destroy = GraphQL::Relay::Mutation.define do
-    name "destroyPost"
+    name "deletePost"
     description "Destroy a Post"
     input_field :id, types.ID
 
     return_field :post, PostType
-    return_field :errors, types[AttributeErrorType]
+    return_field :messages, types[FieldErrorType]
 
     resolve(Auth.protect ->(obj, inputs, ctx) {
       post = Post.find(inputs[:id])
 
       if ctx[:current_user] != post.user
-        AttributeError.error("You can not modify this post because you are not the owner")
+        FieldError.error("You can not modify this post because you are not the owner")
       elsif post.destroy
         { post: post }
       end

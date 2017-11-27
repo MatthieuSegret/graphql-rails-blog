@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Loading from 'components/Loading';
 import PostPreview from 'containers/posts/_PostPreview';
 
-import withCurrentUser from 'queries/users/currentUserQuery';
+import withCurrentUser from 'queries/currentUserQuery';
 
 class ListPosts extends Component {
   static propTypes = {
@@ -44,21 +44,16 @@ class ListPosts extends Component {
             </tr>
           </thead>
 
-          <tbody>
-            {this.postsPreview()}
-          </tbody>
+          <tbody>{this.postsPreview()}</tbody>
         </table>
 
         {loading ? <Loading /> : null}
 
-        {!loading && posts && posts.length < postsCount
-          ? <button
-              className="btn btn-sm btn-default center-block load-more"
-              onClick={loadMorePosts}
-            >
-              Load more
-            </button>
-          : null}
+        {!loading && posts && posts.length < postsCount ? (
+          <button className="btn btn-sm btn-default center-block load-more" onClick={loadMorePosts}>
+            Load more
+          </button>
+        ) : null}
       </div>
     );
   }

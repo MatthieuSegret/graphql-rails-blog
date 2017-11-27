@@ -1,0 +1,8 @@
+#import "graphql/fragments/postPreviewFragment.graphql"
+
+query posts($offset: Int, $keywords: String) {
+  postsCount(keywords: $keywords)
+  posts(offset: $offset, keywords: $keywords) {
+    ...PostPreviewFragment
+  }
+}

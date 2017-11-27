@@ -1,0 +1,7 @@
+#import "graphql/fragments/postForEditingFragment.graphql"
+
+query getPost($id: ID) {
+  post(id: $id) {
+    ...PostForEditingFragment
+  }
+}

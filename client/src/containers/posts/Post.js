@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 import moment from 'moment';
 
 import Loading from 'components/Loading';
-import Comment, { fragments as CommentFragments } from 'containers/comments/_Comment';
+import Comment from 'containers/comments/_Comment';
 import NewComment from 'containers/comments/_NewComment';
-import withPost from 'queries/posts/postQuery';
+
+import POST from 'graphql/posts/postQuery.graphql';
 
 class Post extends Component {
   static propTypes = {
@@ -36,23 +37,15 @@ class Post extends Component {
 
     return (
       <article className="post">
-        <h2 className="post-heading">
-          {post.title}
-        </h2>
+        <h2 className="post-heading">{post.title}</h2>
         <div className="post-meta">
           <span className="post-author">
             Posted by: <em>{post.author.name}</em>
           </span>
-          <span className="post-date">
-            {moment(new Date(post.created_at)).fromNow()}
-          </span>
-          <span className="post-count-comments">
-            Comments: {post.comments_count}
-          </span>
+          <span className="post-date">{moment(new Date(post.created_at)).fromNow()}</span>
+          <span className="post-count-comments">Comments: {post.comments_count}</span>
         </div>
-        <div className="post-content">
-          {post.content}
-        </div>
+        <div className="post-content">{post.content}</div>
 
         <div className="comments">
           <h4>Comments</h4>
@@ -64,24 +57,12 @@ class Post extends Component {
   }
 }
 
-export const fragments = {
-  post: gql`
-    fragment PostFragment on Post {
-      id,
-      title,
-      content,
-      created_at,
-      comments_count,
-      author {
-        id,
-        name
-      }
-      comments {
-        ...CommentFragment
-      }
+const withPost = graphql(POST, {
+  options: ownProps => ({
+    variables: {
+      id: ownProps.match.params.id
     }
-    ${CommentFragments.comment}
-  `
-};
+  })
+});
 
 export default withPost(Post);
