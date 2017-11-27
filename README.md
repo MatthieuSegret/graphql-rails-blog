@@ -3,6 +3,9 @@
 This application can be used as **starter kit** if you want to get started building an app with **Rails**, **React**,
 and **GraphQL**. This is a simple blog engine using ordinary features which can be found in most web applications.
 
+If you are interested by Elixir, I created a similar application with Phoenix and Absinthe that you might like:
+[Yummy Phoenix GraphQL](https://github.com/MatthieuSegret/yummy-phoenix-graphql).
+
 ## Technologies
 
 ### Frontend
@@ -119,6 +122,10 @@ and **GraphQL**. This is a simple blog engine using ordinary features which can 
 #### Post page
 
 <img alt="Post page" src="http://documents.matthieusegret.com/get-post.png" width="500">
+
+#### Editing post
+
+<img alt="Editing post" src="http://documents.matthieusegret.com/edit-post.png" width="500">
 
 ## License
 
