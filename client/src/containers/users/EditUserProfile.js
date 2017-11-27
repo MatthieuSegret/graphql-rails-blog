@@ -8,7 +8,7 @@ import { graphql } from 'react-apollo';
 
 import withFlashMessage from 'components/flash/withFlashMessage';
 import RenderField from 'components/form/RenderField';
-import Button from 'components/form/Button';
+import SubmitField from 'components/form/SubmitField';
 
 import USER_FOR_EDITING from 'graphql/users/userForEditingQuery.graphql';
 import UPDATE_USER from 'graphql/users/updateUserMutation.graphql';
@@ -55,30 +55,40 @@ class EditUserProfile extends Component {
 
   render() {
     const { loading } = this.state;
+    const { handleSubmit, pristine, submitting } = this.props;
 
     return (
       <div className="edit-user-profile">
-        <h1>Edit profile</h1>
-        <form onSubmit={this.props.handleSubmit(this.submitForm)}>
-          <Field name="name" component={RenderField} type="text" />
-          <Field name="email" component={RenderField} type="text" />
-          <Button loading={loading} value="Update" />
-        </form>
-        <div className="change-password">
-          <h3>Password</h3>
-          <Link to="/users/password/edit" className="change-password-link">
-            <i className="glyphicon glyphicon-pencil" />
-            Change password
-          </Link>
+        <div className="columns">
+          <div className="column is-offset-one-quarter is-half">
+            <h1 className="title is-2">Edit profile</h1>
+            <form onSubmit={handleSubmit(this.submitForm)}>
+              <Field name="name" component={RenderField} />
+              <Field name="email" component={RenderField} />
+              <SubmitField loading={loading} disabled={pristine || submitting} value="Update" />
+            </form>
+
+            <div className="change-password">
+              <h3 className="title is-4">Password</h3>
+              <Link to="/users/password/edit" className="change-password-link">
+                <span className="icon">
+                  <i className="fa fa-pencil" />
+                </span>
+                Change password
+              </Link>
+            </div>
+
+            <div className="cancel-account">
+              <h3 className="title is-4">Cancel my account</h3>
+              <a onClick={this.onCancelAccount}>
+                <span className="icon">
+                  <i className="fa fa-trash-o" />
+                </span>
+                Cancel my account
+              </a>
+            </div>
+          </div>
         </div>
-        <div className="cancel-account">
-          <h3>Cancel my account</h3>
-          Unhappy?
-          <button onClick={this.onCancelAccount} className="btn btn-default btn-xs cancel-account-link">
-            Cancel my account
-          </button>
-        </div>
-        <Link to="/">Back</Link>
       </div>
     );
   }

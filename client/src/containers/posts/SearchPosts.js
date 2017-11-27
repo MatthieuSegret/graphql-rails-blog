@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ListPosts from 'containers/posts/_ListPosts';
-import HeadListPosts from 'containers/posts/_HeadListPosts';
 import withPosts from 'queries/postsQuery';
+import HeadListPosts from 'containers/posts/_HeadListPosts';
+import ListPosts from 'containers/posts/_ListPosts';
 
 class SearchPosts extends Component {
   static propTypes = {
     data: PropTypes.object,
-    loadMorePosts: PropTypes.func,
-    firstPostsLoading: PropTypes.bool,
     match: PropTypes.object
   };
 
@@ -20,18 +18,20 @@ class SearchPosts extends Component {
   }
 
   render() {
-    const { posts, postsCount, loading } = this.props.data;
-    const { match: { params: { keywords } }, loadMorePosts, firstPostsLoading } = this.props;
+    const { data: { posts, postsCount }, loadMorePosts } = this.props;
+    const { params: { keywords } } = this.props.match;
 
     return (
       <div className="search-posts">
-        <h1>Searching posts</h1>
-        <HeadListPosts initialKeywords={keywords} loading={firstPostsLoading} />
+        <h1 className="title is-3 has-text-centered">Search: {keywords}</h1>
+        <hr />
 
-        {!firstPostsLoading && posts && posts.length === 0 ? (
-          <h3>Pas de résultats ...</h3>
+        <HeadListPosts keywords={keywords} />
+
+        {posts && posts.length === 0 ? (
+          <h3>No results ...</h3>
         ) : (
-          <ListPosts posts={posts} postsCount={postsCount} loading={loading} loadMorePosts={loadMorePosts} />
+          <ListPosts posts={posts} postsCount={postsCount} loadMorePosts={loadMorePosts} />
         )}
       </div>
     );

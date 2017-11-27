@@ -12,12 +12,16 @@ class AllPosts extends Component {
   };
 
   render() {
-    const { data: { posts, postsCount, loading }, loadMorePosts } = this.props;
+    const { data: { posts, postsCount }, loadMorePosts } = this.props;
+    const { params: { keywords } } = this.props.match;
+
     return (
       <div className="all-posts">
-        <h1>Listing posts</h1>
-        <HeadListPosts />
-        <ListPosts posts={posts} postsCount={postsCount} loading={loading} loadMorePosts={loadMorePosts} />
+        <h1 className="title is-3 has-text-centered">Listing posts</h1>
+        <hr />
+
+        <HeadListPosts keywords={keywords} />
+        <ListPosts posts={posts} postsCount={postsCount} loadMorePosts={loadMorePosts} />
       </div>
     );
   }

@@ -1,0 +1,22 @@
+header,
+.container nav.navbar {
+  background-color: $primary;
+}
+
+a.navbar-item,
+.navbar-link {
+  color: $primary-invert;
+  &:hover {
+    color: $primary-invert;
+    background-color: darken($primary, 5%);
+  }
+}
+
+.navbar-brand .navbar-item {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+a .icon {
+  vertical-align: top;
+}

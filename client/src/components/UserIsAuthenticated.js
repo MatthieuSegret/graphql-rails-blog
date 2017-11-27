@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import withFlashMessage from 'components/flash/withFlashMessage';
 import withCurrentUser from 'queries/currentUserQuery';
-import Loading from 'components/Loading';
 
 export default function UserIsAuthenticated(WrappedComponent) {
   class ComponentUserIsAuthenticated extends Component {
@@ -38,7 +37,7 @@ export default function UserIsAuthenticated(WrappedComponent) {
     render() {
       const { currentUser, currentUserLoading } = this.props;
       if (currentUserLoading || !currentUser) {
-        return <Loading />;
+        return null;
       }
       return <WrappedComponent {...this.props} />;
     }

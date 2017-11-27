@@ -38,43 +38,43 @@ class Header extends Component {
 
     if (currentUser) {
       return (
-        <ul className="nav navbar-nav navbar-right">
-          <li>
-            <Link to="/users/profile/edit">{currentUser.name}</Link>
-          </li>
-          <li>
-            <a href="#logout" onClick={this.logout}>
-              Logout
-            </a>
-          </li>
-        </ul>
+        <div className="navbar-end">
+          <Link className="navbar-item" to="/users/profile/edit">
+            {currentUser.name}
+          </Link>
+          <a className="navbar-item" href="#logout" onClick={this.logout}>
+            Logout
+          </a>
+        </div>
       );
     }
 
     return (
-      <ul className="nav navbar-nav navbar-right">
-        <li>
-          <Link to="/users/signup">Register</Link>
-        </li>
-        <li>
-          <Link to="/users/signin">Login</Link>
-        </li>
-      </ul>
+      <div className="navbar-end">
+        <Link className="navbar-item" to="/users/signup">
+          Register
+        </Link>
+        <Link className="navbar-item" to="/users/signin">
+          Login
+        </Link>
+      </div>
     );
   }
 
   render() {
     return (
-      <nav className="navbar navbar-default">
+      <header className="header">
         <div className="container">
-          <div className="navbar-header">
-            <Link className="navbar-brand" title="GraphQL rails blog" to="/">
-              GraphQL rails blog
-            </Link>
-          </div>
-          <div className="collapse navbar-collapse">{this.renderSignInLinks()}</div>
+          <nav className="navbar is-primary">
+            <div className="navbar-brand">
+              <Link className="navbar-item" title="GraphQL rails blog" to="/">
+                GraphQL rails blog
+              </Link>
+            </div>
+            <div className="navbar-menu">{this.renderSignInLinks()}</div>
+          </nav>
         </div>
-      </nav>
+      </header>
     );
   }
 }

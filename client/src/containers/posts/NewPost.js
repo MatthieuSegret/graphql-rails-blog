@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 
 import PostForm from 'containers/posts/_PostForm';
@@ -34,9 +33,8 @@ class NewPost extends Component {
   render() {
     return (
       <div>
-        <h1>New Post</h1>
+        <h1 className="title">New Post</h1>
         <PostForm action={this.action} submitName="Create Post" />
-        <Link to="/">Back</Link>
       </div>
     );
   }

@@ -1,0 +1,11 @@
+@import 'bulma/sass/utilities/initial-variables';
+$primary: $cyan;
+$link: $cyan;
+$success: $turquoise;
+$fullhd: $widescreen;
+@import '~font-awesome/css/font-awesome.css';
+@import 'bulma/bulma';
+
+@import '_layout';
+@import '_users';
+@import '_posts';

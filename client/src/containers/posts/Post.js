@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import moment from 'moment';
 
-import Loading from 'components/Loading';
+import PostInfos from 'containers/posts/_PostInfos';
+import PostActions from 'containers/posts/_PostActions';
 import Comment from 'containers/comments/_Comment';
 import NewComment from 'containers/comments/_NewComment';
+import withCurrentUser from 'queries/currentUserQuery';
 
 import POST from 'graphql/posts/postQuery.graphql';
 
 class Post extends Component {
   static propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    currentUser: PropTypes.object
   };
 
   constructor(props) {
@@ -30,29 +32,28 @@ class Post extends Component {
   }
 
   render() {
-    const { post, loading } = this.props.data;
-    if (loading) {
-      return <Loading />;
+    const { data: { post }, currentUser } = this.props;
+    if (!post) {
+      return null;
     }
 
     return (
-      <article className="post">
-        <h2 className="post-heading">{post.title}</h2>
-        <div className="post-meta">
-          <span className="post-author">
-            Posted by: <em>{post.author.name}</em>
-          </span>
-          <span className="post-date">{moment(new Date(post.created_at)).fromNow()}</span>
-          <span className="post-count-comments">Comments: {post.comments_count}</span>
-        </div>
-        <div className="post-content">{post.content}</div>
+      <div className="post-show post">
+        <div className="title-wrapper">
+          <h1 className="title is-3">{post.title}</h1>
 
+          {currentUser && currentUser.id === post.author.id ? <PostActions post={post} /> : null}
+          <PostInfos post={post} />
+          <hr />
+        </div>
+
+        <div className="content post-content">{post.content}</div>
         <div className="comments">
-          <h4>Comments</h4>
+          <h4 className="title is-5">Commentaires</h4>
           {this.listComments()}
           <NewComment postId={post.id} />
         </div>
-      </article>
+      </div>
     );
   }
 }
@@ -65,4 +66,4 @@ const withPost = graphql(POST, {
   })
 });
 
-export default withPost(Post);
+export default withCurrentUser(withPost(Post));

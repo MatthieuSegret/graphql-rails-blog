@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 
 import RenderField from 'components/form/RenderField';
-import Button from 'components/form/Button';
+import SubmitField from 'components/form/SubmitField';
 
 class PostForm extends Component {
   static propTypes = {
@@ -32,10 +32,10 @@ class PostForm extends Component {
     const { loading } = this.state;
 
     return (
-      <form onSubmit={handleSubmit(this.submitForm)}>
-        <Field name="title" component={RenderField} type="text" />
-        <Field name="content" component={RenderField} type="textarea" />
-        <Button loading={loading} value={submitName} disabled={pristine || submitting} />
+      <form onSubmit={handleSubmit(this.submitForm)} className="post-form">
+        <Field name="title" component={RenderField} />
+        <Field name="content" type="textarea" inputHtml={{ rows: 8 }} component={RenderField} />
+        <SubmitField loading={loading} disabled={pristine || submitting} value={submitName} />
       </form>
     );
   }

@@ -2,18 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 
-import Button from 'components/form/Button';
-
 class SearchForm extends Component {
   static propTypes = {
     initialKeywords: PropTypes.string,
-    loading: PropTypes.bool,
     history: PropTypes.object
   };
 
   static defaultProps = {
-    initialKeywords: '',
-    loading: false
+    initialKeywords: ''
   };
 
   constructor(props) {
@@ -38,22 +34,23 @@ class SearchForm extends Component {
   }
 
   render() {
-    const { loading } = this.props;
-
     return (
-      <div className="search-form">
-        <form onSubmit={this.onSearch} className="form-inline" role="search">
-          <div className="form-group">
+      <form onSubmit={this.onSearch} role="search">
+        <div className="field has-addons">
+          <div className="control">
             <input
+              className="input"
               type="text"
-              className="form-control"
+              name="keywords"
               value={this.state.keywords}
               onChange={this.onInputChange}
             />
           </div>
-          <Button loading={loading} value="Search" />
-        </form>
-      </div>
+          <div className="control">
+            <input className="button" name="commit" type="submit" value="Search" />
+          </div>
+        </div>
+      </form>
     );
   }
 }

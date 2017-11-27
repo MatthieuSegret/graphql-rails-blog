@@ -10,10 +10,8 @@
   "author": "Matthieu Segret <matthieu.segret@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build-css":
-      "node-sass --include-path node_modules/ --include-path src/ src/assets/stylesheets/scss -o src/assets/stylesheets/css",
-    "watch-css":
-      "npm run build-css && node-sass --include-path node_modules/ --include-path src/ src/assets/stylesheets/scss -o src/assets/stylesheets/css --watch --recursive",
+    "build-css": "node-sass --include-path node_modules/ --include-path src/ src/assets/stylesheets/scss -o src/assets/stylesheets/css",
+    "watch-css": "npm run build-css && node-sass --include-path node_modules/ --include-path src/ src/assets/stylesheets/scss -o src/assets/stylesheets/css --watch --recursive",
     "start-js": "react-app-rewired start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-app-rewired build",
@@ -27,8 +25,9 @@
     "apollo-link-context": "^1.0.0",
     "apollo-link-dedup": "^1.0.2",
     "apollo-link-error": "^1.0.0",
-    "bootstrap-sass": "3.3.7",
+    "bulma": "^0.6.1",
     "classnames": "^2.2.5",
+    "font-awesome": "^4.7.0",
     "graphql": "^0.11.7",
     "graphql-tag": "^2.5.0",
     "moment": "2.19.2",

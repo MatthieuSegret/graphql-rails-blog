@@ -7,7 +7,7 @@ import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 
 import RenderField from 'components/form/RenderField';
-import Button from 'components/form/Button';
+import SubmitField from 'components/form/SubmitField';
 import withFlashMessage from 'components/flash/withFlashMessage';
 import withPosts from 'queries/postsQuery';
 import withCurrentUser, { fetchCurrentUser } from 'queries/currentUserQuery';
@@ -27,6 +27,7 @@ class SignInUser extends Component {
 
   constructor(props) {
     super(props);
+    this.state = { loading: false };
     this.submitForm = this.submitForm.bind(this);
     this.redirectIfUserIsAuthenticated = this.redirectIfUserIsAuthenticated.bind(this);
   }
@@ -66,14 +67,18 @@ class SignInUser extends Component {
   }
 
   render() {
+    const { loading } = this.state;
+
     return (
-      <div className="users-signin">
-        <form onSubmit={this.props.handleSubmit(this.submitForm)}>
-          <Field name="email" component={RenderField} type="text" />
-          <Field name="password" component={RenderField} type="password" />
-          <Button value="Log in" />
-        </form>
-        <Link to="/users/signup">Sign up</Link>
+      <div className="columns">
+        <div className="column is-offset-one-quarter is-half">
+          <form onSubmit={this.props.handleSubmit(this.submitForm)}>
+            <Field name="email" component={RenderField} />
+            <Field name="password" type="password" component={RenderField} />
+            <SubmitField value="Log in" cancel={false} loading={loading} />
+          </form>
+          <Link to="/users/signup">Sign up</Link>
+        </div>
       </div>
     );
   }

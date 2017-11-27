@@ -8,21 +8,22 @@ import withCurrentUser from 'queries/currentUserQuery';
 class ListPosts extends Component {
   static propTypes = {
     keywords: PropTypes.string,
-    searchLoading: PropTypes.bool,
     currentUser: PropTypes.object
   };
 
   render() {
-    const { keywords, searchLoading, currentUser } = this.props;
+    const { keywords, currentUser } = this.props;
 
     return (
-      <div className="head-posts row">
-        <div className="col-md-8">
-          <SearchForm initialKeywords={keywords} loading={searchLoading} />
+      <div className="columns">
+        <div className="column">
+          <div className="content">
+            <SearchForm initialKeywords={keywords} />
+          </div>
         </div>
         {currentUser ? (
-          <div className="col-md-4">
-            <Link to="/posts/new" className="btn btn-primary create-post">
+          <div className="column">
+            <Link to="/posts/new" className="button is-primary is-pulled-right">
               New Post
             </Link>
           </div>

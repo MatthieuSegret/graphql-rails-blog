@@ -5,7 +5,7 @@ import { reduxForm, Field, SubmissionError } from 'redux-form';
 
 import withFlashMessage from 'components/flash/withFlashMessage';
 import RenderField from 'components/form/RenderField';
-import Button from 'components/form/Button';
+import SubmitField from 'components/form/SubmitField';
 
 import CHANGE_USER_PASSWORD from 'graphql/users/changeUserPasswordMutation.graphql';
 
@@ -37,22 +37,26 @@ class ChangeUserPassword extends Component {
 
   render() {
     const { loading } = this.state;
+    const { handleSubmit, pristine, submitting } = this.props;
 
     return (
       <div className="change-user-password">
-        <h1>Change password</h1>
-        <form onSubmit={this.props.handleSubmit(this.submitForm)}>
-          <Field
-            name="current_password"
-            component={RenderField}
-            type="password"
-            label="Current password"
-            hint="we need your current password to confirm your changes"
-          />
-          <Field name="password" component={RenderField} type="password" label="New password" />
-          <Field name="password_confirmation" component={RenderField} type="password" label="Password confirmation" />
-          <Button loading={loading} value="Update" />
-        </form>
+        <div className="columns">
+          <div className="column is-offset-one-quarter is-half">
+            <h1 className="title is-3">Change password</h1>
+            <form onSubmit={handleSubmit(this.submitForm)}>
+              <Field name="currentPassword" label="Current password" type="password" component={RenderField} />
+              <Field name="password" label="New password" type="password" component={RenderField} />
+              <Field
+                name="passwordConfirmation"
+                label="Confirm your password"
+                type="password"
+                component={RenderField}
+              />
+              <SubmitField loading={loading} disabled={pristine || submitting} value="Update" />
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

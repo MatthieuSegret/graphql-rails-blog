@@ -1,6 +1,7 @@
 fragment PostPreviewFragment on Post {
   id
   title
+  description
   created_at
   author {
     id

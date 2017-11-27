@@ -24,7 +24,7 @@ import { deleteFlashMessage } from 'components/flash/flashActions';
 import FlashMessage from 'components/flash/FlashMessage';
 import withCurrentUser from 'queries/currentUserQuery';
 
-import 'assets/stylesheets/css/styles.css';
+import 'assets/stylesheets/css/application.css';
 
 class App extends Component {
   static propTypes = {
@@ -52,24 +52,32 @@ class App extends Component {
     const { currentUser, currentUserLoading } = this.props;
 
     return (
-      <div id="main">
+      <div>
         <Header currentUser={currentUser} currentUserLoading={currentUserLoading} />
 
-        <div className="container">
-          <FlashMessage />
-          <Switch>
-            <Route path="/" exact component={AllPosts} />
-            <Route path="/posts/search/:keywords" component={SearchPosts} />
-            <Route path="/posts/new" component={UserIsAuthenticated(NewPost)} />
-            <Route path="/posts/:id/edit" component={UserIsAuthenticated(EditPost)} />
-            <Route path="/posts/:id" component={Post} />
-            <Route path="/users/signin" component={SignInUser} />
-            <Route path="/users/signup" component={SignUpUser} />
-            <Route path="/users/profile/edit" component={UserIsAuthenticated(EditUserProfile)} />
-            <Route path="/users/password/edit" component={UserIsAuthenticated(ChangeUserPassword)} />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
+        <main role="main">
+          <section className="section">
+            <div className="container">
+              <div className="columns">
+                <div className="column is-offset-2 is-8">
+                  <FlashMessage />
+                  <Switch>
+                    <Route path="/" exact component={AllPosts} />
+                    <Route path="/posts/search/:keywords" component={SearchPosts} />
+                    <Route path="/posts/new" component={UserIsAuthenticated(NewPost)} />
+                    <Route path="/posts/:id/edit" component={UserIsAuthenticated(EditPost)} />
+                    <Route path="/posts/:id" component={Post} />
+                    <Route path="/users/signin" component={SignInUser} />
+                    <Route path="/users/signup" component={SignUpUser} />
+                    <Route path="/users/profile/edit" component={UserIsAuthenticated(EditUserProfile)} />
+                    <Route path="/users/password/edit" component={UserIsAuthenticated(ChangeUserPassword)} />
+                    <Route component={NotFound} />
+                  </Switch>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
       </div>
     );
   }

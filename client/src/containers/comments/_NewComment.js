@@ -6,7 +6,7 @@ import { graphql } from 'react-apollo';
 import shortid from 'shortid';
 
 import RenderField from 'components/form/RenderField';
-import Button from 'components/form/Button';
+import SubmitField from 'components/form/SubmitField';
 import withCurrentUser from 'queries/currentUserQuery';
 import withFlashMessage from 'components/flash/withFlashMessage';
 
@@ -19,6 +19,7 @@ class NewComment extends Component {
     createComment: PropTypes.func,
     handleSubmit: PropTypes.func,
     reset: PropTypes.func,
+    deleteFlashMessage: PropTypes.func,
     currentUser: PropTypes.object
   };
 
@@ -33,6 +34,7 @@ class NewComment extends Component {
     this.setState({ loading: true });
     return createComment(postId, values).then(response => {
       const errors = response.data.createComment.errors;
+      console.log(errors);
       if (!errors) {
         this.props.deleteFlashMessage();
         this.setState({ loading: false });
@@ -60,7 +62,7 @@ class NewComment extends Component {
       <div className="new-comment">
         <form onSubmit={handleSubmit(this.submitForm)}>
           <Field name="content" component={RenderField} type="textarea" rows={2} label="New comment" />
-          <Button loading={loading} value="Create comment" />
+          <SubmitField loading={loading} cancel={false} value="Comment" />
         </form>
       </div>
     );

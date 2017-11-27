@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 
 import PostForm from 'containers/posts/_PostForm';
-import Loading from 'components/Loading';
 
 import POST_FOR_EDITING from 'graphql/posts/postForEditingQuery.graphql';
 import UPDATE_POST from 'graphql/posts/updatePostMutation.graphql';
@@ -35,15 +33,14 @@ class EditPost extends Component {
 
   render() {
     const { data: { post, loading } } = this.props;
-    if (loading) {
-      return <Loading />;
+    if (!post) {
+      return null;
     }
 
     return (
       <div>
-        <h1>Editing post</h1>
+        <h1 className="title">Editing post</h1>
         <PostForm action={this.action} initialValues={{ ...post }} submitName="Update Post" />
-        <Link to="/">Back</Link>
       </div>
     );
   }

@@ -7,6 +7,7 @@ PostType = GraphQL::ObjectType.define do
   field :content, types.String, "The content of this post"
   field :comments_count, types.String,  "The total numner of comments on this post"
   field :created_at, types.String, "The time at which this post was created"
+  field :description, types.String, "The beginning of the content"
 
   field :author, UserType, "Owner of this post" do
     resolve ->(post, args, ctx) {

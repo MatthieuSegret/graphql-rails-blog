@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, SubmissionError, change } from 'redux-form';
 
 import RenderField from 'components/form/RenderField';
-import Button from 'components/form/Button';
-import withFlashMessage from 'components/flash/withFlashMessage';
+import SubmitField from 'components/form/SubmitField';
 import withPosts from 'queries/postsQuery';
+import withFlashMessage from 'components/flash/withFlashMessage';
 
 import SIGN_UP from 'graphql/users/signUpMutation.graphql';
 import CURRENT_USER from 'graphql/users/currentUserQuery.graphql';
@@ -25,6 +25,7 @@ class SignUpUser extends Component {
 
   constructor(props) {
     super(props);
+    this.state = { loading: false };
     this.submitForm = this.submitForm.bind(this);
   }
 
@@ -47,16 +48,20 @@ class SignUpUser extends Component {
   }
 
   render() {
+    const { loading } = this.state;
+
     return (
-      <div className="users-signin">
-        <form onSubmit={this.props.handleSubmit(this.submitForm)}>
-          <Field name="name" component={RenderField} type="text" />
-          <Field name="email" component={RenderField} type="text" />
-          <Field name="password" component={RenderField} type="password" hint="6 characters minimum" />
-          <Field name="password_confirmation" component={RenderField} type="password" label="Password confirmation" />
-          <Button value="Sign up" />
-        </form>
-        <Link to="/users/signin">Log in</Link>
+      <div className="columns">
+        <div className="column is-offset-2 is-8">
+          <form onSubmit={this.props.handleSubmit(this.submitForm)}>
+            <Field name="name" component={RenderField} type="text" />
+            <Field name="email" component={RenderField} type="text" />
+            <Field name="password" component={RenderField} type="password" hint="6 characters minimum" />
+            <Field name="password_confirmation" component={RenderField} type="password" label="Password confirmation" />
+            <SubmitField value="Sign up" cancel={false} loading={loading} />
+          </form>
+          <Link to="/users/signin">Log in</Link>
+        </div>
       </div>
     );
   }

@@ -28,14 +28,12 @@ class FlashMessage extends Component {
     const { type, text } = this.props.message;
     return (
       <div
-        className={classnames('alert', {
-          'alert-success': type === 'notice',
-          'alert-danger': type === 'error'
+        className={classnames('notification', {
+          'is-success': type === 'notice',
+          'is-danger': type === 'error'
         })}
       >
-        <button onClick={this.onClick} className="close">
-          <span>&times;</span>
-        </button>
+        <button onClick={this.onClick} className="delete" />
         {text}
       </div>
     );
