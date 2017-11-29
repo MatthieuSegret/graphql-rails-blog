@@ -140,7 +140,8 @@ export default class RenderField extends Component {
     return (
       <div className={classnames('field', className)}>
         {wrapper}
-        {meta.touched && meta.error && <p className="help is-danger">{meta.error}</p>}
+        {(meta.error || meta.submitError) &&
+          meta.touched && <p className="help is-danger">{meta.error || meta.submitError}</p>}
         {hint && <p className="help">{hint}</p>}
       </div>
     );

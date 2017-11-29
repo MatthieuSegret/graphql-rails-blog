@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
+import withMutationState from 'apollo-mutation-state';
 
 import PostForm from 'containers/posts/_PostForm';
+import withFlashMessage from 'components/flash/withFlashMessage';
 
 import CREATE_POST from 'graphql/posts/createPostsMutation.graphql';
 import POSTS from 'graphql/posts/postsQuery.graphql';
 
 class NewPost extends Component {
   static propTypes = {
-    createPost: PropTypes.func
+    createPost: PropTypes.func,
+    redirect: PropTypes.func
   };
 
   constructor(props) {
@@ -17,16 +20,14 @@ class NewPost extends Component {
     this.action = this.action.bind(this);
   }
 
-  action(values) {
-    return new Promise((resolve, reject) => {
-      this.props.createPost(values).then(response => {
-        const errors = response.data.createPost.errors;
-        if (!errors) {
-          this.props.redirect('/', { notice: 'Post was successfully created.' });
-        } else {
-          reject(errors);
-        }
-      });
+  async action(values) {
+    return new Promise(async (resolve, reject) => {
+      const { data: { createPost: { errors } } } = await this.props.createPost(values);
+      if (!errors) {
+        this.props.redirect('/', { notice: 'Post was successfully created.' });
+      } else {
+        reject(errors);
+      }
     });
   }
 
@@ -34,27 +35,31 @@ class NewPost extends Component {
     return (
       <div>
         <h1 className="title">New Post</h1>
-        <PostForm action={this.action} submitName="Create Post" />
+        <PostForm action={this.action} submitName="Create Post" mutation={this.props.mutation} />
       </div>
     );
   }
 }
 
 const withCreatePost = graphql(CREATE_POST, {
-  props: ({ ownProps, mutate }) => ({
+  props: ({ mutate, ownProps: { wrapMutate } }) => ({
     createPost(post) {
-      return mutate({
-        variables: { ...post },
-        update: (store, { data: { createPost: { newPost } } }) => {
-          if (!newPost) return false;
-          const data = store.readQuery({ query: POSTS });
-          data.posts.unshift(newPost);
-          data.postsCount += 1;
-          store.writeQuery({ query: POSTS, data });
-        }
-      });
+      return wrapMutate(
+        mutate({
+          variables: { ...post },
+          update: (store, { data: { createPost: { newPost } } }) => {
+            if (!newPost) return false;
+            const data = store.readQuery({ query: POSTS });
+            data.posts.unshift(newPost);
+            data.postsCount += 1;
+            store.writeQuery({ query: POSTS, data });
+          }
+        })
+      );
     }
   })
 });
 
-export default withCreatePost(NewPost);
+export default compose(withMutationState({ wrapper: true, propagateError: true }), withCreatePost, withFlashMessage)(
+  NewPost
+);

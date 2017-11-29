@@ -49,7 +49,7 @@ class Post extends Component {
 
         <div className="content post-content">{post.content}</div>
         <div className="comments">
-          <h4 className="title is-5">Commentaires</h4>
+          <h4 className="title is-5">Comments</h4>
           {this.listComments()}
           <NewComment postId={post.id} />
         </div>

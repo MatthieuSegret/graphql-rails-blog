@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
+import withMutationState from 'apollo-mutation-state';
 
 import PostForm from 'containers/posts/_PostForm';
+import withFlashMessage from 'components/flash/withFlashMessage';
 
 import POST_FOR_EDITING from 'graphql/posts/postForEditingQuery.graphql';
 import UPDATE_POST from 'graphql/posts/updatePostMutation.graphql';
@@ -10,7 +12,8 @@ import UPDATE_POST from 'graphql/posts/updatePostMutation.graphql';
 class EditPost extends Component {
   static propTypes = {
     data: PropTypes.object,
-    updatePost: PropTypes.func
+    updatePost: PropTypes.func,
+    redirect: PropTypes.func
   };
 
   constructor(props) {
@@ -19,20 +22,18 @@ class EditPost extends Component {
   }
 
   action(values) {
-    return new Promise((resolve, reject) => {
-      this.props.updatePost(values).then(response => {
-        const errors = response.data.updatePost.errors;
-        if (!errors) {
-          this.props.redirect('/', { notice: 'Post was successfully updated' });
-        } else {
-          reject(errors);
-        }
-      });
+    return new Promise(async (resolve, reject) => {
+      const { data: { updatePost: { errors } } } = await this.props.updatePost(values);
+      if (!errors) {
+        this.props.redirect('/', { notice: 'Post was successfully updated' });
+      } else {
+        reject(errors);
+      }
     });
   }
 
   render() {
-    const { data: { post, loading } } = this.props;
+    const { data: { post } } = this.props;
     if (!post) {
       return null;
     }
@@ -40,7 +41,12 @@ class EditPost extends Component {
     return (
       <div>
         <h1 className="title">Editing post</h1>
-        <PostForm action={this.action} initialValues={{ ...post }} submitName="Update Post" />
+        <PostForm
+          action={this.action}
+          initialValues={{ ...post }}
+          submitName="Update Post"
+          mutation={this.props.mutation}
+        />
       </div>
     );
   }
@@ -56,11 +62,16 @@ const withPostForEditing = graphql(POST_FOR_EDITING, {
 });
 
 const withUpdatePost = graphql(UPDATE_POST, {
-  props: ({ mutate }) => ({
+  props: ({ mutate, ownProps: { wrapMutate } }) => ({
     updatePost(post) {
-      return mutate({ variables: { ...post } });
+      return wrapMutate(mutate({ variables: { ...post } }));
     }
   })
 });
 
-export default withPostForEditing(withUpdatePost(EditPost));
+export default compose(
+  withPostForEditing,
+  withMutationState({ wrapper: true, propagateError: true }),
+  withUpdatePost,
+  withFlashMessage
+)(EditPost);

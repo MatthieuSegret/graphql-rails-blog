@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, Field, SubmissionError } from 'redux-form';
+import { graphql, compose } from 'react-apollo';
+import withMutationState from 'apollo-mutation-state';
 import { Link } from 'react-router-dom';
-import { graphql } from 'react-apollo';
+import { Form, Field } from 'react-final-form';
 import shortid from 'shortid';
 
 import RenderField from 'components/form/RenderField';
@@ -29,20 +30,15 @@ class NewComment extends Component {
     this.submitForm = this.submitForm.bind(this);
   }
 
-  submitForm(values) {
-    const { createComment, postId, reset } = this.props;
-    this.setState({ loading: true });
-    return createComment(postId, values).then(response => {
-      const errors = response.data.createComment.errors;
-      console.log(errors);
-      if (!errors) {
-        this.props.deleteFlashMessage();
-        this.setState({ loading: false });
-        reset();
-      } else {
-        throw new SubmissionError(errors);
-      }
-    });
+  async submitForm(values) {
+    const { createComment, postId } = this.props;
+    const { data: { createComment: { errors } } } = await createComment(postId, values);
+    if (!errors) {
+      this.props.deleteFlashMessage();
+      this.createCommentForm.form.change('content', '');
+    } else {
+      return errors;
+    }
   }
 
   render() {
@@ -60,10 +56,18 @@ class NewComment extends Component {
 
     return (
       <div className="new-comment">
-        <form onSubmit={handleSubmit(this.submitForm)}>
-          <Field name="content" component={RenderField} type="textarea" rows={2} label="New comment" />
-          <SubmitField loading={loading} cancel={false} value="Comment" />
-        </form>
+        <Form
+          onSubmit={this.submitForm}
+          ref={input => {
+            this.createCommentForm = input;
+          }}
+          render={({ handleSubmit, pristine }) => (
+            <form onSubmit={handleSubmit}>
+              <Field name="content" component={RenderField} type="textarea" rows={2} label="New comment" />
+              <SubmitField loading={loading} cancel={false} disabled={pristine} value="Comment" />
+            </form>
+          )}
+        />
       </div>
     );
   }
@@ -72,38 +76,43 @@ class NewComment extends Component {
 const withCreateComment = graphql(CREATE_COMMENT, {
   props: ({ ownProps, mutate }) => ({
     createComment(postId, comment) {
-      return mutate({
-        variables: { postId, ...comment },
-        update: (store, { data: { createComment: { newComment } } }) => {
-          if (!newComment) return false;
-          const id = ownProps.postId;
-          const data = store.readQuery({ query: POST, variables: { id } });
-          data.post.comments.unshift(newComment);
-          store.writeQuery({ query: POST, variables: { id }, data });
-        },
-        optimisticResponse: {
-          __typename: 'Mutation',
-          createComment: {
-            __typename: 'Post',
-            newComment: {
-              __typename: 'Comment',
-              id: shortid.generate(),
-              content: comment.content,
-              created_at: +new Date(),
-              pending: true,
-              author: {
-                __typename: 'User',
-                name: ownProps.currentUser.name
-              }
-            },
-            messages: null
+      return ownProps.wrapMutate(
+        mutate({
+          variables: { postId, ...comment },
+          update: (store, { data: { createComment: { newComment } } }) => {
+            if (!newComment) return false;
+            const id = ownProps.postId;
+            const data = store.readQuery({ query: POST, variables: { id } });
+            data.post.comments.unshift(newComment);
+            store.writeQuery({ query: POST, variables: { id }, data });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            createComment: {
+              __typename: 'Post',
+              newComment: {
+                __typename: 'Comment',
+                id: shortid.generate(),
+                content: comment.content,
+                created_at: +new Date(),
+                pending: true,
+                author: {
+                  __typename: 'User',
+                  name: ownProps.currentUser.name
+                }
+              },
+              messages: null
+            }
           }
-        }
-      });
+        })
+      );
     }
   })
 });
 
-export default reduxForm({
-  form: 'CommentForm'
-})(withCurrentUser(withCreateComment(withFlashMessage(NewComment))));
+export default compose(
+  withCurrentUser,
+  withMutationState({ wrapper: true, propagateError: true }),
+  withCreateComment,
+  withFlashMessage
+)(NewComment);

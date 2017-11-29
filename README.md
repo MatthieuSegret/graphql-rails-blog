@@ -17,7 +17,8 @@ If you are interested by Elixir, I created a similar application with Phoenix an
 * [Bulma](https://bulma.io) - Bulma is a modern CSS framework based on Flexbox
 * [Apollo 2](http://dev.apollodata.com/) - A flexible, fully-featured GraphQL client for every platform.
 * [Redux](https://github.com/reactjs/redux) - Redux is a predictable state container for JavaScript apps
-* [Redux Form](http://redux-form.com/) - A Higher Order Component using react-redux to keep form state in a Redux store.
+* [React Final Form](https://github.com/erikras/react-final-form) - High performance subscription-based form state
+  management for React.
 
 ### Backend
 
@@ -53,7 +54,7 @@ If you are interested by Elixir, I created a similar application with Phoenix an
 * Apollo Link (dedup, errors, custom)
 * Optimistic UI
 * [Static GraphQL queries](https://dev-blog.apollodata.com/5-benefits-of-static-graphql-queries-b7fa90b0b69a)
-* Validation management and integration with Redux Form
+* Validation management and integration with Final Form
 * Authentication and authorizations
 * Protect queries and mutations on GraphQL API
 * Batching of GraphQL queries into one HTTP request
@@ -104,7 +105,7 @@ If you are interested by Elixir, I created a similar application with Phoenix an
 
 ## Next step
 
-* [ ] Remove Redux and Redux Form
+* [ ] Remove Redux
 * [ ] Use Flow Type
 * [ ] Use subscription GraphQL feature
 * [ ] Create mobile app with React Native
