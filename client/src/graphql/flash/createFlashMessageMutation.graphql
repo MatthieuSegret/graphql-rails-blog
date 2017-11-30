@@ -1,0 +1,3 @@
+mutation createFlashMessage($type: String, $text: String) {
+  createFlashMessage(type: $type, text: $text) @client
+}

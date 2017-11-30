@@ -18,7 +18,6 @@ class NewComment extends Component {
   static propTypes = {
     postId: PropTypes.string.isRequired,
     createComment: PropTypes.func,
-    handleSubmit: PropTypes.func,
     reset: PropTypes.func,
     deleteFlashMessage: PropTypes.func,
     currentUser: PropTypes.object
@@ -42,7 +41,7 @@ class NewComment extends Component {
   }
 
   render() {
-    const { handleSubmit, currentUser } = this.props;
+    const { currentUser } = this.props;
     const { loading } = this.state;
 
     if (!currentUser) {

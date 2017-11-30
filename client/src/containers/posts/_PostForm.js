@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'react-apollo';
 import { Form, Field } from 'react-final-form';
 
 import RenderField from 'components/form/RenderField';

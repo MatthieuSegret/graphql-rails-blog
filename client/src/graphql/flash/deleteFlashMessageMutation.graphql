@@ -1,0 +1,3 @@
+mutation deleteFlashMessage {
+  deleteFlashMessage @client
+}

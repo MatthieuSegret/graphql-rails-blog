@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { graphql, compose } from 'react-apollo';
 import classnames from 'classnames';
 
-import { deleteFlashMessage } from 'components/flash/flashActions';
+import withFlashMessage from 'components/flash/withFlashMessage';
+import FLASH_MESSAGE from 'graphql/flash/flashMessageQuery.graphql';
 
 class FlashMessage extends Component {
   static propTypes = {
-    message: PropTypes.object,
+    data: PropTypes.object,
     deleteFlashMessage: PropTypes.func
   };
 
@@ -21,15 +22,16 @@ class FlashMessage extends Component {
   }
 
   render() {
-    if (!this.props.message) {
+    const { message } = this.props.data;
+    if (!message) {
       return null;
     }
+    const { type, text } = message;
 
-    const { type, text } = this.props.message;
     return (
       <div
         className={classnames('notification', {
-          'is-success': type === 'notice',
+          'is-primary': type === 'notice',
           'is-danger': type === 'error'
         })}
       >
@@ -40,10 +42,4 @@ class FlashMessage extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    message: state.flashMessage
-  };
-}
-
-export default connect(mapStateToProps, { deleteFlashMessage })(FlashMessage);
+export default compose(graphql(FLASH_MESSAGE), withFlashMessage)(FlashMessage);

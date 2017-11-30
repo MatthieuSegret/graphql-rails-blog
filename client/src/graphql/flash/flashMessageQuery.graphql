@@ -1,0 +1,6 @@
+query message {
+  message @client {
+    type
+    text
+  }
+}
