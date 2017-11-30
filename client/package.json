@@ -43,6 +43,7 @@
     "shortid": "2.2.8"
   },
   "devDependencies": {
+    "compression-webpack-plugin": "^1.0.1",
     "eslint-config-prettier": "2.8.0",
     "node-sass": "^4.5.3",
     "npm-run-all": "4.1.2",

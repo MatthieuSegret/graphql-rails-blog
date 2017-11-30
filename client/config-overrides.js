@@ -1,4 +1,5 @@
 const path = require('path');
+const CompressionPlugin = require('compression-webpack-plugin');
 const { getLoader } = require('react-app-rewired');
 
 function rewireGraphQLTag(config, env) {
@@ -25,5 +26,12 @@ function rewireGraphQLTag(config, env) {
 
 module.exports = function override(config, env) {
   conf = rewireGraphQLTag(config, env);
+
+  conf.plugins.push(
+    new CompressionPlugin({
+      algorithm: 'gzip'
+    })
+  );
+
   return conf;
 };
