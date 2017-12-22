@@ -15,8 +15,9 @@ class User < ApplicationRecord
     self.access_token
   end
 
-  def update_with_password(password:, password_confirmation:, current_password:)
+  def update_with_password(password: nil, password_confirmation: nil, current_password: nil)
     if self.authenticate(current_password)
+      self.errors.add(:base, "Password can't be blank") && (return false) if password.blank?
       self.update(password: password, password_confirmation: password_confirmation)
     else
       self.errors.add(:current_password, "Invalid password")

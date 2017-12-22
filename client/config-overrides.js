@@ -20,18 +20,19 @@ function rewireGraphQLTag(config, env) {
     exclude: /node_modules/
   };
   config.module.rules.push(graphQLRule);
+  config.resolve.extensions.push('.graphql');
 
   return config;
 }
 
 module.exports = function override(config, env) {
-  conf = rewireGraphQLTag(config, env);
-
-  conf.plugins.push(
+  config.resolve.extensions.push('.ts', '.tsx');
+  coconfignf = rewireGraphQLTag(config, env);
+  config.plugins.push(
     new CompressionPlugin({
       algorithm: 'gzip'
     })
   );
 
-  return conf;
+  return config;
 };
